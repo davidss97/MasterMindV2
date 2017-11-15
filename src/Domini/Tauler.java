@@ -6,7 +6,7 @@ public class Tauler {
     private Vector<Fila> tauler;
     private Vector<Peca> codiBase = new Vector<>();
     public Tauler(int rondes){
-        tauler = new Vector<Fila>(rondes);
+        tauler = new Vector<>(rondes);
     }
     public void setCodiBase(Vector<Peca> codiBase){
         this.codiBase = codiBase;
@@ -25,7 +25,7 @@ public class Tauler {
         return codiBase;
     }
     public Vector<Peca> solucionarFila(Fila f){ //retorna la combinació de blancs i negres de resposta
-        Vector<Peca> resposta = new Vector<Peca> (codiBase.size(), 0);
+        Vector<Peca> resposta = new Vector<> (codiBase.size(), 0);
         Vector<Boolean> pecaMarcadaCodiBase = new Vector<Boolean> (codiBase.size(), 0); //vector de peces que ja han estat marcades com a negra o blanca
         Vector<Boolean> pecaMarcadaCodiEnviat = new Vector<> (codiBase.size(), 0);
         for (int i = 0; i < codiBase.size(); ++i){
