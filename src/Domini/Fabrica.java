@@ -8,22 +8,22 @@ public class Fabrica {
     private boolean repetirColors;
     private MasterMind MM;
     public Fabrica(int pecesCodi, int colors, int rondes, boolean repetirColors) {
-        this.pecesCodi = pecesCodi;
-        this.colors = colors;
-        this.rondes = rondes;
-        this.repetirColors = repetirColors;
+        setPecesCodi(pecesCodi);
+        setColors(colors);
+        setRondes(rondes);
+        setRepetirColors(repetirColors);
         crearMasterMind();
     }
-    public void setPecesCodi(int pecesCodi){
+    private void setPecesCodi(int pecesCodi){
         this.pecesCodi = pecesCodi;
     }
-    public void setColors(int colors) {
+    private void setColors(int colors) {
         this.colors = colors;
     }
-    public void setRondes(int rondes){
+    private void setRondes(int rondes){
         this.rondes = rondes;
     }
-    public void setRepetirColors(boolean repetirColors){
+    private void setRepetirColors(boolean repetirColors){
         this.repetirColors = repetirColors;
     }
     private void crearMasterMind(){
