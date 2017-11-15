@@ -3,7 +3,6 @@ package Drivers;
 import Domini.MasterMind;
 
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class DriverMasterMind {
