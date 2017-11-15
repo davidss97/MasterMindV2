@@ -1,11 +1,13 @@
 package Drivers;
 
+import Domini.Algorisme;
+
 import java.util.Scanner;
 
 /**
  * Created by david.sanchez.soles on 14/11/2017.
  */
-public class Main {
+public class DriverAlgorisme {
     public static void main(String[] args){
         System.out.println("Nombre de forats?: ");
         Scanner sc = new Scanner(System.in);
@@ -13,6 +15,7 @@ public class Main {
         System.out.println("Nombre de colors?: ");
         int colors = sc.nextInt();
         Algorisme algo = new Algorisme(forats, colors);
+
 
         System.out.println("Entri la combinacio secreta: ");
         sc.nextInt();
