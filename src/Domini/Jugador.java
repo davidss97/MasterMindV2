@@ -1,0 +1,74 @@
+package Domini;
+
+import java.util.Scanner;
+import java.util.Vector;
+
+public class Jugador {
+    protected Partida P;
+    private Rol rol;
+    protected boolean rolN;
+    public Jugador(boolean rolN, Partida P){
+        this.P = P;
+        this.rolN = rolN;
+        if(rolN){//isBreaker
+            rol = new CodeB();
+        }else{
+            rol = new CodeM();
+        }
+        rol.setP(P);
+    }
+    public void moure(){
+        if(rolN) {
+            if (!P.existeixCodi()) System.out.println("No existeix cap codi Base");
+            else ((CodeB) rol).enviarIntent(introduirComb());
+        }else {
+            System.out.println("Error. Un code maker no pot enviar intent.");
+        }
+    }
+    public void crearCodi(){
+        if(rolN) {
+            System.out.println("Error. Un code breaker no pot crear un codi");
+        } else {
+            if (P.existeixCodi()) System.out.println("Ja existeix un codi Base.");
+            else ((CodeM) rol).enviarCodi(introduirComb());//vector de colors
+        }
+    }
+    public String getRol(){
+        if(this.rolN){//isBreaker
+            return "Breaker";
+        }else{
+            return "Maker";
+        }
+    }
+    public Vector<Integer> getColorsCodiBase(){
+        if (!P.existeixCodi()){
+            System.out.println("No existeix cap codi base");
+            return new Vector<Integer>();
+        }
+        else return getColors(P.getCodiBase());
+    }
+    private Vector<Peca> introduirComb(){ //caldria fer que aquesta funció estigués al CodeB
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introdueix els números del codi d'un en un");
+        Vector<Peca> comb = new Vector<Peca>(P.getPecesCodi()); //recent editat al fer la fàbrica
+        int t = comb.capacity();
+        for(int i = 0; i < t; ++i) {
+            comb.add(new Peca(sc.nextInt()));
+        }
+        System.out.println("Has introduit el codi: " + getColors(comb));
+        return comb;
+    }
+    public int getNombreColors(){
+        return P.getColors();
+    }
+    public int getPecesCodi(){
+        return P.getPecesCodi();
+    }
+    private Vector<Integer> getColors(Vector<Peca> peces){
+        Vector<Integer> colorsCodi = new Vector<Integer> (peces.size());
+        for (int i = 0; i < peces.size(); ++i){
+            colorsCodi.add(peces.get(i).getColor());
+        }
+        return colorsCodi;
+    }
+}
