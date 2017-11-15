@@ -27,6 +27,5 @@ public class DriverAlgorisme {
             resposta = sc.nextInt();
         }
         System.out.println("SUCCESS");
-
     }
 }
