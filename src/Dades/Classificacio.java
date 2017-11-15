@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+
+//test
 public class Classificacio {
 
     private String nomJugador;
