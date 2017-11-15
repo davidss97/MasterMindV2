@@ -56,6 +56,42 @@ public class Algorisme {
         }
         return minimax();
     }
+
+    public Vector<Peca> jugada(Vector<Peca> respon,Vector<Peca> com){
+        int combinacio = pecaAint(com);
+        int response = pecaAint(respon);
+        if (response == 2222) {
+            //end
+        } else {
+            //eliminar combs
+            netejarVector(combinacio, response);
+        }
+        int ret =  minimax();
+        return intApeca(ret);
+    }
+
+    private Vector<Peca> intApeca(int vec){
+        Vector<Peca> res= new Vector<>(forats,1);
+        int mul = (int)Math.pow(10,forats-1);
+
+        String number = Integer.toString(vec);
+        String output = "";
+        for(int i = number.length()-1; i >= 0; i--)
+            res.add( new Peca(Character.getNumericValue(number.charAt(i))) );
+
+        return res;
+    }
+
+    private int pecaAint(Vector<Peca> vec){
+        int res=0;
+        int mul = (int)Math.pow(10,forats-1);
+        for(int i = 0; i<vec.size(); i++){
+            res += vec.get(vec.size()-1-i).getColor()*mul;
+            mul/= 10;
+        }
+        return res;
+    }
+
     int sumatori(int fins){
         int ret = 0;
         for(int i = 0 ; i <= fins; i++){
