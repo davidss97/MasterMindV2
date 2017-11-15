@@ -33,9 +33,20 @@ public class Algorisme {
         used = createSetBools(false);//used indexes
 
     }
+
+    public int jugada() {//retorna 1122 o 11122 ....
+        int n = 0;
+        for(int i = 0; i < forats;i++){
+            if(i<forats-2) n += 1;
+            else n+=2;
+            n*=10;
+        }
+        n/=10;
+        System.out.println("Minimax: " + n);
+        return n;
+    }
+
     public int jugada(int response,int combinacio){
-        //int combinacio = combo;
-        //used.set(7, true);
 
         if (response == 2222) {
             //end

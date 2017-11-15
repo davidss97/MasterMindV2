@@ -1,5 +1,4 @@
 package Drivers;
-
 import Domini.Algorisme;
 
 import java.util.Scanner;
@@ -16,21 +15,13 @@ public class DriverAlgorisme {
         int colors = sc.nextInt();
         Algorisme algo = new Algorisme(forats, colors);
 
-
         System.out.println("Entri la combinacio secreta: ");
         sc.nextInt();
         //System.out.println("Minimax = 1122");
         //System.out.println("Entri el resultat (B/W)(en format 2210): ");
         // int resposta = sc.nextInt();
         //int resposta = -1;
-        int n = 0;
-        for(int i = 0; i < forats;i++){
-            if(i<forats-2) n += 1;
-            else n+=2;
-            n*=10;
-        }
-        n/=10;
-        System.out.println("Minimax: " + n);
+        int n = algo.jugada();
         System.out.println("Entri el resultat (B/W)(en format 2210): ");
         int resposta = sc.nextInt();
         while(resposta != 2222) {
