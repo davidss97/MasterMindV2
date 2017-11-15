@@ -26,7 +26,7 @@ public class DriverJugador {
                     bucle = false;
                     break;
                 default:
-                    System.out.println("El paràmetre introduit no identifica cap mètode, torna a escollir");
+                    System.out.println("El paràmetre introduït no identifica cap mètode, torna a escollir");
                     break;
             }
         }
@@ -52,7 +52,7 @@ public class DriverJugador {
                                 J = new Jugador(true, P);
                                 break;
                             default:
-                                System.out.println("El paràmetre introduit no identifica cap mètode, torna a escollir");
+                                System.out.println("El paràmetre introduït no identifica cap mètode, torna a escollir");
                                 break;
                         }
                         break;
@@ -72,27 +72,10 @@ public class DriverJugador {
                         break;
                     default:
                         bucle = true;
-                        System.out.println("El paràmetre introduit no identifica cap mètode, torna a escollir");
+                        System.out.println("El paràmetre introduït no identifica cap mètode, torna a escollir");
                         break;
                 }
             }
         }
     }
-
-    /*private static boolean verificarCodi(){
-        Scanner sc = new Scanner(System.in);
-        while(true) {
-            System.out.println("És correcte? (introdueix 1 en cas afirmatiu o 2 en cas negatiu)");
-            int x;
-            x = sc.nextInt();
-            if (x == 1){
-                System.out.println("El codi és correcte");
-                return true;
-            }
-            else if(x == 2){
-                System.out.println("El codi no és correcte");
-                return false;
-            } else System.out.println("El número introduit no identifica cap mètode, torna a escollir");
-        }
-    }*/
 }
