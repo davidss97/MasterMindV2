@@ -20,8 +20,9 @@ public class Maquina extends Jugador {
                 ((CodeB) rol).enviarIntent(algo.jugada());
                 primeraRonda = false;
             }else {
-                Vector<Peca> ultimaCon = rol.getContingutUltimaFila();
-                Vector<Peca> ultimaRes = rol.getSolucioUltimaFila(); //blanques negres
+                Vector<Peca> ultimaCon = ((CodeB) rol).getContingutUltimaFila();
+                Vector<Peca> ultimaRes = ((CodeB) rol).getSolucioUltimaFila(); //blanques negres
+
                 ((CodeB) rol).enviarIntent(algo.jugada(ultimaRes,ultimaCon)); //el que retorni l'algoritme
             }
         }else {

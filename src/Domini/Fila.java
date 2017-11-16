@@ -14,13 +14,12 @@ public class Fila {
         return this.contingutFila;
     }
     public Vector<Peca> getSolucioFila(){
-        return this.solucio;
+        return solucio;
     }
     public Peca getPecaAPosicio(int i){
         return contingutFila.get(i);
     }
     public void setSolucio(Vector<Peca> comb){ //cal acabar-la;
-        Vector<Peca> sol = new Vector<Peca>(4); //caldrà modificar-ho quan fem la fàbrica
-        this.solucio = sol;
+        this.solucio = comb;
     }
 }

@@ -1,9 +1,10 @@
 package Drivers;
 
-import Domini.Partida;
+import Domini.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class DriverPartida {
     public static void main(String[] args){
@@ -12,7 +13,7 @@ public class DriverPartida {
         int rondes = 0;
         boolean repetirColors = false;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Aquest és el driver de la classe MasterMind. Primer cal crear un nou MasterMind. Introdueix els paràmetres a continuació:");
+        System.out.println("Aquest és el driver de la classe Partida. Primer cal crear una nova Partida. Introdueix els paràmetres a continuació:");
         System.out.println("Primer introdueix el nombre de peces que tindrà el codi");
         boolean bucle = true;
         while (bucle) {
@@ -94,29 +95,61 @@ public class DriverPartida {
         }
         i = 0;
         System.out.println();
-        while(bucle) {
-            try {
-                i = sc.nextInt();
-                if (i != 1 && i != 2) throw new IllegalArgumentException();
-                bucle = false;
-            } catch (InputMismatchException e) {
-                System.out.println("El paràmetre introduït no és un nombre");
-                sc.nextLine();
-            } catch (IllegalArgumentException e) {
-                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
-            }
-            switch(i){
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                default:
-                    break;
+        System.out.println("En aquesta partida, la maquina es el code breaker");
+        System.out.println();
+
+        //p.setCodeB(new CodeB(new Maquina(true, p),p));
+        //p.setCodeM(new CodeM(new Maquina(true, p),p));
+        p.setCodeB(new Maquina(true,p));
+        p.setCodeM(new Jugador(false,p));
+
+        System.out.println("Introdueix el codi secret:");
+        int comb = sc.nextInt();
+
+        p.getCodeM().crearCodi(intApeca(comb,pecesCodi));
+
+        boolean segueix = true;
+        while(segueix) {
+            ((Maquina) p.getCodeB()).moure();
+
+            //System.out.println(p.getSolucioUltimaFila());
+
+
+            System.out.println("Combinacio a ultima proposta ="+pecaAint(p.getContingutUltimaFila(), pecesCodi));
+            System.out.println("Resposta a ultima proposta ="+pecaAint(p.getSolucioUltimaFila(), pecesCodi));
+            System.out.println("------------------------------------------------------");
+            // /System.out.println("peces codi = " + p.getPecesCodi());
+            segueix = false;
+            for(int xx = 0; xx< p.getPecesCodi(); xx++) {
+                if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+
             }
         }
+        System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+
+        //modificar el tauler
+
+
+    }
+    private static int pecaAint(Vector<Peca> vec, int forats){
+        int res=0;
+        int mul = (int)Math.pow(10,forats-1);
+        for(int i = 0; i<vec.size(); i++){
+            res += vec.get(vec.size()-1-i).getColor()*mul;
+            mul/= 10;
+        }
+        return res;
+    }
+
+    private static Vector<Peca> intApeca(int vec, int forats){
+        Vector<Peca> res= new Vector<>(forats,1);
+        int mul = (int)Math.pow(10,forats-1);
+
+        String number = Integer.toString(vec);
+        String output = "";
+        for(int i = number.length()-1; i >= 0; i--)
+            res.add( new Peca(Character.getNumericValue(number.charAt(i))) );
+
+        return res;
     }
 }

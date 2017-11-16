@@ -8,12 +8,26 @@ public class Partida {
     private int colors;
     private int rondes;
     private boolean repetirColors;
+    private Jugador codeB;
+    private Jugador codeM;
     public Partida(int pecesCodi, int colors, int rondes, boolean repetirColors){
         this.pecesCodi = pecesCodi;
         this.colors = colors;
         this.rondes = rondes;
         this.repetirColors = repetirColors;
         tauler = new Tauler(this.rondes);
+    }
+    public void setCodeB(Jugador c){
+        codeB = c;
+    }
+    public void setCodeM(Jugador c){
+        codeM = c;
+    }
+    public Jugador getCodeB(){
+        return codeB;
+    }
+    public Jugador getCodeM(){
+        return codeM;
     }
     public int getPecesCodi(){
         return this.pecesCodi;
@@ -35,9 +49,17 @@ public class Partida {
     }
     public void comprobarCodi(Vector<Peca> comb){
         Vector<Peca> resposta = tauler.solucionarFila(new Fila(comb, tauler));
-        for (int i = 0; i < resposta.size(); ++i){
+        Fila ult = new Fila(comb,tauler);
+
+        //System.out.println("Resposta a comprobarCodi de Partida = " + resposta.get(3).getColor());
+
+        ult.setSolucio(resposta);
+
+        tauler.afegirFila(ult);
+        //auler.se
+        /*for (int i = 0; i < resposta.size(); ++i){
             System.out.println(resposta.get(i).getColor());
-        }
+        }*/
     }//
     public void mostrarCaracteristiques(){
         System.out.println("El nombre de peces del codi és de: " + this.pecesCodi);

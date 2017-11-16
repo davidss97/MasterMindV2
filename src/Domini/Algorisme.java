@@ -72,6 +72,8 @@ public class Algorisme {
     public Vector<Peca> jugada(Vector<Peca> respon,Vector<Peca> com){
         int combinacio = pecaAint(com);
         int response = pecaAint(respon);
+        //System.out.println("combinacio desde jugada= " + combinacio);
+        //System.out.println("response desde jugada= " + response);
         if (response == 2222) {
             //end
         } else {
@@ -93,7 +95,14 @@ public class Algorisme {
 
         return res;
     }
-
+    private int getDigits(int num) {
+        int digs = 0 ;
+        while(num%10 > 0){
+            digs++;
+            num/=10;
+        }
+        return digs;
+    }
     private int pecaAint(Vector<Peca> vec){
         int res=0;
         int mul = (int)Math.pow(10,forats-1);
@@ -101,6 +110,8 @@ public class Algorisme {
             res += vec.get(vec.size()-1-i).getColor()*mul;
             mul/= 10;
         }
+        /*for(int i = getDigits(res); i < forats;i++)
+            res*=10;*/
         return res;
     }
 
@@ -124,12 +135,6 @@ public class Algorisme {
                     combinations.add(valor);
                     inicial/=10;
                 }
-                /*
-                combinations.add(0000);
-                combinations.add(2000);
-                combinations.add(2200);
-                combinations.add(2220);
-                combinations.add(2222);*/
             }else if(checkpoint==1){
                 int inicial = 1*(int)Math.pow(10,forats-1);
                 int valor = 0;
@@ -138,11 +143,6 @@ public class Algorisme {
                     combinations.add(valor);
                     inicial/=10;
                 }
-                /*
-                combinations.add(1000);
-                combinations.add(1100);
-                combinations.add(1110);
-                combinations.add(1111);*/
             }else{
                 int com = 0;
                 int negras = checkpoint-1;

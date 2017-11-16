@@ -11,11 +11,11 @@ public class Jugador {
         this.P = P;
         this.rolN = rolN;
         if(rolN){//isBreaker
-            rol = new CodeB();
+            rol = new CodeB(P);//maquina codem
         }else{
-            rol = new CodeM();
+            rol = new CodeM(P);
         }
-        rol.setP(P);
+        //rol.setP(P);
     }
     public void moure(Vector<Peca> comb){
         ((CodeB) rol).enviarIntent(comb);
