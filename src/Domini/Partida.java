@@ -53,4 +53,12 @@ public class Partida {
     public boolean existeixCodi(){
         return tauler.existeixCodiBase();
     }
+
+    public Vector<Peca> getContingutUltimaFila() {
+        return tauler.getContingutUltimaFila();
+    }
+
+    public Vector<Peca> getSolucioUltimaFila() {
+        return tauler.getSolucioUltimaFila();
+    }
 }
