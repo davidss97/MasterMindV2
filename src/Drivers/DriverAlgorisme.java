@@ -8,10 +8,10 @@ import java.util.Scanner;
  */
 public class DriverAlgorisme {
     public static void main(String[] args){
-        System.out.println("Nombre de forats?: ");
+        System.out.println("Nombre de forats? ");
         Scanner sc = new Scanner(System.in);
         int forats = sc.nextInt();
-        System.out.println("Nombre de colors?: ");
+        System.out.println("Nombre de colors? ");
         int colors = sc.nextInt();
         Algorisme algo = new Algorisme(forats, colors);
 
