@@ -129,13 +129,14 @@ public class DriverMasterMind {
                         while (bucle3) {
                             try {
                                 i = sc.nextInt();
-                                if (i <= 0) throw new IllegalArgumentException();
+                                if (i <= 0 || i > rondes) throw new IllegalArgumentException();
                                 bucle3 = false;
                             } catch (InputMismatchException e) {
                                 System.out.println("El paràmetre introduït no és un nombre");
                                 sc.nextLine();
                             } catch (IllegalArgumentException e) {
-                                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+                                if (i <= 0) System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+                                else System.out.println("El nombre introduït és major que el nombre de rondes màxim de la partida");
                             }
                         }
                         masterMind.guardarPartida(jugador, i);
