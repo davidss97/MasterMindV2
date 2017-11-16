@@ -129,7 +129,7 @@ public class DriverMasterMind {
                         while (bucle3) {
                             try {
                                 i = sc.nextInt();
-                                if (i <= 2) throw new IllegalArgumentException();
+                                if (i <= 0) throw new IllegalArgumentException();
                                 bucle3 = false;
                             } catch (InputMismatchException e) {
                                 System.out.println("El paràmetre introduït no és un nombre");
