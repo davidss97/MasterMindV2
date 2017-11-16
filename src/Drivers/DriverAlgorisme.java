@@ -21,7 +21,8 @@ public class DriverAlgorisme {
         //System.out.println("Entri el resultat (B/W)(en format 2210): ");
         // int resposta = sc.nextInt();
         //int resposta = -1;
-        int n = algo.jugada();
+        //System.out.println(algo.jugada());
+        int n = algo.jugada(false);
         System.out.println("Entri el resultat (B/W)(en format 2210): ");
         int resposta = sc.nextInt();
         while(resposta != 2222) {
