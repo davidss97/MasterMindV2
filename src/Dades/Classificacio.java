@@ -7,29 +7,26 @@ import java.util.*;
 //test
 public class Classificacio {
 
-    private String nomJugador;
-    private String rond;
-    private int rondInt;
-
     //Constructora
-    public Classificacio(String nomJugador,int rondesFinals) {
+    /*public Classificacio(String nomJugador,int rondesFinals) {
         this.nomJugador = nomJugador;
         this.rond = String.valueOf(rondesFinals);
         this.rondInt = rondesFinals;
-    }
+    }*/
 
     //Funcions entrants:
-    public void guardarPartidaFacil(){
-        guardarPartida("Facil.txt");
+    public void guardarPartidaFacil(String nomJugador, int rondesFinals){
+        guardarPartida("Facil.txt", nomJugador, rondesFinals);
     }
-    public void guardarPartidaMitjana(){
-        guardarPartida("Mitjana.txt");
+    public void guardarPartidaMitjana(String nomJugador, int rondesFinals){
+        guardarPartida("Mitjana.txt", nomJugador, rondesFinals);
     }
-    public void guardarPartidaDificil(){
-        guardarPartida("Dificil.txt");
+    public void guardarPartidaDificil(String nomJugador, int rondesFinals){
+        guardarPartida("Dificil.txt", nomJugador, rondesFinals);
     }
-    private void guardarPartida(String path){
+    private void guardarPartida(String path, String nomJugador, int rondesFinals){
         //PART 1 PER GUARDAR ORDENAT
+        String rond = String.valueOf(rondesFinals);
         File archivo;
         FileWriter escribir;
         FileReader leer;
@@ -49,7 +46,7 @@ public class Classificacio {
             leer = new FileReader(path);
             br = new BufferedReader(leer);
             //agafa contingut a la llista
-            if (rondInt < 10) llista.add("0" + rond + " " + nomJugador);
+            if (rondesFinals < 10) llista.add("0" + rond + " " + nomJugador);
             else llista.add(rond + " " + nomJugador);
 
             while ((linea = br.readLine()) != null){ llista.add(linea); }
