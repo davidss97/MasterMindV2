@@ -74,6 +74,49 @@ public class DriverPartida {
         }
         bucle = true;
         Partida p = new Partida(pecesCodi, colors, rondes, repetirColors);
-
+        System.out.println("La partida s'ha creat. Vols veure'n les característiques?\n" +
+                "Introdueix 1 en cas afirmatiu i introdueix 2 en cas contrari");
+        i = 0;
+        while (bucle) {
+            try {
+                i = sc.nextInt();
+                if (i != 1 && i != 2) throw new IllegalArgumentException();
+                bucle = false;
+            } catch (InputMismatchException e) {
+                System.out.println("El paràmetre introduït no és un nombre");
+                sc.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+            }
+            if (i == 1){
+                p.mostrarCaracteristiques();
+            }
+        }
+        i = 0;
+        System.out.println();
+        while(bucle) {
+            try {
+                i = sc.nextInt();
+                if (i != 1 && i != 2) throw new IllegalArgumentException();
+                bucle = false;
+            } catch (InputMismatchException e) {
+                System.out.println("El paràmetre introduït no és un nombre");
+                sc.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+            }
+            switch(i){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
