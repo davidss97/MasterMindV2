@@ -78,7 +78,7 @@ public class Classificacio {
             pw.close();
             fw.close();
         } catch (FileNotFoundException e) {
-            System.err.println("No s'ha trobat el fitxer");
+            System.err.println("La classificació no ha sigut encara creada");
         } catch (IOException e) {
             e.printStackTrace();
         }
