@@ -159,7 +159,7 @@ public class DriverFabrica {
                         else repetirColors = false;
                     }
                     fabrica = new Fabrica(pecesCodi, colors, rondes, repetirColors);
-                    bucle2 = false;
+                    bucle = false;
                     break;
                 default:
                     System.out.println("El paràmetre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols seleccionar una opció predeterminada i 2 en cas contrari");
