@@ -136,10 +136,10 @@ public class DriverMasterMind {
                                 sc.nextLine();
                             } catch (IllegalArgumentException e) {
                                 if (i <= 0) System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
-                                else System.out.println("El nombre introduït és major que el nombre de rondes màxim de la partida. Torna a introduïr el nombre de rondes jugades");
+                                else System.out.println("El nombre introduït és major que el nombre de rondes màxim de la partida");
                             }
                         }
-                        masterMind.guardarPartida(jugador, i);
+                        if (i > 0 && i < rondes) masterMind.guardarPartida(jugador, i);
                     }
                     else System.out.println("Has decidit no veure les característiques del MasterMind");
                 }
