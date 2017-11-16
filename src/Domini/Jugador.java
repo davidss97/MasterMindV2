@@ -17,11 +17,11 @@ public class Jugador {
         }
         rol.setP(P);
     }
-    public void moure(){
-        ((CodeB) rol).enviarIntent(introduirComb());
+    public void moure(Vector<Peca> comb){
+        ((CodeB) rol).enviarIntent(comb);
     }
-    public void crearCodi(){
-        ((CodeM) rol).enviarCodi(introduirComb());//vector de colors
+    public void crearCodi(Vector<Peca> comb){
+        ((CodeM) rol).enviarCodi(comb);//vector de colors
     }
     public boolean getRolN(){
         return rolN;
@@ -31,17 +31,6 @@ public class Jugador {
     }
     public Vector<Integer> getColorsCodiBase(){
         return getColors(P.getCodiBase());
-    }
-    private Vector<Peca> introduirComb(){ //caldria fer que aquesta funció estigués al CodeB
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introdueix els números del codi d'un en un");
-        Vector<Peca> comb = new Vector<Peca>(P.getPecesCodi()); //recent editat al fer la fàbrica
-        int t = comb.capacity();
-        for(int i = 0; i < t; ++i) {
-            comb.add(new Peca(sc.nextInt()));
-        }
-        System.out.println("Has introduit el codi: " + getColors(comb));
-        return comb;
     }
     public int getNombreColors(){
         return P.getColors();
