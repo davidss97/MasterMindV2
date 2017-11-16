@@ -38,7 +38,7 @@ public class Partida {
         for (int i = 0; i < resposta.size(); ++i){
             System.out.println(resposta.get(i).getColor());
         }
-    }
+    }//
     public boolean codiExisteix(){
         if (tauler.getCodiBase().isEmpty()) return false;
         return true;
@@ -52,5 +52,13 @@ public class Partida {
     }
     public boolean existeixCodi(){
         return tauler.existeixCodiBase();
+    }
+
+    public Vector<Peca> getContingutUltimaFila() {
+        return tauler.getContingutUltimaFila();
+    }
+
+    public Vector<Peca> getSolucioUltimaFila() {
+        return tauler.getSolucioUltimaFila();
     }
 }

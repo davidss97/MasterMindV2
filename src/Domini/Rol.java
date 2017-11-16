@@ -10,4 +10,12 @@ public class Rol {
     public void setP(Partida P){
         this.P = P;
     }
+
+    public Vector<Peca> getContingutUltimaFila() {
+        return P.getContingutUltimaFila();
+    }
+
+    public Vector<Peca> getSolucioUltimaFila() {
+        return P.getSolucioUltimaFila();
+    }
 }

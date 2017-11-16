@@ -50,4 +50,12 @@ public class Tauler {
         }
         return resposta;
     }
+
+    public Vector<Peca> getSolucioUltimaFila() {
+        return tauler.get(tauler.size()-1).getSolucioFila();
+    }
+
+    public Vector<Peca> getContingutUltimaFila() {
+        return tauler.get(tauler.size()-1).getContingutFila();
+    }
 }

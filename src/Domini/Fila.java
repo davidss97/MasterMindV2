@@ -13,6 +13,9 @@ public class Fila {
     public Vector<Peca> getContingutFila(){
         return this.contingutFila;
     }
+    public Vector<Peca> getSolucioFila(){
+        return this.solucio;
+    }
     public Peca getPecaAPosicio(int i){
         return contingutFila.get(i);
     }
