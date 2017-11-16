@@ -32,14 +32,15 @@ public class DriverJugador {
                     break;
             }
         }
-        while(true){
+        boolean buc = true;
+        while(buc){
             bucle = true;
             while (bucle) {
                 bucle = false;
                 System.out.println("Si vols crear un nou Jugador introdueix un 1\n" +
-                        "Si vols enviar una jugada introdueix 2\n" +
+                        "Si vols enviar una jugada introdueix 2 (4 peces, colors repetibles)\n" +
                         "Si vols obtenir el rol del jugador actual introdueix 3\n" +
-                        "Si vols crear un codi introdueix 4\n" +
+                        "Si vols crear un codi introdueix 4 (4 peces, colors repetibles)\n" +
                         "Si vols obtenir el codi base introdueix 5");
                 String i = sc.next();
                 switch (i) {
@@ -85,6 +86,9 @@ public class DriverJugador {
                             System.out.println("No existeix cap codi base");
                         }
                         else System.out.println(J.getColorsCodiBase());
+                        break;
+                    case "6":
+                        buc = false;
                         break;
                     default:
                         bucle = true;
