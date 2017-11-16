@@ -89,7 +89,7 @@ public class DriverMasterMind {
             if (i == 1){
                 System.out.println("Has decidit crear el MasterMind");
                 MasterMind masterMind = new MasterMind(pecesCodi, colors, rondes, repetirColors);
-                System.out.println("Vols veure les característiques de la partida? \nIntrodueix 1 si vols veure-les i 2 en cas contrari");
+                System.out.println("Vols veure les característiques del MasterMind? \nIntrodueix 1 si vols veure-les i 2 en cas contrari");
                 boolean bucle2 = true;
                 while (bucle2) {
                     try {
@@ -141,7 +141,7 @@ public class DriverMasterMind {
                         }
                         masterMind.guardarPartida(jugador, i);
                     }
-                    else System.out.println("Has decidit no veure les característiques del MasterMind");
+                    else System.out.println("Has decidit no guardar cap Partida");
                 }
                 bucle2 = true;
                 System.out.println("Si vols veure la classificació de les partides fàcils introdueix 1.\n" +
