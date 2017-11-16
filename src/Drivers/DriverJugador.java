@@ -41,7 +41,8 @@ public class DriverJugador {
                         "Si vols enviar una jugada introdueix 2 (4 peces, colors repetibles)\n" +
                         "Si vols obtenir el rol del jugador actual introdueix 3\n" +
                         "Si vols crear un codi introdueix 4 (4 peces, colors repetibles)\n" +
-                        "Si vols obtenir el codi base introdueix 5");
+                        "Si vols obtenir el codi base introdueix 5\n" +
+                        "Si vols tancar el driver introdueix 6");
                 String i = sc.next();
                 switch (i) {
                     case "1":
