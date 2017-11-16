@@ -23,15 +23,14 @@ public class Jugador {
     public void crearCodi(){
         ((CodeM) rol).enviarCodi(introduirComb());//vector de colors
     }
-    public boolean getRol(){
+    public boolean getRolN(){
         return rolN;
     }
+    protected Rol getRol(){
+        return rol;
+    }
     public Vector<Integer> getColorsCodiBase(){
-        if (!P.existeixCodi()){
-            System.out.println("No existeix cap codi base");
-            return new Vector<Integer>();
-        }
-        else return getColors(P.getCodiBase());
+        return getColors(P.getCodiBase());
     }
     private Vector<Peca> introduirComb(){ //caldria fer que aquesta funció estigués al CodeB
         Scanner sc = new Scanner(System.in);
