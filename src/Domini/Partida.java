@@ -39,10 +39,6 @@ public class Partida {
             System.out.println(resposta.get(i).getColor());
         }
     }//
-    public boolean codiExisteix(){
-        if (tauler.getCodiBase().isEmpty()) return false;
-        return true;
-    }
     public void mostrarCaracteristiques(){
         System.out.println("El nombre de peces del codi és de: " + this.pecesCodi);
         System.out.println("El nombre de colors d'aquesta partida és de: " + this.colors);
