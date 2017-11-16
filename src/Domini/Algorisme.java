@@ -34,7 +34,7 @@ public class Algorisme {
 
     }
 
-    public int jugada() {//retorna 1122 o 11122 ....
+    public int jugada( boolean x) {//retorna 1122 o 11122 ....
         int n = 0;
         for(int i = 0; i < forats;i++){
             if(i<forats-2) n += 1;
@@ -44,6 +44,18 @@ public class Algorisme {
         n/=10;
         System.out.println("Minimax: " + n);
         return n;
+    }
+
+    public Vector<Peca> jugada() {//retorna 1122 o 11122 .... en vector
+        int n = 0;
+        for(int i = 0; i < forats;i++){
+            if(i<forats-2) n += 1;
+            else n+=2;
+            n*=10;
+        }
+        n/=10;
+        System.out.println("Minimax: " + n);
+        return intApeca(n);
     }
 
     public int jugada(int response,int combinacio){
