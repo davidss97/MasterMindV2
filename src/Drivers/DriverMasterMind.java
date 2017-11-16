@@ -109,41 +109,46 @@ public class DriverMasterMind {
                     else System.out.println("Has decidit no veure les característiques del MasterMind");
                 }
                 bucle2 = true;
-                System.out.println("Si vols guardar una partida d'aquest MasterMind introdueix 1. En cas contrari introdueix 2");
-                while (bucle2){
-                    try {
-                        i = sc.nextInt();
-                        if (i != 1 && i != 2) throw new IllegalArgumentException();
-                        bucle2 = false;
-                    } catch (InputMismatchException e) {
-                        System.out.println("El paràmetre introduït no és un nombre");
-                        sc.nextLine();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("El nombre introduït no és vàlid, siusplau introdueix un 1 o un 2");
-                    }
-                    if (i == 1){
-                        System.out.println("Has decidit guardar una partida.\nIntrodueix el nom del jugador");
-                        String jugador = sc.next();
-                        System.out.println("Ara introdueix el nombre de rondes jugades");
-                        boolean bucle3 = true;
-                        while (bucle3) {
-                            try {
-                                i = sc.nextInt();
-                                if (i <= 0 || i > rondes) throw new IllegalArgumentException();
-                                else bucle3 = false;
-                            } catch (InputMismatchException e) {
-                                System.out.println("El paràmetre introduït no és un nombre");
-                                sc.nextLine();
-                            } catch (IllegalArgumentException e) {
-                                if (i <= 0) System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
-                                else System.out.println("El nombre introduït és major que el nombre de rondes màxim de la partida");
-                            }
+                if((masterMind.getPecesCodi() == 2 && masterMind.getColors() == 3 && masterMind.getRondes() == 6 && !masterMind.isRepetirColors()) ||
+                    (masterMind.getPecesCodi() == 3 && masterMind.getColors() == 4 && masterMind.getRondes() == 8 && masterMind.isRepetirColors()) ||
+                    (masterMind.getPecesCodi() == 4 && masterMind.getColors() == 6 && masterMind.getRondes() == 10 && masterMind.isRepetirColors())) {
+                    System.out.println("Si vols guardar una partida d'aquest MasterMind introdueix 1. En cas contrari introdueix 2");
+                    while (bucle2) {
+                        try {
+                            i = sc.nextInt();
+                            if (i != 1 && i != 2) throw new IllegalArgumentException();
+                            bucle2 = false;
+                        } catch (InputMismatchException e) {
+                            System.out.println("El paràmetre introduït no és un nombre");
+                            sc.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("El nombre introduït no és vàlid, siusplau introdueix un 1 o un 2");
                         }
-                        masterMind.guardarPartida(jugador, i);
+                        if (i == 1) {
+                            System.out.println("Has decidit guardar una partida.\nIntrodueix el nom del jugador");
+                            String jugador = sc.next();
+                            System.out.println("Ara introdueix el nombre de rondes jugades");
+                            boolean bucle3 = true;
+                            while (bucle3) {
+                                try {
+                                    i = sc.nextInt();
+                                    if (i <= 0 || i > rondes) throw new IllegalArgumentException();
+                                    else bucle3 = false;
+                                } catch (InputMismatchException e) {
+                                    System.out.println("El paràmetre introduït no és un nombre");
+                                    sc.nextLine();
+                                } catch (IllegalArgumentException e) {
+                                    if (i <= 0)
+                                        System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+                                    else
+                                        System.out.println("El nombre introduït és major que el nombre de rondes màxim de la partida");
+                                }
+                            }
+                            masterMind.guardarPartida(jugador, i);
+                        } else System.out.println("Has decidit no guardar cap Partida");
                     }
-                    else System.out.println("Has decidit no guardar cap Partida");
+                    bucle2 = true;
                 }
-                bucle2 = true;
                 System.out.println("Si vols veure la classificació de les partides fàcils introdueix 1.\n" +
                         "Si vols veure la classificació de les partides mitjanes introdueix 2.\n" +
                         "Si vols veure la classificació de les partides difícils introdueix 3.\n" +
