@@ -139,7 +139,8 @@ public class DriverMasterMind {
                                 else System.out.println("El nombre introduït és major que el nombre de rondes màxim de la partida");
                             }
                         }
-                        if (i > 0 && i < rondes) masterMind.guardarPartida(jugador, i);
+                        if (i > 0 && i < rondes) masterMind.guardarPartida(jugador, i); //això no és segur que vagi
+                        else System.out.println("Les rondes introduïdes no eren vàlides i per tant no es guarda cap partida");
                     }
                     else System.out.println("Has decidit no veure les característiques del MasterMind");
                 }
