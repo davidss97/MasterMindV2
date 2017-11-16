@@ -16,13 +16,11 @@ import java.util.LinkedList;
 public class Classificacio {
 
     private String nomJugador;
-    private int rondesFinals;
     private String rond;
 
     //Constructora
     public Classificacio(String nomJugador,int rondesFinals) {
         this.nomJugador = nomJugador;
-        this.rondesFinals = rondesFinals;
         this.rond = String.valueOf(rondesFinals);
     }
 
