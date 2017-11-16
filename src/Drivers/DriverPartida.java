@@ -99,9 +99,6 @@ public class DriverPartida {
         if(sc.nextInt() == 1) {//La maquina fa de codebreaker
             System.out.println();
 
-            //p.setCodeB(new CodeB(new Maquina(true, p),p));
-            //p.setCodeM(new CodeM(new Maquina(true, p),p));
-
             p.setCodeB(new Maquina(true, p));
             p.setCodeM(new Jugador(false, p));
 
@@ -111,7 +108,11 @@ public class DriverPartida {
             p.getCodeM().crearCodi(intApeca(comb, pecesCodi));
 
             boolean segueix = true;
-            while (segueix) {
+            int rounds = 0;
+            while (segueix && rounds<rondes) {
+                rounds++;
+
+                System.out.println("Ronda: " + rounds);
 
                 ((Maquina) p.getCodeB()).moure();
 
@@ -128,16 +129,20 @@ public class DriverPartida {
 
                 }
             }
-            System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+            if(rounds==rondes) System.out.println("Has arribat al limit de rondes....");
+            else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
         }else{
             System.out.println("La maquina esta entrant la combinacio secreta...");
             p.setCodeM(new Maquina(false, p));
             p.setCodeB(new Jugador(true, p));
-            ((Maquina) p.getCodeM()).crearCodi(pecesCodi, colors);
+            ((Maquina) p.getCodeM()).crearCodi(pecesCodi, colors, repetirColors);
 
             boolean segueix = true;
-            while (segueix) {
+            int rounds = 0;
+            while (segueix && rounds<rondes) {
+                rounds++;
 
+                System.out.println("Ronda: " + rounds);
                 System.out.println("Entri el seu intent....:");
                 int com = sc.nextInt();
                 Vector<Peca> comV = intApeca(com, pecesCodi);
@@ -157,7 +162,8 @@ public class DriverPartida {
 
                 }
             }
-            System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+            if(rounds==rondes) System.out.println("Has arribat al limit de rondes....");
+            else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
 
         }
         //modificar el tauler

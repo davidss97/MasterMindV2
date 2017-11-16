@@ -38,22 +38,36 @@ public class Maquina extends Jugador {
 
     }
 
-    public void crearCodi(int forats, int colors){
+    public void crearCodi(int forats, int colors, boolean repetirColors){
         if(rolN) {
             System.out.println("Error. Un code breaker no pot crear un codi");
         } else {
             //selecció aleatoria de codi base
             int n = 0;
-            for(int i = 0; i < forats; i++){
-                Random rand = new Random();
-                n += rand.nextInt((colors - 1) + 1) + 1;//((max - min) + 1) + min;
-                n*=10;
-            }n/=10;
-
+            if(repetirColors) {
+                for (int i = 0; i < forats; i++) {
+                    Random rand = new Random();
+                    n += rand.nextInt((colors - 1) + 1) + 1;//((max - min) + 1) + min;
+                    n *= 10;
+                }
+                n /= 10;
+            }else{
+                //no repetir colors
+                Vector<Integer> usats = new Vector<>(forats,0);
+                usats.contains(4);
+                for (int i = 0; i < forats; i++) {
+                    Random rand = new Random();
+                    int aux = rand.nextInt((colors - 1) + 1) + 1;//((max - min) + 1) + min;
+                    while (usats.contains(aux) == true) {
+                        aux = rand.nextInt((colors - 1) + 1) + 1;//((max - min) + 1) + min;
+                    }
+                    n += aux;
+                    usats.add(aux);
+                    n *= 10;
+                }
+                n /= 10;
+            }
             super.P.setCodiBase(intApeca(n,forats));
-            //System.out.println("setejat codi base: " + n + " a peces " + intApeca(n,forats));
-            // n es el codi
-
         }
     }
     private static Vector<Peca> intApeca(int vec, int forats){
