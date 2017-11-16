@@ -1,5 +1,6 @@
 package Drivers;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import Domini.Fabrica;
 
@@ -38,7 +39,7 @@ public class DriverFabrica {
                                             bucle = true;
                                             break;
                                         default:
-                                            System.out.println("El nombre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols continuar i 2 en cas contrari");
+                                            System.out.println("El paràmetre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols continuar i 2 en cas contrari");
                                             break;
                                     }
                                 }
@@ -60,7 +61,7 @@ public class DriverFabrica {
                                             bucle = true;
                                             break;
                                         default:
-                                            System.out.println("El nombre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols continuar i 2 en cas contrari");
+                                            System.out.println("El paràmetre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols continuar i 2 en cas contrari");
                                             break;
                                     }
                                 }
@@ -82,72 +83,86 @@ public class DriverFabrica {
                                             bucle2 = false;
                                             break;
                                         default:
-                                            System.out.println("El nombre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols continuar i 2 en cas contrari");
+                                            System.out.println("El paràmetre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols continuar i 2 en cas contrari");
                                             break;
                                     }
                                 }
                                 break;
                             default:
-                                System.out.println("El nombre no correspon a cap opció. \nSi vols una dificultat fàcil , introdueix 1. \nSi vols una dificultat mitjana, introdueix 2. \nSi vols una dificultat difícil, introdueix 3.");
+                                System.out.println("El paràmetre no correspon a cap opció. \nSi vols una dificultat fàcil , introdueix 1. \nSi vols una dificultat mitjana, introdueix 2. \nSi vols una dificultat difícil, introdueix 3.");
                                 break;
                         }
                     }
                     break;
                 case "2": //cal arreglar que no accepti res que no sigui enter
-                    bucle = false;
                     System.out.println("Has decidit fer una selecció manual de les característiques. \nIntrodueix el nombre de peces del codi.");
                     int pecesCodi = 0;
-                    boolean bucle2 = true;
-                    while(bucle2) {
-                        if (sc.hasNextInt()) {
-                            bucle2 = false;
-                            pecesCodi = sc.nextInt();
-                        }
-                        else sc.nextLine();
-                    }
-                    bucle2 = true;
-                    System.out.println("Ara introdueix el nombre de colors diferents que tindrà la partida.");
                     int colors = 0;
-                    while(bucle2) {
-                        if (sc.hasNextInt()) {
+                    int rondes = 0;
+                    boolean repetirColors = false;
+                    boolean bucle2 = true;
+                    while (bucle2) {
+                        try {
+                            pecesCodi = sc.nextInt();
+                            if (pecesCodi <= 0) throw new IllegalArgumentException();
                             bucle2 = false;
-                            colors = sc.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("El paràmetre introduït no és un nombre");
+                            sc.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
                         }
-                        else sc.nextLine();
                     }
                     bucle2 = true;
-                    System.out.println("Ara introdueix el nombre de rondes que tindrà la partida.");
-                    int rondes = 0;
-                    while(bucle2) {
-                        if (sc.hasNextInt()) {
+                    System.out.println("Ara introdueix el nombre de colors diferents possibles");
+                    while (bucle2){
+                        try {
+                            colors = sc.nextInt();
+                            if (colors <= 0) throw new IllegalArgumentException();
                             bucle2 = false;
+                        } catch (InputMismatchException e) {
+                            System.out.println("El paràmetre introduït no és un nombre");
+                            sc.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+                        }
+                    }
+                    bucle2 = true;
+                    System.out.println("Ara introdueix el nombre de rondes màxim");
+                    while (bucle2) {
+                        try {
                             rondes = sc.nextInt();
-                        }
-                        else sc.nextLine();
-                    }
-                    System.out.println("Finalment introdueix 1 si vols que els colors es puguin repetir i 2 en cas contrari");
-                    boolean repetir = true;
-                    boolean bucle3 = true;
-                    while (bucle3) {
-                        String k = sc.next();
-                        switch (k) {
-                            case "1":
-                                bucle3 = false;
-                                break;
-                            case "2":
-                                repetir = false;
-                                bucle3 = false;
-                                break;
-                            default:
-                                System.out.println("El nombre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols que els colors es puguin repetir i 2 en cas contrari");
-                                break;
+                            if (rondes <= 0) throw new IllegalArgumentException();
+                            bucle2 = false;
+                        } catch (InputMismatchException e) {
+                            System.out.println("El paràmetre introduït no és un nombre");
+                            sc.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
                         }
                     }
-                    fabrica = new Fabrica(pecesCodi, colors, rondes, repetir);
-                    bucle = false;
+                    bucle2 = true;
+                    System.out.println("Finalment introdueix 1 si vols poder repetir colors i 2 en cas contrari");
+                    int j = 0;
+                    while (bucle2) {
+                        try {
+                            j = sc.nextInt();
+                            if (j != 1 && j != 2) throw new IllegalArgumentException();
+                            bucle2 = false;
+                        } catch (InputMismatchException e) {
+                            System.out.println("El paràmetre introduït no és un nombre");
+                            sc.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("El nombre introduït no és vàlid, siusplau introdueix un 1 o un 2");
+                        }
+                        if (j == 1) repetirColors = true;
+                        else repetirColors = false;
+                    }
+                    fabrica = new Fabrica(pecesCodi, colors, rondes, repetirColors);
+                    bucle2 = false;
                     break;
                 default:
-                    System.out.println("El nombre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols seleccionar una opció predeterminada i 2 en cas contrari");
+                    System.out.println("El paràmetre no correspon a cap opció. Siusplau torna a introduir el nombre. Introdueix 1 si vols seleccionar una opció predeterminada i 2 en cas contrari");
                     break;
             }
         }
