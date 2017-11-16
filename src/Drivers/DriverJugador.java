@@ -8,7 +8,7 @@ import Domini.Jugador;
 import Domini.Peca;
 
 public class DriverJugador {
-    private static Partida P = new Partida(4, 6,10, true); //això és molt lleig
+    private static Partida P = new Partida(4, 6,10, true);
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean bucle = true;
