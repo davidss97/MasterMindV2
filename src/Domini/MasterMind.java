@@ -14,16 +14,32 @@ public class MasterMind {
         this.rondes = rondes;
         this.repetirColors = repetirColors;
         crearPartida();
+        classificacio = new Classificacio();
     }
     public void mostrarCaracteristiquesPartida(){
         partida.mostrarCaracteristiques();
     }
 
+    public int getPecesCodi() {
+        return pecesCodi;
+    }
+
+    public int getColors() {
+        return colors;
+    }
+
+    public int getRondes() {
+        return rondes;
+    }
+
+    public boolean isRepetirColors() {
+        return repetirColors;
+    }
+
     public void guardarPartida(String nomJugador, int rondesFinals){
-        classificacio = new Classificacio(nomJugador, rondesFinals);
-        if (pecesCodi == 2 && colors == 3 && rondes == 6 && !repetirColors) classificacio.guardarPartidaFacil();
-        else if (pecesCodi == 3 && colors == 4 && rondes == 8 && repetirColors) classificacio.guardarPartidaMitjana();
-        else if (pecesCodi == 4 && colors == 6 && rondes == 10 && repetirColors) classificacio.guardarPartidaDificil();
+        if (pecesCodi == 2 && colors == 3 && rondes == 6 && !repetirColors) classificacio.guardarPartidaFacil(nomJugador, rondesFinals);
+        else if (pecesCodi == 3 && colors == 4 && rondes == 8 && repetirColors) classificacio.guardarPartidaMitjana(nomJugador, rondesFinals);
+        else if (pecesCodi == 4 && colors == 6 && rondes == 10 && repetirColors) classificacio.guardarPartidaDificil(nomJugador, rondesFinals);
         else System.out.println("Aquesta partida no correspon a cap dificultat estandaritzada i per tant no es pot guardar");
     }
     public void veureClassificacio(String dificultat){

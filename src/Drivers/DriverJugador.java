@@ -36,7 +36,7 @@ public class DriverJugador {
             bucle = true;
             while (bucle) {
                 bucle = false;
-                System.out.println("\nSi vols crear un nou Jugador introdueix un 1\n" +
+                System.out.println("Si vols crear un nou Jugador introdueix un 1\n" +
                         "Si vols enviar una jugada introdueix 2\n" +
                         "Si vols obtenir el rol del jugador actual introdueix 3\n" +
                         "Si vols crear un codi introdueix 4\n" +
