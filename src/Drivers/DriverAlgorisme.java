@@ -22,13 +22,13 @@ public class DriverAlgorisme {
         while (bucle) {
             try {
                 j = sc.nextInt();
-                if (j < 0 || j/Math.pow(10,forats) < 1) throw new IllegalArgumentException();
+                if (j < 0 || j/Math.pow(10,forats-1) < 1) throw new IllegalArgumentException();
                 bucle = false;
             } catch (InputMismatchException e) {
                 System.out.println("El paràmetre introduït no és un nombre");
                 sc.nextLine();
             } catch (IllegalArgumentException e) {
-                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un 1 o un 2");
+                System.out.println("El nombre introduït no és vàlid");
             }
         }
         //System.out.println("Minimax = 1122");
