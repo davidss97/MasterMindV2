@@ -95,38 +95,71 @@ public class DriverPartida {
         }
         i = 0;
         System.out.println();
-        System.out.println("En aquesta partida, la maquina es el code breaker");
-        System.out.println();
+        System.out.println("Premi 1 per fer de CodeMaker o 2 per fer de CodeBreaker");
+        if(sc.nextInt() == 1) {//La maquina fa de codebreaker
+            System.out.println();
 
-        //p.setCodeB(new CodeB(new Maquina(true, p),p));
-        //p.setCodeM(new CodeM(new Maquina(true, p),p));
-        p.setCodeB(new Maquina(true,p));
-        p.setCodeM(new Jugador(false,p));
+            //p.setCodeB(new CodeB(new Maquina(true, p),p));
+            //p.setCodeM(new CodeM(new Maquina(true, p),p));
 
-        System.out.println("Introdueix el codi secret:");
-        int comb = sc.nextInt();
+            p.setCodeB(new Maquina(true, p));
+            p.setCodeM(new Jugador(false, p));
 
-        p.getCodeM().crearCodi(intApeca(comb,pecesCodi));
+            System.out.println("Introdueix el codi secret:");
+            int comb = sc.nextInt();
 
-        boolean segueix = true;
-        while(segueix) {
-            ((Maquina) p.getCodeB()).moure();
+            p.getCodeM().crearCodi(intApeca(comb, pecesCodi));
 
-            //System.out.println(p.getSolucioUltimaFila());
+            boolean segueix = true;
+            while (segueix) {
+
+                ((Maquina) p.getCodeB()).moure();
+
+                //System.out.println(p.getSolucioUltimaFila());
 
 
-            System.out.println("Combinacio a ultima proposta ="+pecaAint(p.getContingutUltimaFila(), pecesCodi));
-            System.out.println("Resposta a ultima proposta ="+pecaAint(p.getSolucioUltimaFila(), pecesCodi));
-            System.out.println("------------------------------------------------------");
-            // /System.out.println("peces codi = " + p.getPecesCodi());
-            segueix = false;
-            for(int xx = 0; xx< p.getPecesCodi(); xx++) {
-                if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+                System.out.println("Combinacio a ultima proposta =" + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+                System.out.println("Resposta a ultima proposta =" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
+                System.out.println("------------------------------------------------------");
+                // /System.out.println("peces codi = " + p.getPecesCodi());
+                segueix = false;
+                for (int xx = 0; xx < p.getPecesCodi(); xx++) {
+                    if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
 
+                }
             }
-        }
-        System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+            System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+        }else{
+            System.out.println("La maquina esta entrant la combinacio secreta...");
+            p.setCodeM(new Maquina(false, p));
+            p.setCodeB(new Jugador(true, p));
+            ((Maquina) p.getCodeM()).crearCodi(pecesCodi, colors);
 
+            boolean segueix = true;
+            while (segueix) {
+
+                System.out.println("Entri el seu intent....:");
+                int com = sc.nextInt();
+                Vector<Peca> comV = intApeca(com, pecesCodi);
+                //System.out.println(comV);
+                //((Maquina) p.getCodeM()).
+                ((Jugador) p.getCodeB()).moure(comV);//
+
+                //System.out.println(p.getSolucioUltimaFila());
+
+                System.out.println("Combinacio a ultima proposta =" + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+                System.out.println("Resposta a ultima proposta =" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
+                System.out.println("------------------------------------------------------");
+                // /System.out.println("peces codi = " + p.getPecesCodi());
+                segueix = false;
+                for (int xx = 0; xx < p.getPecesCodi(); xx++) {
+                    if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+
+                }
+            }
+            System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+
+        }
         //modificar el tauler
 
 

@@ -9,6 +9,7 @@ public class CodeM extends Rol{
         //code = j;
         P = partida;
     }
+
     public void enviarCodi(Vector<Peca> comb){
         System.out.println("Enviant codi...");
         P.setCodiBase(comb);

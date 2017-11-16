@@ -54,7 +54,6 @@ public class Partida {
         //System.out.println("Resposta a comprobarCodi de Partida = " + resposta.get(3).getColor());
 
         ult.setSolucio(resposta);
-
         tauler.afegirFila(ult);
         //auler.se
         /*for (int i = 0; i < resposta.size(); ++i){

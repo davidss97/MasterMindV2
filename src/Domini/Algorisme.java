@@ -321,7 +321,7 @@ public class Algorisme {
     public Vector<Integer> createSet(int forats, int colors){
         int tam = tamanySet;
         Vector<Integer> sampleSet=new Vector<Integer>(tam,5);
-        if(colors >= 9) System.out.println("Maxim numero de colors es 91");
+        if(colors > 9) System.out.println("Maxim numero de colors es 9");
         int[] input = new int[colors];
         for(int i = 0; i < colors ; i++){
             input[i] = i+1;
