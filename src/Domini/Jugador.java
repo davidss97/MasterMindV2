@@ -18,27 +18,13 @@ public class Jugador {
         rol.setP(P);
     }
     public void moure(){
-        if(rolN) {
-            if (!P.existeixCodi()) System.out.println("No existeix cap codi Base");
-            else ((CodeB) rol).enviarIntent(introduirComb());
-        }else {
-            System.out.println("Error. Un code maker no pot enviar intent.");
-        }
+        ((CodeB) rol).enviarIntent(introduirComb());
     }
     public void crearCodi(){
-        if(rolN) {
-            System.out.println("Error. Un code breaker no pot crear un codi");
-        } else {
-            if (P.existeixCodi()) System.out.println("Ja existeix un codi Base.");
-            else ((CodeM) rol).enviarCodi(introduirComb());//vector de colors
-        }
+        ((CodeM) rol).enviarCodi(introduirComb());//vector de colors
     }
-    public String getRol(){
-        if(this.rolN){//isBreaker
-            return "Breaker";
-        }else{
-            return "Maker";
-        }
+    public boolean getRol(){
+        return rolN;
     }
     public Vector<Integer> getColorsCodiBase(){
         if (!P.existeixCodi()){
