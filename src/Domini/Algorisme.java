@@ -227,8 +227,6 @@ public class Algorisme {
             if(llistaPossibles.get(i) == true){//encara possible
                 int prop = S.get(i);
                 if(!obtenirRes(combinacio, prop, response)){
-                    if(prop == 65432)System.out.println("Elimina 65432");
-
                     llistaPossibles.set(i,false);  // modificar sobre la variable (vector) del constructor, (conve fer-la global ???)?????????
                 }
             }
