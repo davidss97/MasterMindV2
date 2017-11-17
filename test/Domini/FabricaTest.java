@@ -1,7 +1,6 @@
+package Domini;
+
 import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-import Domini.Fabrica;
 
 import static org.junit.Assert.*;
 
