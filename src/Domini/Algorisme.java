@@ -326,7 +326,7 @@ public class Algorisme {
         }
         int lengthOfSinglePermutation = forats;
 
-        // we need to check number of unique values in array
+        // necessitem comprovar els nombres amb valors únics
         Set<Integer> arrValues = new HashSet<Integer>();
         for (int i : input) {
             arrValues.add(i);
