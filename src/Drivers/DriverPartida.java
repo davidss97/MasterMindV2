@@ -114,8 +114,20 @@ public class DriverPartida {
             p.setCodeM(new Jugador(false, p));
 
             System.out.println("Introdueix el codi secret en format consecutiu (1234), on cada dígit representa un color:");
-            int comb = sc.nextInt();
-
+            int comb = 0;
+            bucle = true;
+            while (bucle) {
+                try {
+                    comb = sc.nextInt();
+                    if (comb < 0 || comb/Math.pow(10,pecesCodi-1) < 1) throw new IllegalArgumentException();
+                    bucle = false;
+                } catch (InputMismatchException e) {
+                    System.out.println("El paràmetre introduït no és un nombre");
+                    sc.nextLine();
+                } catch (IllegalArgumentException e) {
+                    System.out.println("El nombre introduït no és vàlid");
+                }
+            }
             p.getCodeM().crearCodi(intApeca(comb, pecesCodi));
 
             boolean segueix = true;
@@ -151,7 +163,20 @@ public class DriverPartida {
 
                 System.out.println("Ronda: " + rounds);
                 System.out.println("Entri el seu intent....:");
-                int com = sc.nextInt();
+                int com = 0;
+                bucle = true;
+                while (bucle) {
+                    try {
+                        com = sc.nextInt();
+                        if (com < 0 || com/Math.pow(10,pecesCodi-1) < 1) throw new IllegalArgumentException();
+                        bucle = false;
+                    } catch (InputMismatchException e) {
+                        System.out.println("El paràmetre introduït no és un nombre");
+                        sc.nextLine();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("El nombre introduït no és vàlid");
+                    }
+                }
                 Vector<Peca> comV = intApeca(com, pecesCodi);
                 ((Jugador) p.getCodeB()).moure(comV);//
 
