@@ -14,12 +14,12 @@ public class DriverPartida {
         boolean repetirColors = false;
         Scanner sc = new Scanner(System.in);
         System.out.println("Aquest és el driver de la classe Partida. Primer cal crear una nova Partida. Introdueix els paràmetres a continuació:");
-        System.out.println("Primer introdueix el nombre de peces que tindrà el codi");
+        System.out.println("Primer introdueix el nombre de peces que tindrà el codi (màxim 9, a partir de 6 comença a ralentitzar-se)");
         boolean bucle = true;
         while (bucle) {
             try {
                 pecesCodi = sc.nextInt();
-                if (pecesCodi <= 0) throw new IllegalArgumentException();
+                if (pecesCodi <= 0 || pecesCodi > 9) throw new IllegalArgumentException();
                 bucle = false;
             } catch (InputMismatchException e) {
                 System.out.println("El paràmetre introduït no és un nombre");
@@ -29,7 +29,7 @@ public class DriverPartida {
             }
         }
         bucle = true;
-        System.out.println("Ara introdueix el nombre de colors diferents possibles");
+        System.out.println("Ara introdueix el nombre de colors diferents possibles (a partir de 10 l'algorisme comença a ralentitzar-se)");
         while (bucle){
             try {
                 colors = sc.nextInt();
@@ -95,14 +95,25 @@ public class DriverPartida {
         }
         i = 0;
         System.out.println();
-        System.out.println("Premi 1 per fer de CodeMaker o 2 per fer de CodeBreaker");
-        if(sc.nextInt() == 1) { //La maquina fa de codebreaker
-            System.out.println();
-
+        System.out.println("Premi 1 per fer de CodeMaker o 2 per fer de CodeBreaker\n");
+        bucle = true;
+        while (bucle) {
+            try {
+                i = sc.nextInt();
+                if (i != 1 && i != 2) throw new IllegalArgumentException();
+                bucle = false;
+            } catch (InputMismatchException e) {
+                System.out.println("El paràmetre introduït no és un nombre");
+                sc.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println("El nombre introduït no és vàlid, siusplau introdueix 1 o 2");
+            }
+        }
+        if(i == 1) { //La maquina fa de codebreaker
             p.setCodeB(new Maquina(true, p));
             p.setCodeM(new Jugador(false, p));
 
-            System.out.println("Introdueix el codi secret:");
+            System.out.println("Introdueix el codi secret en format consecutiu (1234), on cada dígit representa un color:");
             int comb = sc.nextInt();
 
             p.getCodeM().crearCodi(intApeca(comb, pecesCodi));
@@ -135,7 +146,7 @@ public class DriverPartida {
 
             boolean segueix = true;
             int rounds = 0;
-            while (segueix && rounds<rondes) {
+            while (segueix && rounds < rondes) {
                 rounds++;
 
                 System.out.println("Ronda: " + rounds);
@@ -147,7 +158,7 @@ public class DriverPartida {
                 //System.out.println(p.getSolucioUltimaFila());
 
                 System.out.println("Combinació a última proposta =" + pecaAint(p.getContingutUltimaFila(), pecesCodi));
-                System.out.println("Resposta a última proposta =" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
+                System.out.println("Resposta a última proposta (2 = negra, 1 = blanca, 0 = buit)=" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
                 System.out.println("------------------------------------------------------");
                 // /System.out.println("peces codi = " + p.getPecesCodi());
                 segueix = false;
@@ -156,9 +167,8 @@ public class DriverPartida {
 
                 }
             }
-            if(rounds==rondes && segueix) System.out.println("Has arribat al límit de rondes....");
-            else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
-
+            if (rounds == rondes && segueix) System.out.println("Has arribat al límit de rondes....");
+            else System.out.println("SUCCESS!!! La solució és: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
         }
         //modificar el tauler
     }
