@@ -68,7 +68,7 @@ public class DriverPartida {
                 System.out.println("El paràmetre introduït no és un nombre");
                 sc.nextLine();
             } catch (IllegalArgumentException e) {
-                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+                System.out.println("El nombre introduït no és vàlid, siusplau introdueix 1 o 2");
             }
             if (i == 1) repetirColors = true;
             else repetirColors = false;
@@ -87,7 +87,7 @@ public class DriverPartida {
                 System.out.println("El paràmetre introduït no és un nombre");
                 sc.nextLine();
             } catch (IllegalArgumentException e) {
-                System.out.println("El nombre introduït no és vàlid, siusplau introdueix un enter positiu");
+                System.out.println("El nombre introduït no és vàlid, siusplau introdueix 1 o 2");
             }
             if (i == 1){
                 p.mostrarCaracteristiques();
@@ -96,7 +96,7 @@ public class DriverPartida {
         i = 0;
         System.out.println();
         System.out.println("Premi 1 per fer de CodeMaker o 2 per fer de CodeBreaker");
-        if(sc.nextInt() == 1) {//La maquina fa de codebreaker
+        if(sc.nextInt() == 1) { //La maquina fa de codebreaker
             System.out.println();
 
             p.setCodeB(new Maquina(true, p));
@@ -116,23 +116,19 @@ public class DriverPartida {
 
                 ((Maquina) p.getCodeB()).moure();
 
-                //System.out.println(p.getSolucioUltimaFila());
-
-
-                System.out.println("Combinacio a ultima proposta =" + pecaAint(p.getContingutUltimaFila(), pecesCodi));
-                System.out.println("Resposta a ultima proposta =" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
+                System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+                System.out.println("Resposta a última proposta = " + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
                 System.out.println("------------------------------------------------------");
-                // /System.out.println("peces codi = " + p.getPecesCodi());
                 segueix = false;
                 for (int xx = 0; xx < p.getPecesCodi(); xx++) {
                     if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
 
                 }
             }
-            if(rounds==rondes) System.out.println("Has arribat al limit de rondes....");
+            if(rounds==rondes && segueix) System.out.println("Has arribat al límit de rondes....");
             else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
-        }else{
-            System.out.println("La maquina esta entrant la combinacio secreta...");
+        }else { //no mirem que sc.nextInt() == 2
+            System.out.println("La màquina està entrant la combinació secreta...");
             p.setCodeM(new Maquina(false, p));
             p.setCodeB(new Jugador(true, p));
             ((Maquina) p.getCodeM()).crearCodi(pecesCodi, colors, repetirColors);
@@ -146,14 +142,12 @@ public class DriverPartida {
                 System.out.println("Entri el seu intent....:");
                 int com = sc.nextInt();
                 Vector<Peca> comV = intApeca(com, pecesCodi);
-                //System.out.println(comV);
-                //((Maquina) p.getCodeM()).
                 ((Jugador) p.getCodeB()).moure(comV);//
 
                 //System.out.println(p.getSolucioUltimaFila());
 
-                System.out.println("Combinacio a ultima proposta =" + pecaAint(p.getContingutUltimaFila(), pecesCodi));
-                System.out.println("Resposta a ultima proposta =" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
+                System.out.println("Combinació a última proposta =" + pecaAint(p.getContingutUltimaFila(), pecesCodi));
+                System.out.println("Resposta a última proposta =" + pecaAint(p.getSolucioUltimaFila(), pecesCodi));
                 System.out.println("------------------------------------------------------");
                 // /System.out.println("peces codi = " + p.getPecesCodi());
                 segueix = false;
@@ -162,13 +156,11 @@ public class DriverPartida {
 
                 }
             }
-            if(rounds==rondes) System.out.println("Has arribat al limit de rondes....");
+            if(rounds==rondes && segueix) System.out.println("Has arribat al límit de rondes....");
             else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), pecesCodi));
 
         }
         //modificar el tauler
-
-
     }
     private static int pecaAint(Vector<Peca> vec, int forats){
         int res=0;

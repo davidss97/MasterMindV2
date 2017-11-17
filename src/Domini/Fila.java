@@ -19,7 +19,7 @@ public class Fila {
     public Peca getPecaAPosicio(int i){
         return contingutFila.get(i);
     }
-    public void setSolucio(Vector<Peca> comb){ //cal acabar-la;
+    public void setSolucio(Vector<Peca> comb){
         this.solucio = comb;
     }
 }
