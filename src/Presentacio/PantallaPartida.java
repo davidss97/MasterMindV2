@@ -2,10 +2,11 @@ package Presentacio;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class PantallaPartida {
-    public PantallaPartida(Integer[][] colors){
+    public PantallaPartida(Integer[][] colors, int rondes, int forats, boolean rol){//Rol: Maker:false , Breaker:true
 
         /*CALLER
         Integer[][] colors = new Integer[3][3];
@@ -19,6 +20,7 @@ public class PantallaPartida {
         colors[2] = vermell;
 
         new PantallaPartida(colors);*/
+
         JFrame frame = new JFrame("Rounded Button Example");
         frame.setLayout(new BorderLayout());
 
@@ -53,12 +55,24 @@ public class PantallaPartida {
 
         JPanel panel8 = new JPanel(new GridLayout(2,2));
         panel8.add(new RoundButton(true, 0,0,0));
+/*
+        List<JButton> buttonList = new ArrayList<JButton>();
+        for(int i = 0; i < 8; i++) {
+            JButton button = new JButton();
+            buttonList.add(button);
+            panelCentral.add(button);
+        }*/
 
-
+        JButton[] buttons = new JButton[4];
+        for (JButton button : buttons) {
+            button = new RoundButton( colors[3][0],colors[3][1],colors[3][2]);
+            panelCentral.add(button);
+        }
+        /*
         panelCentral.add(b1);
         panelCentral.add(b2);
         panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
+        panelCentral.add(new RoundButton(0,0,0));*/
         panelCentral.add(panelBW);
 
 
