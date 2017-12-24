@@ -1,8 +1,13 @@
 package Presentacio;
 
 import javax.swing.*;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Objects;
 import java.util.Vector;
 
 public class PantallaPartida {
@@ -66,6 +71,81 @@ public class PantallaPartida {
         JButton[] buttons = new JButton[4];
         for (JButton button : buttons) {
             button = new RoundButton( colors[3][0],colors[3][1],colors[3][2]);
+            button.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JCheckBox chec=new JCheckBox("");
+                    chec.setBackground(new Color(255,0,0));
+
+                    JCheckBox chec2=new JCheckBox("");
+                    chec2.setBackground(new Color(0,255,0));
+
+                    JButton jb = new RoundButton(0,0,255);
+
+                    JButton jb2 = new JButton();
+
+                    JRadioButton male = new JRadioButton("Male");
+                    JRadioButton female = new JRadioButton("Female");
+                    ButtonGroup bg = new ButtonGroup();
+                    male.setBackground(new Color(255,255,0));
+
+                    int bgCount = 0;
+                    JRadioButton[] radios = new JRadioButton[colors.length];
+                    for(int i = 0; i < colors.length; i++){
+                        radios[i] = new JRadioButton();
+                        radios[i].setBackground(new Color(colors[i][0],colors[i][1],colors[i][2]));
+                        bg.add(radios[i]);
+                        bgCount++;
+                    }
+
+                    Object[] stockArr = new Object[2 + bgCount];
+                    stockArr[0] =  "Aceptar";
+                    stockArr[1] =  "Cancelar";
+                    Enumeration<AbstractButton> elements = bg.getElements();
+                    int i = 2;
+                    while(elements.hasMoreElements()){
+                        stockArr[i] = elements.nextElement();
+                        i++;
+                    }
+                    /*for(int i = 2; i < 2+bgCount; i++){
+                        stockArr[i] = bg.getElements().hasMoreElements();
+                    }*/
+
+                    int seleccion = JOptionPane.showOptionDialog( null,"Seleccione un color",
+                            "Selector de opciones",JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,null,// null para icono por defecto.
+                            stockArr,"opcion 1");
+                            //new Object[] { "Aceptar", "Cancelar",bg.getElements().nextElement(), jb2, jb ,chec, chec2 },"opcion 1");
+
+                    if (seleccion != -1){
+                        System.out.println("seleccionada opcion " + (seleccion + 1));
+                            if(seleccion == 0){
+                                /*for(JRadioButton rb : bg){
+                                    if ((JRadioButton) stockArr[2+ii]).isSelected()
+                                }*/
+                                int inde = 0;
+                                Enumeration<AbstractButton> elems = bg.getElements();
+                                while(elems.hasMoreElements()){
+                                    if (elems.nextElement().isSelected()){
+                                        System.out.println("breaks with index " + inde);
+                                        break;
+                                    }
+                                    inde++;
+                                }
+                                Object source = e.getSource();
+                                if (source instanceof Component) {
+                                    ((Component)source).setBackground(new Color(colors[inde][0],colors[inde][1],colors[inde][2]));
+                                }
+                            }else if(seleccion == 1){
+                                //cancel
+                            }
+                    }
+                    if (chec.isSelected()){
+                        System.out.println("Selecciona el Chec");
+                    }
+                }
+            });
             panelCentral.add(button);
         }
         /*
