@@ -1,150 +1,282 @@
 package Presentacio;
 
+import Domini.Jugador;
+import Domini.Maquina;
+import Domini.Partida;
+import Domini.Peca;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import javax.swing.*;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Vector;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
 
 public class PantallaPartida {
-    public PantallaPartida(Integer[][] colors, int rondes, int forats, boolean rol){//Rol: Maker:false , Breaker:true
+    int ronda = 0;
+    Integer[][] vecColors;
+    int foratsGlob;
+    static JButton[][] buttons;
+    static JButton[][] smallbuttons;
+    final int rondesS;
+    public PantallaPartida(final Integer[][] colors,int rondes,final int forats,final boolean rol){//Rol: Maker:false , Breaker:true
 
-        /*CALLER
-        Integer[][] colors = new Integer[3][3];
+        Partida p =  new Partida(forats, colors.length, rondes, true);//repetirForats = true
 
-        Integer[] negre = {0,0,0};
-        Integer[] blanc = {255,255,255};
-        Integer[] vermell = {255,0,0};
+        if(rol){//La maquina fa de codebreaker
+            p.setCodeM(new Maquina(false, p));
+            p.setCodeB(new Jugador(true, p));
+        }else{
+            p.setCodeB(new Maquina(true, p));
+            p.setCodeM(new Jugador(false, p));
+        }
 
-        colors[0] = negre;
-        colors[1] = blanc;
-        colors[2] = vermell;
-
-        new PantallaPartida(colors);*/
+        vecColors = colors;
+        rondesS = rondes+2;
+        foratsGlob = forats;
 
         JFrame frame = new JFrame("Rounded Button Example");
         frame.setLayout(new BorderLayout());
 
-        JButton b1 = new RoundButton( colors[2][0],colors[2][1],colors[2][2]);
-        JButton b2 = new RoundButton( colors[2][0],colors[2][1],colors[2][2]);
+        //JButton b1 = new RoundButton( colors[2][0],colors[2][1],colors[2][2]);
+        //JButton b2 = new RoundButton( colors[2][0],colors[2][1],colors[2][2]);
 
-        JPanel panelCentral = new JPanel(new GridLayout(10,5));
+        JPanel panelCentral = new JPanel(new GridLayout(rondesS,forats+1));
 
-        JPanel panelBW = new JPanel(new GridLayout(2,2));
-        JButton blacksmall = new RoundButton(true,colors[0][0],colors[0][1],colors[0][2]);
-        JButton whitesmall = new RoundButton(true,colors[1][0],colors[1][1],colors[1][2]);
-        panelBW.add(blacksmall);
-        panelBW.add(whitesmall);
-
-        JPanel panel2 = new JPanel(new GridLayout(2,2));
-        panel2.add(new RoundButton(true, 0,0,0));
-
-        JPanel panel3 = new JPanel(new GridLayout(2,2));
-        panel3.add(new RoundButton(true, 0,0,0));
-
-        JPanel panel4 = new JPanel(new GridLayout(2,2));
-        panel4.add(new RoundButton(true, 0,0,0));
-
-        JPanel panel5 = new JPanel(new GridLayout(2,2));
-        panel5.add(new RoundButton(true, 0,0,0));
-
-        JPanel panel6 = new JPanel(new GridLayout(2,2));
-        panel6.add(new RoundButton(true, 0,0,0));
-
-        JPanel panel7 = new JPanel(new GridLayout(2,2));
-        panel7.add(new RoundButton(true, 0,0,0));
-
-        JPanel panel8 = new JPanel(new GridLayout(2,2));
-        panel8.add(new RoundButton(true, 0,0,0));
-/*
-        List<JButton> buttonList = new ArrayList<JButton>();
-        for(int i = 0; i < 8; i++) {
-            JButton button = new JButton();
-            buttonList.add(button);
-            panelCentral.add(button);
+        /*panelBW = new JPanel[rondes];
+        for(int i = 0 ; i < rondes;i++){
+            panelBW[i] = new JPanel(new GridLayout(2, forats%2+1));
         }*/
+        smallbuttons = new JButton[rondesS][forats];
+        buttons = new JButton[rondesS][forats];
+        int count = 0;
+        for (int ii = 0; ii < rondesS ; ii++) {//JButton[] buttonn : buttons) {
+            count++;
+            if (count == 2 && rol /*breaker*/) {
+                for(int i = 0; i <= forats; i++) {
+                    panelCentral.add(new JLabel(""));
+                }
+            }else if (count == rondesS - 1 && !rol /*maker*/) {
+                for(int i = 0; i <= forats; i++) {
+                    panelCentral.add(new JLabel(""));
+                }
+            }else {
 
-        JButton[] buttons = new JButton[4];
-        for (JButton button : buttons) {
-            button = new RoundButton( colors[3][0],colors[3][1],colors[3][2]);
-            panelCentral.add(button);
+                for (int jj = 0; jj<forats; jj++){//JButton button : buttonn) {
+                    buttons[ii][jj] = new RoundButton(190,190,190);//colors[3][0], colors[3][1], colors[3][2]);
+                    if ((count != 1 && rol /*breaker*/) || (count == rondesS && !rol /*Maker*/) ) {
+                        buttons[ii][jj].addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                ButtonGroup bg = new ButtonGroup();
+
+                                int bgCount = 0;
+                                JRadioButton[] radios = new JRadioButton[colors.length];
+                                for (int i = 0; i < colors.length; i++) {
+                                    radios[i] = new JRadioButton();
+                                    radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
+                                    bg.add(radios[i]);
+                                    bgCount++;
+                                }
+
+                                Object[] stockArr = new Object[2 + bgCount];
+                                stockArr[0] = "Aceptar";
+                                stockArr[1] = "Cancelar";
+                                Enumeration<AbstractButton> elements = bg.getElements();
+                                int i = 2;
+                                while (elements.hasMoreElements()) {
+                                    stockArr[i] = elements.nextElement();
+                                    i++;
+                                }
+
+                                int seleccion = JOptionPane.showOptionDialog(null, "Seleccione un color",
+                                        "Selector de opciones", JOptionPane.YES_NO_CANCEL_OPTION,
+                                        JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                                        stockArr, "opcion 1");
+                                //new Object[] { "Aceptar", "Cancelar",bg.getElements().nextElement(), jb2, jb ,chec, chec2 },"opcion 1");
+
+                                if (seleccion != -1) {
+                                    //System.out.println("seleccionada opcion " + (seleccion + 1));
+                                    if (seleccion == 0) {
+                                        int inde = 0;
+                                        Enumeration<AbstractButton> elems = bg.getElements();
+                                        while (elems.hasMoreElements()) {
+                                            if (elems.nextElement().isSelected()) {
+                                                //System.out.println("breaks with index " + inde);
+                                                break;
+                                            }
+                                            inde++;
+                                        }
+                                        Object source = e.getSource();
+                                        if (source instanceof Component) {
+                                            ((Component) source).setBackground(new Color(colors[inde][0], colors[inde][1], colors[inde][2]));
+                                        }
+                                    } else if (seleccion == 1) {
+                                        //cancel
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    panelCentral.add(buttons[ii][jj]);
+                }
+                JPanel panelBW = new JPanel(new GridLayout(2, forats%2+1));
+                for (int jj = 0; jj<forats; jj++) {
+                    smallbuttons[ii][jj] = new RoundButton(true, colors[0][0], colors[0][1], colors[0][2]);
+                    smallbuttons[ii][jj].setVisible(false);
+                    panelBW.add(smallbuttons[ii][jj]);
+                }
+                /*
+                JButton blacksmall = new RoundButton(true, colors[0][0], colors[0][1], colors[0][2]);
+                JButton whitesmall = new RoundButton(true, colors[1][0], colors[1][1], colors[1][2]);
+                panelBW.add(blacksmall);
+                panelBW.add(whitesmall);
+                panelCentral.add(panelBW);*/
+
+                if((!rol && ii < rondes) || (rol && ii > 1))panelCentral.add(panelBW);
+
+            }
+
         }
-        /*
-        panelCentral.add(b1);
-        panelCentral.add(b2);
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));*/
-        panelCentral.add(panelBW);
 
 
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel2);
 
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel3);
-
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel4);
-
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel5);
-
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel6);
-
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel7);
-
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(panel8);
-
-
-        panelCentral.add(new JLabel(""));
-        panelCentral.add(new JLabel(""));
-        panelCentral.add(new JLabel(""));
-        panelCentral.add(new JLabel(""));
-        panelCentral.add(new JLabel(""));
-
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new RoundButton(0,0,0));
-        panelCentral.add(new JLabel(""));
-
-        panelCentral.setPreferredSize(new Dimension(200, 500));
+        panelCentral.setPreferredSize(new Dimension(230, 500));
         frame.add(panelCentral, BorderLayout.CENTER);
-        JLabel lab = new JLabel("                        ");
+        JLabel lab = new JLabel("                         ");
         lab.setSize(new Dimension(800,300));
         JLabel lab2 = new JLabel("                       ");
         lab.setSize(new Dimension(800,300));
+        JButton acc = new JButton("Aceptar");
+        JPanel derecha = new JPanel();
+        derecha.setLayout(new BorderLayout());
+
+        derecha.add(lab2, BorderLayout.CENTER);
+        derecha.add(acc, BorderLayout.SOUTH);
+
+        acc.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+
+              //send to Partida
+                //getSecreta();
+              /**---------------------------------------------------------------------------------------*/
+            System.out.println("Introdueix el codi secret en format consecutiu (1234), on cada dígit representa un color:");
+            int comb = 0;
+            boolean bucle = true;
+
+            p.getCodeM().crearCodi(getSecreta());  //implementar fiches vistual a instancies de Peca
+
+
+            boolean segueix = true;
+            int rounds = 0;
+            while (segueix && rounds<rondesS) {
+                rounds++;
+
+                System.out.println("Ronda: " + rounds);
+
+                ((Maquina) p.getCodeB()).moure();
+                System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), forats));
+                Vector<Peca> combi = p.getContingutUltimaFila();
+                for(int i = 0; i <  combi.size(); i++){
+                    int c = combi.get(i).getColor();
+                    buttons[rondes - 1 - ronda][combi.size() -1-i].setBackground(new Color(colors[c-1][0],colors[c-1][1],colors[c-1][2]));
+                }
+
+                Vector<Peca> res = p.getSolucioUltimaFila();
+                int posSol = 0;
+                for(int i = 0; i <  res.size(); i++){
+                    int c = res.get(res.size() - i-1).getColor();
+                    if(c == 2 || c == 1) {
+                        smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                        smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                    }
+                }
+                //smallbuttons[rondes - 1 - ronda][0].setVisible(true);
+                ronda++;
+
+                System.out.println("Resposta a última proposta = " + pecaAint(p.getSolucioUltimaFila(), forats));
+                System.out.println("------------------------------------------------------");
+                segueix = false;
+                for (int xx = 0; xx < p.getPecesCodi(); xx++) {
+                    if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+
+                }
+            }
+
+            if(rounds==rondesS && segueix) System.out.println("Has arribat al límit de rondes....");
+            else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
+             /*----------------------------------------------------------------------------------------------------------------*/
+              }
+          });
 
         frame.add(lab, BorderLayout.WEST);
-        frame.add(lab2, BorderLayout.EAST);
+        frame.add(derecha, BorderLayout.EAST);
+
         frame.add(panelCentral, BorderLayout.CENTER);
 
-        frame.setSize(500, 700);
+        frame.setSize(250+55*forats, 700);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+
+
+    private int getNextRonda(){
+        int comb=0;
+
+
+        ronda++;
+        return comb;
+    }
+
+    private  Vector<Peca> getSecreta(){// nomes si el rol es de maker
+        String number = "";
+
+        JButton[] buttonsX = buttons[rondesS-1];
+        //System.out.println("Tamany comb sec: " + buttonsX.length);
+        //System.out.println("color primer = " + vecColors[1][0]);
+        for (JButton button : buttonsX) {
+            for(int i = 0; i < vecColors.length; i++) {
+                if((button).getBackground().equals(new Color(vecColors[i][0], vecColors[i][1], vecColors[i][2]))){
+                    number +=String.valueOf(i + 1);
+                    break;
+                }
+            }
+        }
+
+        System.out.println("la combinacio secreta es: " + number);
+
+        Vector<Peca> res= new Vector<>(foratsGlob,1);
+        //int mul = (int)Math.pow(10,foratsGlob-1);
+
+        for(int i = number.length()-1; i >= 0; i--)
+            res.add( new Peca(Character.getNumericValue(number.charAt(i))) );
+
+        //ronda++;
+        return res;
+    }
+
+
+    private static int pecaAint(Vector<Peca> vec, int forats){
+        int res=0;
+        int mul = (int)Math.pow(10,forats-1);
+        for(int i = 0; i<vec.size(); i++){
+            res += vec.get(vec.size()-1-i).getColor()*mul;
+            mul/= 10;
+        }
+        return res;
+    }
+    private static Vector<Peca> intApeca(int vec, int forats){
+        Vector<Peca> res= new Vector<>(forats,1);
+        int mul = (int)Math.pow(10,forats-1);
+
+        String number = Integer.toString(vec);
+        String output = "";
+        for(int i = number.length()-1; i >= 0; i--)
+            res.add( new Peca(Character.getNumericValue(number.charAt(i))) );
+
+        return res;
+    }
+
+
 }
