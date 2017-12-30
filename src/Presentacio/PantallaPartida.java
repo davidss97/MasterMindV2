@@ -18,6 +18,7 @@ public class PantallaPartida {
     Integer[][] vecColors;
     int foratsGlob;
     static JButton[][] buttons;
+    static JButton[][] smallbuttons;
     final int rondesS;
     public PantallaPartida(final Integer[][] colors,int rondes,final int forats,final boolean rol){//Rol: Maker:false , Breaker:true
 
@@ -43,6 +44,11 @@ public class PantallaPartida {
 
         JPanel panelCentral = new JPanel(new GridLayout(rondesS,forats+1));
 
+        /*panelBW = new JPanel[rondes];
+        for(int i = 0 ; i < rondes;i++){
+            panelBW[i] = new JPanel(new GridLayout(2, forats%2+1));
+        }*/
+        smallbuttons = new JButton[rondesS][forats];
         buttons = new JButton[rondesS][forats];
         int count = 0;
         for (int ii = 0; ii < rondesS ; ii++) {//JButton[] buttonn : buttons) {
@@ -57,7 +63,6 @@ public class PantallaPartida {
                 }
             }else {
 
-               // buttonn = new JButton[forats];
                 for (int jj = 0; jj<forats; jj++){//JButton button : buttonn) {
                     buttons[ii][jj] = new RoundButton(190,190,190);//colors[3][0], colors[3][1], colors[3][2]);
                     if ((count != 1 && rol /*breaker*/) || (count == rondesS && !rol /*Maker*/) ) {
@@ -115,12 +120,21 @@ public class PantallaPartida {
                     }
                     panelCentral.add(buttons[ii][jj]);
                 }
-                JPanel panelBW = new JPanel(new GridLayout(2, 2));
+                JPanel panelBW = new JPanel(new GridLayout(2, forats%2+1));
+                for (int jj = 0; jj<forats; jj++) {
+                    smallbuttons[ii][jj] = new RoundButton(true, colors[0][0], colors[0][1], colors[0][2]);
+                    smallbuttons[ii][jj].setVisible(false);
+                    panelBW.add(smallbuttons[ii][jj]);
+                }
+                /*
                 JButton blacksmall = new RoundButton(true, colors[0][0], colors[0][1], colors[0][2]);
                 JButton whitesmall = new RoundButton(true, colors[1][0], colors[1][1], colors[1][2]);
                 panelBW.add(blacksmall);
                 panelBW.add(whitesmall);
-                panelCentral.add(panelBW);
+                panelCentral.add(panelBW);*/
+
+                if((!rol && ii < rondes) || (rol && ii > 1))panelCentral.add(panelBW);
+
             }
 
         }
@@ -161,9 +175,26 @@ public class PantallaPartida {
                 System.out.println("Ronda: " + rounds);
 
                 ((Maquina) p.getCodeB()).moure();
+                System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), forats));
+                Vector<Peca> combi = p.getContingutUltimaFila();
+                for(int i = 0; i <  combi.size(); i++){
+                    int c = combi.get(i).getColor();
+                    buttons[rondes - 1 - ronda][combi.size() -1-i].setBackground(new Color(colors[c-1][0],colors[c-1][1],colors[c-1][2]));
+                }
+
+                Vector<Peca> res = p.getSolucioUltimaFila();
+                int posSol = 0;
+                for(int i = 0; i <  res.size(); i++){
+                    int c = res.get(res.size() - i-1).getColor();
+                    if(c == 2 || c == 1) {
+                        smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                        smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                    }
+                }
+                //smallbuttons[rondes - 1 - ronda][0].setVisible(true);
+                ronda++;
 
                 System.out.println("Resposta a última proposta = " + pecaAint(p.getSolucioUltimaFila(), forats));
-                System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), forats));
                 System.out.println("------------------------------------------------------");
                 segueix = false;
                 for (int xx = 0; xx < p.getPecesCodi(); xx++) {
@@ -171,6 +202,7 @@ public class PantallaPartida {
 
                 }
             }
+
             if(rounds==rondesS && segueix) System.out.println("Has arribat al límit de rondes....");
             else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
              /*----------------------------------------------------------------------------------------------------------------*/
