@@ -10,11 +10,12 @@ public class PantallaBase {
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
+        frame.setBackground(new Color (130, 158, 199));
         frame.setSize(xSize/3*2, ySize/10*9); //En una 1920:1080 --> 1280:972
         JPanel pleft = new JPanel();
         JPanel pright = new JPanel();
         pleft.setBackground(Color.BLUE);
-        pright.setBackground(Color.RED);
+        pright.setBackground(Color.BLUE);
         pleft.setMinimumSize(new Dimension(xSize/3*2/4,ySize/10*9));
         pright.setMinimumSize(new Dimension(xSize/3*2/4,ySize/10*9));
         frame.setLayout(new GridBagLayout());
