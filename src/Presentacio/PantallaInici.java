@@ -16,7 +16,7 @@ public class PantallaInici extends JPanel{
         c.gridheight = 5;
         JLabel titol = new JLabel("MasterMind");
         titol.setHorizontalAlignment(SwingConstants.CENTER);
-        titol.setFont(new Font ("Serif", Font.PLAIN, 40));
+        titol.setFont(new Font("Serif", Font.PLAIN, 40));
         super.add(titol, c);
         c.gridy = 5;
         c.weighty = 0.3;
