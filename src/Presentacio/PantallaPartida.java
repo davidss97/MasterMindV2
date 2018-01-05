@@ -27,9 +27,11 @@ public class PantallaPartida {
         if(rol){//La maquina fa de codebreaker
             p.setCodeM(new Maquina(false, p));
             p.setCodeB(new Jugador(true, p));
+            ((Maquina) p.getCodeM()).crearCodi(forats, colors.length, true);
         }else{
             p.setCodeB(new Maquina(true, p));
             p.setCodeM(new Jugador(false, p));
+
         }
 
         vecColors = colors;
@@ -54,7 +56,7 @@ public class PantallaPartida {
         for (int ii = 0; ii < rondesS ; ii++) {//JButton[] buttonn : buttons) {
             count++;
             if (count == 2 && rol /*breaker*/) {
-                for(int i = 0; i <= forats; i++) {
+                for(int i = 0; i <= forats +1; i++) { //+1 per alinear, afegeix label on anirien foratsBW de secreta
                     panelCentral.add(new JLabel(""));
                 }
             }else if (count == rondesS - 1 && !rol /*maker*/) {
@@ -89,7 +91,7 @@ public class PantallaPartida {
                                     i++;
                                 }
 
-                                int seleccion = JOptionPane.showOptionDialog(null, "Seleccione un color",
+                                int seleccion = JOptionPane.showOptionDialog(frame, "Seleccione un color",
                                         "Selector de opciones", JOptionPane.YES_NO_CANCEL_OPTION,
                                         JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                                         stockArr, "opcion 1");
@@ -126,12 +128,6 @@ public class PantallaPartida {
                     smallbuttons[ii][jj].setVisible(false);
                     panelBW.add(smallbuttons[ii][jj]);
                 }
-                /*
-                JButton blacksmall = new RoundButton(true, colors[0][0], colors[0][1], colors[0][2]);
-                JButton whitesmall = new RoundButton(true, colors[1][0], colors[1][1], colors[1][2]);
-                panelBW.add(blacksmall);
-                panelBW.add(whitesmall);
-                panelCentral.add(panelBW);*/
 
                 if((!rol && ii < rondes) || (rol && ii > 1))panelCentral.add(panelBW);
 
@@ -160,61 +156,129 @@ public class PantallaPartida {
               //send to Partida
                 //getSecreta();
               /**---------------------------------------------------------------------------------------*/
-            System.out.println("Introdueix el codi secret en format consecutiu (1234), on cada dígit representa un color:");
-            int comb = 0;
-            boolean bucle = true;
+              if(!rol){
+                    System.out.println("Introdueix el codi secret en format consecutiu (1234), on cada dígit representa un color:");
+                    int comb = 0;
+                    boolean bucle = true;
 
-            p.getCodeM().crearCodi(getSecreta());  //implementar fiches vistual a instancies de Peca
+                    p.getCodeM().crearCodi(getSecreta());  //implementar fiches vistual a instancies de Peca
 
 
-            boolean segueix = true;
-            int rounds = 0;
-            while (segueix && rounds<rondesS) {
-                rounds++;
+                    boolean segueix = true;
+                    int rounds = 0;
+                    while (segueix && rounds<rondesS) {
+                        rounds++;
 
-                System.out.println("Ronda: " + rounds);
+                        System.out.println("Ronda: " + rounds);
 
-                ((Maquina) p.getCodeB()).moure();
-                System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), forats));
-                Vector<Peca> combi = p.getContingutUltimaFila();
-                for(int i = 0; i <  combi.size(); i++){
-                    int c = combi.get(i).getColor();
-                    buttons[rondes - 1 - ronda][combi.size() -1-i].setBackground(new Color(colors[c-1][0],colors[c-1][1],colors[c-1][2]));
-                }
+                        ((Maquina) p.getCodeB()).moure();
+                        System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), forats));
+                        Vector<Peca> combi = p.getContingutUltimaFila();
+                        for(int i = 0; i <  combi.size(); i++){
+                            int c = combi.get(i).getColor();
+                            buttons[rondes - 1 - ronda][combi.size() -1-i].setBackground(new Color(colors[c-1][0],colors[c-1][1],colors[c-1][2]));
+                        }
 
-                Vector<Peca> res = p.getSolucioUltimaFila();
-                int posSol = 0;
-                for(int i = 0; i <  res.size(); i++){
-                    int c = res.get(res.size() - i-1).getColor();
-                    if(c == 2 || c == 1) {
-                        smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
-                        smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                        Vector<Peca> res = p.getSolucioUltimaFila();
+                        int posSol = 0;
+                        for(int i = 0; i <  res.size(); i++){
+                            int c = res.get(res.size() - i-1).getColor();
+                            if(c == 2 || c == 1) {
+                                smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                                smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                            }
+                        }
+                        //smallbuttons[rondes - 1 - ronda][0].setVisible(true);
+                        ronda++;
+
+                        System.out.println("Resposta a última proposta = " + pecaAint(p.getSolucioUltimaFila(), forats));
+                        System.out.println("------------------------------------------------------");
+                        segueix = false;
+                        for (int xx = 0; xx < p.getPecesCodi(); xx++) {
+                            if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+
+                        }
                     }
-                }
-                //smallbuttons[rondes - 1 - ronda][0].setVisible(true);
-                ronda++;
 
-                System.out.println("Resposta a última proposta = " + pecaAint(p.getSolucioUltimaFila(), forats));
-                System.out.println("------------------------------------------------------");
-                segueix = false;
-                for (int xx = 0; xx < p.getPecesCodi(); xx++) {
-                    if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+                    if(rounds==rondesS && segueix) System.out.println("Has arribat al límit de rondes....");
+                    else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
+                     /*----------------------------------------------------------------------------------------------------------------*/
+              }else{//jugar com a breaker
+                    /**/
 
-                }
-            }
+                    boolean segueix = true;
+                   /* int rounds = 0;
+                    while (segueix && rounds < rondes) {
+                        rounds++;*/
 
-            if(rounds==rondesS && segueix) System.out.println("Has arribat al límit de rondes....");
-            else System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
-             /*----------------------------------------------------------------------------------------------------------------*/
+                        System.out.println("Ronda: " + ronda);
+                        System.out.println("Entri el seu intent....:");
+                        int com = 0;
+
+                        try {
+                            com = getNextRonda();//agafar comb fila = rondeS - rondaActual -1;
+                            if (com < 0 || com/Math.pow(10,forats-1) < 1) throw new IllegalArgumentException();
+
+                        } catch (InputMismatchException ex) {
+                            System.out.println("El paràmetre introduït no és un nombre");
+                        } catch (IllegalArgumentException ex) {
+                            System.out.println("El nombre introduït no és vàlid");
+                        }
+
+                        Vector<Peca> comV = intApeca(com, forats);
+                        ((Jugador) p.getCodeB()).moure(comV);//
+
+                          Vector<Peca> res = p.getSolucioUltimaFila();
+                          int posSol = 0;
+                          for(int i = 0; i <  res.size(); i++){
+                              int c = res.get(res.size() - i-1).getColor();
+                              if(c == 2 || c == 1) {
+                                  smallbuttons[rondes +2 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                                  smallbuttons[rondes +2 - ronda][posSol++].setVisible(true);
+                              }
+                          }
+
+                        //System.out.println(p.getSolucioUltimaFila());
+
+                        System.out.println("Combinació a última proposta =" + pecaAint(p.getContingutUltimaFila(), forats));
+                        System.out.println("Resposta a última proposta (2 = negra, 1 = blanca, 0 = buit)=" + pecaAint(p.getSolucioUltimaFila(), forats));
+                        System.out.println("------------------------------------------------------");
+                        // /System.out.println("peces codi = " + p.getPecesCodi());
+                        segueix = false;
+                        for (int xx = 0; xx < p.getPecesCodi(); xx++) {
+                            if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+
+                        }
+                    if(!segueix || ronda >= rondes) {
+                        if (ronda == rondes && segueix) System.out.println("Has arribat al límit de rondes....");
+                        else {
+                            System.out.println("SUCCESS!!! La solució és: " + pecaAint(p.getContingutUltimaFila(), forats));
+                            Vector<Peca> combi = p.getContingutUltimaFila();
+                            for(int i = 0; i <  combi.size(); i++){
+                                int c = combi.get(i).getColor();
+                                buttons[0][combi.size() -1-i].setBackground(new Color(colors[c-1][0],colors[c-1][1],colors[c-1][2]));
+                            }
+
+                            String guardar = JOptionPane.showInputDialog(frame, "Has resolt la partida en "+ronda+" rondes, vols guardar partida?\nIntrodueix el teu nom:");
+                            if(guardar != null) {
+                                System.out.println("El nom del jugador es: " + guardar);
+                                // AFEGIR CODI PER GUARDAR PARTIDA:
+                                // MasterMind.guardarPartida(guardar, ronda);
+                            }
+                        }
+                    }
+                     /**/
+
+
               }
-          });
+          }});
 
         frame.add(lab, BorderLayout.WEST);
         frame.add(derecha, BorderLayout.EAST);
 
         frame.add(panelCentral, BorderLayout.CENTER);
 
-        frame.setSize(250+55*forats, 700);
+        frame.setSize(250+55*forats, (rondes+2)*55);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -222,11 +286,26 @@ public class PantallaPartida {
 
 
     private int getNextRonda(){
-        int comb=0;
+        //int comb=0;
 
+        String number = "";
+
+        JButton[] buttonsX = buttons[rondesS-1-ronda];
+        //System.out.println("Tamany comb sec: " + buttonsX.length);
+        //System.out.println("color primer = " + vecColors[1][0]);
+        for (JButton button : buttonsX) {
+            for(int i = 0; i < vecColors.length; i++) {
+                if((button).getBackground().equals(new Color(vecColors[i][0], vecColors[i][1], vecColors[i][2]))){
+                    number +=String.valueOf(i + 1);
+                    break;
+                }
+            }
+        }
+
+        System.out.println("la combinacio a enviar es: " + number);
 
         ronda++;
-        return comb;
+        return Integer.parseInt(number);
     }
 
     private  Vector<Peca> getSecreta(){// nomes si el rol es de maker
