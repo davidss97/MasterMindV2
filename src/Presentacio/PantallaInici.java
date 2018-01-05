@@ -1,9 +1,13 @@
 package Presentacio;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PantallaInici extends JPanel{
-    PantallaInici(){
+    private PantallaBase base;
+    PantallaInici(PantallaBase base){
+        this.base = base;
         super.setBackground(Color.YELLOW);
         super.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -23,22 +27,56 @@ public class PantallaInici extends JPanel{
         c.gridheight = 1;
         JButton play = new JButton("PLAY");
         play.setBackground(new Color(0, 255, 0));
+        play.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                base.changeCenter(new PantallaFabrica(base));
+                PantallaInici.super.setVisible(false);
+            }
+        });
         super.add(play, c);
         JButton ranking = new JButton("Ranking");
         c.gridy = 6;
         ranking.setBackground(new Color(0, 225, 0));
+        ranking.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                base.changeCenter(new PantallaClassificacio(base));
+                PantallaInici.super.setVisible(false);
+            }
+        });
         super.add(ranking, c);
         JButton rules = new JButton("Rules");
         c.gridy = 7;
         rules.setBackground(new Color(0, 200, 0));
+        rules.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                base.changeCenter(new PantallaRules(base));
+                PantallaInici.super.setVisible(false);
+            }
+        });
         super.add(rules, c);
         JButton about = new JButton("About");
         c.gridy = 8;
         about.setBackground(new Color(0, 175, 0));
+        about.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                base.changeCenter(new PantallaAbout(base));
+                PantallaInici.super.setVisible(false);
+            }
+        });
         super.add(about, c);
         JButton close = new JButton("Close");
         c.gridy = 9;
         close.setBackground(new Color(0, 150, 0));
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
         super.add(close, c);
         JPanel buit = new JPanel();
         c.gridy = 10;
