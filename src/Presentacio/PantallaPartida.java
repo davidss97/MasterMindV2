@@ -5,6 +5,8 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.plaf.basic.BasicButtonUI;
+import javax.swing.plaf.basic.BasicRadioButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,12 +78,27 @@ public class PantallaPartida {
                                 int bgCount = 0;
                                 JRadioButton[] radios = new JRadioButton[colors.length];
                                 for (int i = 0; i < colors.length; i++) {
+                                    final int ipri = 1;
                                     radios[i] = new JRadioButton();
+
+                                    radios[i].setUI(new BasicRadioButtonUI());
+                                    radios[i].updateUI();
+                                    radios[i].addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent e) {
+                                            radios[ipri].setSelected(true);
+                                           /* radios[ipri].updateUI();
+                                            radios[ipri].setUI(new BasicRadioButtonUI());*/
+                                        }
+                                    });
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
                                     if(repetir && usats[i]){
                                         radios[i].setVisible(false);
                                         System.out.println(i + " JA USAT");
                                     }
+                                    /*try {
+                                        UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+                                    } catch (Exception ex) {// Manejo de excepción...
+                                    }*/
                                     bg.add(radios[i]);
                                     bgCount++;
                                 }
@@ -284,14 +301,6 @@ public class PantallaPartida {
               }
           }});
 
-
-
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-        } catch (Exception ex) {// Manejo de excepción...
-        }
-
-
         frame.add(lab, BorderLayout.WEST);
         frame.add(derecha, BorderLayout.EAST);
 
@@ -303,6 +312,10 @@ public class PantallaPartida {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        /*try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+        } catch (Exception ex) {// Manejo de excepción...
+        }*/
     }
 
 
