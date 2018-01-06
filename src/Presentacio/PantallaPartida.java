@@ -17,9 +17,13 @@ public class PantallaPartida {
     static JButton[][] buttons;
     static JButton[][] smallbuttons;
     final int rondesS;
-    public PantallaPartida(MasterMind mm, final Integer[][] colors, int rondes, final int forats, final boolean rol){//Rol: Maker:false , Breaker:true
+    boolean[] usats;
+    public PantallaPartida(MasterMind mm, final Integer[][] colors, int rondes, final int forats, final boolean rol,  final boolean repetir){//Rol: Maker:false , Breaker:true
 
-        Partida p =  new Partida(forats, colors.length, rondes, true);//repetirForats = true
+        Partida p =  new Partida(forats, colors.length, rondes, repetir);//repetirForats = true
+
+        usats = new boolean[colors.length];
+        Arrays.fill(usats, false);
 
         if(rol){//La maquina fa de codebreaker
             p.setCodeM(new Maquina(false, p));
@@ -74,6 +78,7 @@ public class PantallaPartida {
                                 for (int i = 0; i < colors.length; i++) {
                                     radios[i] = new JRadioButton();
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
+
                                     bg.add(radios[i]);
                                     bgCount++;
                                 }
@@ -110,6 +115,8 @@ public class PantallaPartida {
                                         if (source instanceof Component) {
                                             ((Component) source).setBackground(new Color(colors[inde][0], colors[inde][1], colors[inde][2]));
                                         }
+                                        usats[inde] = true;
+
                                     } else if (seleccion == 1) {
                                         //cancel
                                     }
@@ -259,6 +266,7 @@ public class PantallaPartida {
                             String guardar = JOptionPane.showInputDialog(frame, "Has resolt la partida en "+ronda+" rondes, vols guardar partida?\nIntrodueix el teu nom:");
                             if(guardar != null) {
                                 System.out.println("El nom del jugador es: " + guardar);
+                                mm.guardarPartida(guardar, ronda);
                                 // AFEGIR CODI PER GUARDAR PARTIDA:
                                 // MasterMind.guardarPartida(guardar, ronda);
                             }
@@ -305,6 +313,8 @@ public class PantallaPartida {
         System.out.println("la combinacio a enviar es: " + number);
 
         ronda++;
+        Arrays.fill(usats, false);
+
         return Integer.parseInt(number);
     }
 
