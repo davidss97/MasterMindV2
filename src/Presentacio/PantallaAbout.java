@@ -12,7 +12,8 @@ public class PantallaAbout extends JPanel{
         this.base = base;
         super.setLayout(new BorderLayout());
         super.setBackground(new Color(250, 50, 123));
-        JLabel about = new JLabel ("<html>This game was created by Enric Sales, David Sánchez and Oscar Segarra for educational purposes.<br> It belongs to a project from PROP in our undergraduate studies at FIB from UPC.<br> As such, it is not allowed for it to be sold or copied.<br> Thank you for playing MasterMind.");
+        JLabel about = new JLabel ("<html><center>This game was created by Enric Sales, David Sánchez and Oscar Segarra for educational purposes.<br><br> MasterMind belongs to a project from PROP in our undergraduate studies at FIB from UPC.<br> As such, it is not allowed for it to be sold or copied.<br><br>  Thank you for playing MasterMind.</center>", SwingConstants.CENTER);
+        //about.setFont(new Font("Serif", Font.PLAIN, 18));
         super.add(about, BorderLayout.CENTER);
         HomeButton home = new HomeButton();
         home.addActionListener(new ActionListener() {

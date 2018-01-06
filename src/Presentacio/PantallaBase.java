@@ -21,16 +21,16 @@ public class PantallaBase {
         frame.setLayout(new GridBagLayout());
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 1;
-        c.weightx = 0.4;
+        /*c.weightx = 0.4;
         c.weighty = 1;
         c.gridx = 0;
         c.gridy = 0;
-        frame.add(pleft, c);
+        frame.add(pleft, c);*/
         changeCenter(new PantallaInici(this));
-        c.weightx = 0.4;
+        /*c.weightx = 0.4;
         c.gridx = 3;
         c.gridy = 0;
-        frame.add(pright, c);
+        frame.add(pright, c);*/
 
         frame.setVisible(true);
 
@@ -41,6 +41,7 @@ public class PantallaBase {
         c.gridx = 1;
         c.gridy = 0;
         c.weightx = 1;
+        c.weighty = 1;
         frame.add(center, c);
     }
 }

@@ -1,7 +1,8 @@
 package Presentacio;
 
+import Domini.MasterMind;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +12,8 @@ import java.util.Arrays;
 
 public class PantallaFabrica extends JPanel {
 
-    private JPanel panelextern = new JPanel(new BorderLayout());
     private JPanel panel =  new JPanel(new GridBagLayout());
+    private JPanel panelextern =  new JPanel(new BorderLayout());
     private GridBagConstraints c = new GridBagConstraints();
     private Toolkit tk = Toolkit.getDefaultToolkit();
 
@@ -34,9 +35,11 @@ public class PantallaFabrica extends JPanel {
     private JLabel forats = new JLabel("Write the number of Holes: ");
     private JTextField f1 = new JTextField(3);
 
+    private int cont;
     private JLabel colors = new JLabel("Select the Colors: ");
     private JTextField c1 = new JTextField(3);
     private JButton c2 = new JButton("Add");
+    //private JLabel c3 = new JLabel("Add " + cont + " Colors");
     private Color col;
 
     static <Integer> int[][] append(int[][] arr, int[] element) {
@@ -65,7 +68,7 @@ public class PantallaFabrica extends JPanel {
         panel.setBackground(Color.RED);
         panelextern.setBackground(Color.RED);
 
-        panelextern.add(panel, BorderLayout.CENTER);
+        panelextern.add(panel,BorderLayout.CENTER);
 
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
@@ -88,6 +91,8 @@ public class PantallaFabrica extends JPanel {
         bg2.add(hrd);
         bg2.add(cstm);
 
+        c.anchor = GridBagConstraints.WEST;
+
         //text centrat
         f1.setHorizontalAlignment(JTextField.CENTER);
         c1.setHorizontalAlignment(JTextField.CENTER);
@@ -105,6 +110,7 @@ public class PantallaFabrica extends JPanel {
         p1.setSelected(false);
         p1.setEnabled(false);
 
+
         //si es selecciona facil, es 2 3 6 no i desactivats
         esy.addActionListener(new ActionListener() {
             @Override
@@ -118,6 +124,20 @@ public class PantallaFabrica extends JPanel {
                 r1.setEnabled(false);
                 p1.setSelected(false);
                 p1.setEnabled(false);
+
+                //[#colors][3]   255,255,255 = blanc
+                colorss = new int[3][3];
+                colorss[0][0] = 255;
+                colorss[0][1] = 255;
+                colorss[0][2] = 255;
+
+                colorss[1][0] = 0;
+                colorss[1][1] = 0;
+                colorss[1][2] = 0;
+
+                colorss[2][0] = 0;
+                colorss[2][1] = 0;
+                colorss[2][2] = 255;
             }
         });
 
@@ -134,6 +154,24 @@ public class PantallaFabrica extends JPanel {
                 r1.setEnabled(false);
                 p1.setSelected(true);
                 p1.setEnabled(false);
+
+                //[#colors][3]   255,255,255 = blanc
+                colorss = new int[4][3];
+                colorss[0][0] = 255;
+                colorss[0][1] = 255;
+                colorss[0][2] = 255;
+
+                colorss[1][0] = 0;
+                colorss[1][1] = 0;
+                colorss[1][2] = 0;
+
+                colorss[2][0] = 0;
+                colorss[2][1] = 0;
+                colorss[2][2] = 255;
+
+                colorss[3][0] = 0;
+                colorss[3][1] = 255;
+                colorss[3][2] = 0;
             }
         });
 
@@ -150,6 +188,32 @@ public class PantallaFabrica extends JPanel {
                 r1.setEnabled(false);
                 p1.setSelected(true);
                 p1.setEnabled(false);
+
+                //[#colors][3]   255,255,255 = blanc
+                colorss = new int[6][3];
+                colorss[0][0] = 255;
+                colorss[0][1] = 255;
+                colorss[0][2] = 255;
+
+                colorss[1][0] = 0;
+                colorss[1][1] = 0;
+                colorss[1][2] = 0;
+
+                colorss[2][0] = 0;
+                colorss[2][1] = 0;
+                colorss[2][2] = 255;
+
+                colorss[3][0] = 0;
+                colorss[3][1] = 255;
+                colorss[3][2] = 0;
+
+                colorss[4][0] = 255;
+                colorss[4][1] = 0;
+                colorss[4][2] = 0;
+
+                colorss[5][0] = 100;
+                colorss[5][1] = 100;
+                colorss[5][2] = 100;
             }
         });
 
@@ -166,6 +230,19 @@ public class PantallaFabrica extends JPanel {
                 r1.setEnabled(true);
                 p1.setSelected(false);
                 p1.setEnabled(true);
+
+                cont = 0;
+
+                //[#colors][3]   255,255,255 = blanc
+                //colorss = new int[Integer.parseInt(c1.getText())][3];
+                colorss = new int[2][3];
+                colorss[0][0] = 255;
+                colorss[0][1] = 255;
+                colorss[0][2] = 255;
+
+                colorss[1][0] = 0;
+                colorss[1][1] = 0;
+                colorss[1][2] = 0;
             }
         });
 
@@ -178,12 +255,14 @@ public class PantallaFabrica extends JPanel {
             }
         });
 
-        colorss = new int[0][0];
         c2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                col = JColorChooser.showDialog(null,"Paleto",Color.RED);
-                int color[] = {col.getRed(), col.getGreen(),col.getBlue()};
-                colorss = append(colorss,color);
+                if (cont < (Integer.parseInt(c1.getText()) - 2))
+                    col = JColorChooser.showDialog(null, "Paleto", Color.RED);
+                    cont++;
+                    int color[] = {col.getRed(), col.getGreen(), col.getBlue()};
+                    colorss = append(colorss, color);
+                if (cont == (Integer.parseInt(c1.getText()) - 2)) c2.setEnabled(false);
 
                 for(int i = 0; i < colorss.length; i++)
                     System.out.println( "[" + colorss[i][0] +"]," +"[" + colorss[i][1] +"]," +"[" + colorss[i][2] +"],");
@@ -216,8 +295,8 @@ public class PantallaFabrica extends JPanel {
                     foratss = Integer.parseInt(f1.getText());
                     //colorss = Integer.parseInt(c1.getText());
                     rondess = Integer.parseInt(r1.getText());
-                    repetibless = p1.isSelected();
                 }
+
 
                 //si custom amb caracteristiques duna dificultat predeterminada
                 if (cstm.isSelected() && f1.getText().equals("2") && c1.getText().equals("3") && r1.getText().equals("6") && !p1.isSelected()){
@@ -235,9 +314,13 @@ public class PantallaFabrica extends JPanel {
                 //passem parametres a partida
                 //AMB AIXÒ M'OBLIDO DEL ROL --> next level (true = CB)
                 roless = cb.isSelected();
+                repetibless = p1.isSelected();
 
-                //base.changeCenter(new PantallaPartida(colorss,rondess,foratss,roless));
-                base.changeCenter(new PantallaInici(base));
+                //CAL CHECKEJAR COLORSS.LENGTH == Integer.parseInt(c1.getText())
+                new PantallaPartida(new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
+                //new PantallaPartida(colorss,rondess,foratss,roless);
+                //new MasterMind(foratss,Integer.parseInt(c1.getText()),rondess,repetibless);
+                //base.changeCenter(new PantallaInici(base));
                 PantallaFabrica.super.setVisible(false);
 
                 //CALDRA ESBORRAR, ES PER COMPROVAR QUE ELS PARAMETRES ESTAN READY TO GO
@@ -272,7 +355,6 @@ public class PantallaFabrica extends JPanel {
             }
         });
         c1.addKeyListener(new KeyListener() {
-            @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 //que fagi un beep() si NO és un digit o la tecla d'esborrar
@@ -367,6 +449,10 @@ public class PantallaFabrica extends JPanel {
         c.gridy = 4;
         panel.add(c2,c);
 
+        /*c.gridx = 3;
+        c.gridy = 4;
+        panel.add(c3,c);*/
+
         c.gridx = 0;
         c.gridy = 5;
         panel.add(rondes,c);
@@ -387,7 +473,7 @@ public class PantallaFabrica extends JPanel {
         c.gridy = 20;
         panel.add(start,c);
 
-        panelextern.add(home, BorderLayout.PAGE_END);
+        panelextern.add(home,BorderLayout.PAGE_END);
 
         super.setVisible(true);
     }
