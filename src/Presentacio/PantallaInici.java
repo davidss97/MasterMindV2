@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class PantallaInici extends JPanel{
     private PantallaBase base;
-    PantallaInici(PantallaBase base){
+    public PantallaInici(PantallaBase base){
         this.base = base;
         super.setBackground(Color.YELLOW);
         super.setLayout(new GridBagLayout());

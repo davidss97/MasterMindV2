@@ -6,7 +6,7 @@ import java.awt.*;
 public class PantallaBase {
     private JFrame frame = new JFrame("Mastermind");
     private GridBagConstraints c = new GridBagConstraints();
-    PantallaBase(){
+    public PantallaBase(){
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
@@ -16,8 +16,8 @@ public class PantallaBase {
         JPanel pright = new JPanel();
         pleft.setBackground(Color.BLUE);
         pright.setBackground(Color.BLUE);
-        pleft.setMinimumSize(new Dimension(xSize/3*2/4,ySize/10*9));
-        pright.setMinimumSize(new Dimension(xSize/3*2/4,ySize/10*9));
+        //pleft.setMaximumSize(new Dimension(xSize/3*2/4,ySize/10*9));
+        //pright.setMaximumSize(new Dimension(xSize/3*2/4,ySize/10*9));
         frame.setLayout(new GridBagLayout());
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 1;
@@ -26,9 +26,8 @@ public class PantallaBase {
         c.gridx = 0;
         c.gridy = 0;
         frame.add(pleft, c);
-        changeCenter(new PantallaInici());
+        changeCenter(new PantallaInici(this));
         c.weightx = 0.4;
-        c.gridwidth = 1;
         c.gridx = 3;
         c.gridy = 0;
         frame.add(pright, c);
@@ -41,7 +40,6 @@ public class PantallaBase {
     public void changeCenter(JPanel center){
         c.gridx = 1;
         c.gridy = 0;
-        c.gridwidth = 2;
         c.weightx = 1;
         frame.add(center, c);
     }
