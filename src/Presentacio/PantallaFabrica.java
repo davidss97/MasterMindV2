@@ -65,8 +65,8 @@ public class PantallaFabrica extends JPanel {
 
     PantallaFabrica(PantallaBase base){
         this.base = base;
-        panel.setBackground(Color.RED);
-        panelextern.setBackground(Color.RED);
+        panel.setBackground(new Color(0, 225, 0));
+        panelextern.setBackground(new Color(0, 225, 0));
 
         panelextern.add(panel,BorderLayout.CENTER);
 

@@ -75,7 +75,7 @@ public class PantallaClassificacio extends JPanel{
     PantallaClassificacio(PantallaBase base){
 
         this.base = base;
-        panel.setBackground(Color.GREEN);
+        panel.setBackground(new Color(0, 195, 0));
         super.setLayout(new BorderLayout());
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());

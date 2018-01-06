@@ -10,8 +10,8 @@ public class PantallaRules extends JPanel{
     public PantallaRules(PantallaBase base){
         this.base = base;
         super.setLayout(new BorderLayout());
-        super.setBackground (new Color(40, 40, 40));
-        JLabel rules = new JLabel("<html><ul color=white><li>The computer picks a sequence of colors. The number of colors is the code length. The default code length is 4 but it can be changed when starting a new game." +
+        super.setBackground (new Color(0, 165, 0));
+        JLabel rules = new JLabel("<html><ul><li>The computer picks a sequence of colors. The number of colors is the code length. The default code length is 4 but it can be changed when starting a new game." +
                 "<li>The objective of the game is to guess the exact positions of the colors in the computer's sequence." +
                 "<li>By default, a color can be used only once in a code sequence. If you start a new game with the 'Allow duplicates' checked, then any color can be used any number of times in the code sequence." +
                 "<li>After filling a line with your guesses and clicking on the 'Check' button, the computer responses with the result of your guess." +
