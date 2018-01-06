@@ -320,7 +320,7 @@ public class PantallaFabrica extends JPanel {
                 new PantallaPartida(new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
                 //new PantallaPartida(colorss,rondess,foratss,roless);
                 //new MasterMind(foratss,Integer.parseInt(c1.getText()),rondess,repetibless);
-                //base.changeCenter(new PantallaInici(base));
+                base.changeCenter(new PantallaInici(base));
                 PantallaFabrica.super.setVisible(false);
 
                 //CALDRA ESBORRAR, ES PER COMPROVAR QUE ELS PARAMETRES ESTAN READY TO GO
