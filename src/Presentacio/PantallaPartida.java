@@ -1,9 +1,6 @@
 package Presentacio;
 
-import Domini.Jugador;
-import Domini.Maquina;
-import Domini.Partida;
-import Domini.Peca;
+import Domini.*;
 import com.sun.org.apache.xpath.internal.SourceTree;
 
 import javax.swing.*;
@@ -20,7 +17,7 @@ public class PantallaPartida {
     static JButton[][] buttons;
     static JButton[][] smallbuttons;
     final int rondesS;
-    public PantallaPartida(final Integer[][] colors,int rondes,final int forats,final boolean rol){//Rol: Maker:false , Breaker:true
+    public PantallaPartida(MasterMind mm, final Integer[][] colors, int rondes, final int forats, final boolean rol){//Rol: Maker:false , Breaker:true
 
         Partida p =  new Partida(forats, colors.length, rondes, true);//repetirForats = true
 
@@ -139,7 +136,7 @@ public class PantallaPartida {
 
         panelCentral.setPreferredSize(new Dimension(230, 500));
         frame.add(panelCentral, BorderLayout.CENTER);
-        JLabel lab = new JLabel("                         ");
+        JLabel lab = new JLabel("                          ");
         lab.setSize(new Dimension(800,300));
         JLabel lab2 = new JLabel("                       ");
         lab.setSize(new Dimension(800,300));
@@ -265,6 +262,9 @@ public class PantallaPartida {
                                 // AFEGIR CODI PER GUARDAR PARTIDA:
                                 // MasterMind.guardarPartida(guardar, ronda);
                             }
+
+                            System.exit(0);
+
                         }
                     }
                      /**/
