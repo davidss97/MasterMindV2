@@ -78,7 +78,10 @@ public class PantallaPartida {
                                 for (int i = 0; i < colors.length; i++) {
                                     radios[i] = new JRadioButton();
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
-
+                                    if(usats[i]){
+                                        radios[i].setVisible(false);
+                                        System.out.println(i + " JA USAT");
+                                    }
                                     bg.add(radios[i]);
                                     bgCount++;
                                 }
@@ -281,10 +284,20 @@ public class PantallaPartida {
               }
           }});
 
+
+        /*
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception ex) {// Manejo de excepción...
+        }*/
+
+
         frame.add(lab, BorderLayout.WEST);
         frame.add(derecha, BorderLayout.EAST);
 
         frame.add(panelCentral, BorderLayout.CENTER);
+
+        acc.setSelected(false);
 
         frame.setSize(250+55*forats, (rondes+2)*55);
         frame.setResizable(false);
