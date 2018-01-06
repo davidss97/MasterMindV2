@@ -1,6 +1,7 @@
 package Presentacio;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 
 public class PantallaFabrica extends JPanel {
 
+    private JPanel panelextern = new JPanel(new BorderLayout());
     private JPanel panel =  new JPanel(new GridBagLayout());
     private GridBagConstraints c = new GridBagConstraints();
     private Toolkit tk = Toolkit.getDefaultToolkit();
@@ -61,6 +63,9 @@ public class PantallaFabrica extends JPanel {
     PantallaFabrica(PantallaBase base){
         this.base = base;
         panel.setBackground(Color.RED);
+        panelextern.setBackground(Color.RED);
+
+        panelextern.add(panel, BorderLayout.CENTER);
 
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
@@ -68,7 +73,7 @@ public class PantallaFabrica extends JPanel {
         super.setLayout(new GridLayout(1,3));
         //super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        super.add(panel, BorderLayout.NORTH);
+        super.add(panelextern, BorderLayout.NORTH);
 
         //Espai mínim entre contingut i marge
         c.insets = new Insets(10,10,10,10);
@@ -382,9 +387,7 @@ public class PantallaFabrica extends JPanel {
         c.gridy = 20;
         panel.add(start,c);
 
-        c.gridx = 8;
-        c.gridy = 20;
-        panel.add(home,c);
+        panelextern.add(home, BorderLayout.PAGE_END);
 
         super.setVisible(true);
     }
