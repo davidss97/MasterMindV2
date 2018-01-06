@@ -12,13 +12,13 @@ import java.util.*;
 
 public class PantallaPartida {
     int ronda = 0;
-    Integer[][] vecColors;
+    int[][] vecColors;
     int foratsGlob;
     static JButton[][] buttons;
     static JButton[][] smallbuttons;
     final int rondesS;
     boolean[] usats;
-    public PantallaPartida(MasterMind mm, final Integer[][] colors, int rondes, final int forats, final boolean rol,  final boolean repetir){//Rol: Maker:false , Breaker:true
+    public PantallaPartida(MasterMind mm, final int[][] colors, int rondes, final int forats, final boolean rol,  final boolean repetir){//Rol: Maker:false , Breaker:true
 
         Partida p =  new Partida(forats, colors.length, rondes, repetir);//repetirForats = true
 
@@ -78,7 +78,7 @@ public class PantallaPartida {
                                 for (int i = 0; i < colors.length; i++) {
                                     radios[i] = new JRadioButton();
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
-                                    if(usats[i]){
+                                    if(repetir && usats[i]){
                                         radios[i].setVisible(false);
                                         System.out.println(i + " JA USAT");
                                     }
@@ -285,11 +285,11 @@ public class PantallaPartida {
           }});
 
 
-        /*
+
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         } catch (Exception ex) {// Manejo de excepción...
-        }*/
+        }
 
 
         frame.add(lab, BorderLayout.WEST);
