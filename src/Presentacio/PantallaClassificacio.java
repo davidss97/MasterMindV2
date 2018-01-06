@@ -76,14 +76,14 @@ public class PantallaClassificacio extends JPanel{
 
         this.base = base;
         panel.setBackground(Color.GREEN);
-
+        super.setLayout(new BorderLayout());
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
         super.setSize(xSize/3*2, ySize/10*9);
-        super.setLayout(new GridLayout(1,3));
+        //super.setLayout(new GridLayout(1,3));
         //super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        super.add(panel, BorderLayout.NORTH);
+        super.add(panel, BorderLayout.CENTER);
 
         //Espai mínim entre contingut i marge
         c.insets = new Insets(10,10,10,10);
@@ -409,9 +409,7 @@ public class PantallaClassificacio extends JPanel{
         c.gridy = 11;
         panel.add(R10,c);
 
-        c.gridx = 8;
-        c.gridy = 20;
-        panel.add(home,c);
+        super.add(home, BorderLayout.PAGE_END);
 
         super.setVisible(true);
     }
