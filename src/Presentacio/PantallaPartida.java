@@ -31,7 +31,7 @@ public class PantallaPartida {
         if(rol){//La maquina fa de codebreaker
             p.setCodeM(new Maquina(false, p));
             p.setCodeB(new Jugador(true, p));
-            ((Maquina) p.getCodeM()).crearCodi(forats, colors.length, true);
+            ((Maquina) p.getCodeM()).crearCodi(forats, colors.length, repetir);
         }else{
             p.setCodeB(new Maquina(true, p));
             p.setCodeM(new Jugador(false, p));
