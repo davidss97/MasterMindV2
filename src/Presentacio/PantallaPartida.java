@@ -78,7 +78,7 @@ public class PantallaPartida {
                                 for (int i = 0; i < colors.length; i++) {
                                     radios[i] = new JRadioButton();
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
-                                    if(usats[i]){
+                                    if(repetir && usats[i]){
                                         radios[i].setVisible(false);
                                         System.out.println(i + " JA USAT");
                                     }
@@ -287,7 +287,7 @@ public class PantallaPartida {
 
 
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         } catch (Exception ex) {// Manejo de excepción...
         }
 
