@@ -110,6 +110,32 @@ public class Classificacio {
             e.printStackTrace();
         }
     }
+
+    //Vull passar LinkedList llista de capa Dades a capa Presentació
+    public static LinkedList getLlista (String path){
+        BufferedReader br;
+        LinkedList<String> llista = new LinkedList<String>();
+        String linea;
+        //String cadena,linea;
+        //Iterator iter;
+        try {
+            br = new BufferedReader(new FileReader(path));
+            while ((linea = br.readLine()) != null){
+                llista.add(linea);
+            }
+            /*iter = llista.iterator();
+            while (iter.hasNext())
+            {
+                cadena = (String) iter.next();
+                //MOSTRAR PER PANTALLA
+                System.out.println(cadena);
+            }*/
+            br.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("No s'ha trobat el fitxer");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return llista;
+    }
 }
-
-
