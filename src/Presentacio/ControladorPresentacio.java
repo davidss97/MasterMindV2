@@ -1,6 +1,7 @@
 package Presentacio;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ControladorPresentacio {
     public static void main(String[] args) {
@@ -14,6 +15,17 @@ public class ControladorPresentacio {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
+        setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.PLAIN,18));
         new PantallaBase();
+    }
+
+    public static void setUIFont (javax.swing.plaf.FontUIResource f){
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get (key);
+            if (value instanceof javax.swing.plaf.FontUIResource)
+                UIManager.put (key, f);
+        }
     }
 }
