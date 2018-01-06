@@ -96,7 +96,7 @@ public class PantallaPartida {
                                         }
                                     });
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
-                                    if(repetir && usats[i]){
+                                    if(!repetir && usats[i]){
                                         radios[i].setVisible(false);
                                         System.out.println(i + " JA USAT");
                                     }
@@ -329,7 +329,7 @@ public class PantallaPartida {
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
 
-        frame.setSize(250+(xSize/24)*forats, (rondes+2)*(ySize/16));
+        frame.setSize(xSize/5+(ySize/18)*forats, (rondes+4)*(ySize/18));
 
 
         //frame.setSize(250+55*forats, (rondes+2)*55);
