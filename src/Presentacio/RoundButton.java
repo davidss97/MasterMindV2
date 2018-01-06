@@ -6,11 +6,17 @@ import javax.swing.*;
 
 public class RoundButton extends JButton {
     int tam;
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    int xSize = ((int) tk.getScreenSize().getWidth());
+    int ySize = ((int) tk.getScreenSize().getHeight());
+
     public RoundButton(Boolean small, int c1, int c2, int c3) {
         super("");
         setBackground(new Color(c1,c2,c3));
         setFocusable(false);
-        tam = 15;
+
+        tam = ySize/64;
     /*
      These statements enlarge the button so that it
      becomes a circle rather than an oval.
@@ -32,7 +38,7 @@ public class RoundButton extends JButton {
 
         setBackground(new Color(c1,c2,c3));
         setFocusable(false);
-        tam = 50;
+        tam = ySize/18;
     /*
      These statements enlarge the button so that it
      becomes a circle rather than an oval.
