@@ -79,7 +79,7 @@ public class PantallaClassificacio extends JPanel{
         super.setLayout(new BorderLayout());
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
-        super.setSize(xSize/3*2, ySize/10*9);
+        //super.setSize(xSize/3*2, ySize/10*9);
         //super.setLayout(new GridLayout(1,3));
         //super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
