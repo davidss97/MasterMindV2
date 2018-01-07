@@ -26,9 +26,9 @@ public class PantallaClassificacio extends JPanel{
     private String BB = "";
     private Iterator iter;
 
-    private JLabel PP = new JLabel("Posició");
-    private JLabel NN = new JLabel("Nom");
-    private JLabel RR = new JLabel("Rondes");
+    private JLabel PP = new JLabel("Ranking");
+    private JLabel NN = new JLabel("Name");
+    private JLabel RR = new JLabel("Rounds");
 
     private JLabel L1 = new JLabel(" ");
     private JLabel N1 = new JLabel(" ");

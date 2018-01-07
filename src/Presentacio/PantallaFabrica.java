@@ -4,10 +4,7 @@ import Domini.MasterMind;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.Arrays;
 
 public class PantallaFabrica extends JPanel {
@@ -16,6 +13,10 @@ public class PantallaFabrica extends JPanel {
     private JPanel panelextern =  new JPanel(new BorderLayout());
     private GridBagConstraints c = new GridBagConstraints();
     private Toolkit tk = Toolkit.getDefaultToolkit();
+
+    private ItemHandler hf1 = new ItemHandler();
+    private ItemHandler hc1 = new ItemHandler();
+    private ItemHandler hr1 = new ItemHandler();
 
     private ButtonGroup bg1 = new ButtonGroup();
     private JLabel roles = new JLabel("Select your Role: ");
@@ -33,13 +34,14 @@ public class PantallaFabrica extends JPanel {
     private JRadioButton cstm = new JRadioButton("Custom");
 
     private JLabel forats = new JLabel("Write the number of Holes: ");
-    private JTextField f1 = new JTextField(3);
+    private JComboBox f1 = new JComboBox();
 
     private int cont;
-    private JLabel colors = new JLabel("Select the Colors: ");
-    private JTextField c1 = new JTextField(3);
+    private JLabel colors = new JLabel("Write the number of Colors: ");
+    private JComboBox c1 = new JComboBox();
     private JButton c2 = new JButton("Add");
-    //private JLabel c3 = new JLabel("Add " + cont + " Colors");
+    private JLabel c3 = new JLabel("Black and White already added.");
+    private JLabel c4 = new JLabel("");
     private Color col;
 
     static <Integer> int[][] append(int[][] arr, int[] element) {
@@ -49,8 +51,8 @@ public class PantallaFabrica extends JPanel {
         return arr;
     }
 
-    private JLabel rondes = new JLabel("Write the number of Rounds: ");
-    private JTextField r1 = new JTextField(3);
+    private JLabel rondes = new JLabel("Select the number of Rounds: ");
+    private JComboBox r1 = new JComboBox();
 
     private JLabel repetibles = new JLabel("Choose if Colors can be Repeated: ");
     private JCheckBox p1 = new JCheckBox("Repeatable Colors");
@@ -85,42 +87,84 @@ public class PantallaFabrica extends JPanel {
         bg1.add(cb);
         bg1.add(cm);
 
-        esy.setSelected(true);
+        //esy.setSelected(true);
         bg2.add(esy);
         bg2.add(mdm);
         bg2.add(hrd);
         bg2.add(cstm);
 
+        ((JLabel)f1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        ((JLabel)c1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        ((JLabel)r1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+
+        f1.addItem("Choose...");
+        c1.addItem("Choose...");
+        r1.addItem("Choose...");
+
+        for (int i=2; i<10; i++) f1.addItem(i);
+        for (int i=2; i<16; i++) c1.addItem(i);
+        for (int i=1; i<21; i++) r1.addItem(i);
+
+        f1.addItemListener(hf1);
+        c1.addItemListener(hc1);
+        r1.addItemListener(hr1);
+
         c.anchor = GridBagConstraints.WEST;
 
+        c3.setFont(new Font("Serif",Font.PLAIN,13));
+        c4.setFont(new Font("Serif",Font.PLAIN,13));
+
         //text centrat
-        f1.setHorizontalAlignment(JTextField.CENTER);
-        c1.setHorizontalAlignment(JTextField.CENTER);
-        r1.setHorizontalAlignment(JTextField.CENTER);
+        //f1.setHorizontalAlignment(JTextField.CENTER);
+        //c1.setHorizontalAlignment(JTextField.CENTER);
+        //r1.setHorizontalAlignment(JTextField.CENTER);
 
         //de primeres es cb i facil
         //tema roles es indiferent pq es contempla mes endavant
-        f1.setText("2");
+        esy.doClick();
+        esy.setSelected(true);
+
+        colorss = new int[3][3];
+        colorss[0][0] = 255;
+        colorss[0][1] = 255;
+        colorss[0][2] = 255;
+
+        colorss[1][0] = 0;
+        colorss[1][1] = 0;
+        colorss[1][2] = 0;
+
+        colorss[2][0] = 0;
+        colorss[2][1] = 0;
+        colorss[2][2] = 255;
+
+        foratss = 2;
+        rondess = 6;
+        repetibless = false;
+
+        f1.setSelectedItem(2);
         f1.setEnabled(false);
-        c1.setText("3");
+        c1.setSelectedItem(3);
         c1.setEnabled(false);
-        c2.setEnabled(false);
-        r1.setText("6");
+        c2.setVisible(false);
+        c3.setVisible(false);
+        c4.setVisible(false);
+        r1.setSelectedItem(6);
         r1.setEnabled(false);
         p1.setSelected(false);
         p1.setEnabled(false);
-
 
         //si es selecciona facil, es 2 3 6 no i desactivats
         esy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f1.setText("2");
+                f1.setSelectedItem(2);
                 f1.setEnabled(false);
-                c1.setText("3");
+                c1.setSelectedItem(3);
                 c1.setEnabled(false);
-                c2.setEnabled(false);
-                r1.setText("6");
+                c2.setVisible(false);
+                c3.setVisible(false);
+                c4.setVisible(false);
+                r1.setSelectedItem(6);
                 r1.setEnabled(false);
                 p1.setSelected(false);
                 p1.setEnabled(false);
@@ -145,12 +189,14 @@ public class PantallaFabrica extends JPanel {
         mdm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f1.setText("3");
+                f1.setSelectedItem(3);
                 f1.setEnabled(false);
-                c1.setText("4");
+                c1.setSelectedItem(4);
                 c1.setEnabled(false);
-                c2.setEnabled(false);
-                r1.setText("8");
+                c2.setVisible(false);
+                c3.setVisible(false);
+                c4.setVisible(false);
+                r1.setSelectedItem(8);
                 r1.setEnabled(false);
                 p1.setSelected(true);
                 p1.setEnabled(false);
@@ -179,12 +225,14 @@ public class PantallaFabrica extends JPanel {
         hrd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f1.setText("4");
+                f1.setSelectedItem(4);
                 f1.setEnabled(false);
-                c1.setText("6");
+                c1.setSelectedItem(6);
                 c1.setEnabled(false);
-                c2.setEnabled(false);
-                r1.setText("10");
+                c2.setVisible(false);
+                c3.setVisible(false);
+                c4.setVisible(false);
+                r1.setSelectedItem(10);
                 r1.setEnabled(false);
                 p1.setSelected(true);
                 p1.setEnabled(false);
@@ -221,15 +269,19 @@ public class PantallaFabrica extends JPanel {
         cstm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f1.setText("");
+                start.setEnabled(false);
+
+                f1.setSelectedItem("Choose...");
                 f1.setEnabled(true);
-                c1.setText("");
-                c1.setEnabled(true);
-                c2.setEnabled(true);
-                r1.setText("");
-                r1.setEnabled(true);
+                c1.setSelectedItem("Choose...");
+                c1.setEnabled(false);
+                c2.setVisible(false);
+                c3.setVisible(false);
+                c4.setVisible(false);
+                r1.setSelectedItem("Choose...");
+                r1.setEnabled(false);
                 p1.setSelected(false);
-                p1.setEnabled(true);
+                p1.setEnabled(false);
 
                 cont = 0;
 
@@ -255,17 +307,35 @@ public class PantallaFabrica extends JPanel {
             }
         });
 
+        //boto add
         c2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (cont < (Integer.parseInt(c1.getText()) - 2))
+                if (cont < (int)c1.getSelectedItem() - 2){
                     col = JColorChooser.showDialog(null, "Paleto", Color.RED);
-                    cont++;
+                    if (col!=null) cont++;
+                }
+
+                if (cont == ((int) c1.getSelectedItem() - 2)){
+                    //c1.setEnabled(false);
+                    c2.setVisible(false);
+                    c3.setVisible(false);
+                    c4.setVisible(false);
+                    r1.setEnabled(true);
+                }
+                else{
+                    //c3.setVisible(true);
+                    c4.setText("Please add " + ((int) c1.getSelectedItem() - 2 - cont) + " more Color/s.");
+                }
+
+                if (col!=null){
                     int color[] = {col.getRed(), col.getGreen(), col.getBlue()};
                     colorss = append(colorss, color);
-                if (cont == (Integer.parseInt(c1.getText()) - 2)) c2.setEnabled(false);
+                }
+                if (cont == ((int)c1.getSelectedItem() - 2)) c2.setEnabled(false);
 
-                for(int i = 0; i < colorss.length; i++)
-                    System.out.println( "[" + colorss[i][0] +"]," +"[" + colorss[i][1] +"]," +"[" + colorss[i][2] +"],");
+                for (int i = 0; i < colorss.length; i++)
+                    System.out.println("[" + colorss[i][0] + "]," + "[" + colorss[i][1] + "]," + "[" + colorss[i][2] + "],");
+
             }
         });
 
@@ -292,24 +362,118 @@ public class PantallaFabrica extends JPanel {
                     repetibless = true;
                 }
                 else if (cstm.isSelected()){
-                    foratss = Integer.parseInt(f1.getText());
+                    foratss = (int) f1.getSelectedItem();
                     //colorss = Integer.parseInt(c1.getText());
-                    rondess = Integer.parseInt(r1.getText());
+                    rondess = (int) r1.getSelectedItem();
                 }
 
 
                 //si custom amb caracteristiques duna dificultat predeterminada
-                if (cstm.isSelected() && f1.getText().equals("2") && c1.getText().equals("3") && r1.getText().equals("6") && !p1.isSelected()){
+                if (cstm.isSelected() && (int)f1.getSelectedItem()==2 && (int)c1.getSelectedItem()==3 && (int)r1.getSelectedItem()==6 && !p1.isSelected()){
                     cstm.setSelected(false);
-                    esy.doClick();
+                    //esy.doClick();
+                    esy.setSelected(true);
+                    f1.setSelectedItem(2);
+                    f1.setEnabled(false);
+                    c1.setSelectedItem(3);
+                    c1.setEnabled(false);
+                    c2.setVisible(false);
+                    c3.setVisible(false);
+                    c4.setVisible(false);
+                    r1.setSelectedItem(6);
+                    r1.setEnabled(false);
+                    p1.setSelected(false);
+                    p1.setEnabled(false);
+
+                    //[#colors][3]   255,255,255 = blanc
+                    colorss = new int[3][3];
+                    colorss[0][0] = 255;
+                    colorss[0][1] = 255;
+                    colorss[0][2] = 255;
+
+                    colorss[1][0] = 0;
+                    colorss[1][1] = 0;
+                    colorss[1][2] = 0;
+
+                    colorss[2][0] = 0;
+                    colorss[2][1] = 0;
+                    colorss[2][2] = 255;
                 }
-                else if (cstm.isSelected() && f1.getText().equals("3") && c1.getText().equals("4") && r1.getText().equals("8") && p1.isSelected()){
+                else if (cstm.isSelected() && (int)f1.getSelectedItem()==3 && (int)c1.getSelectedItem()==4 && (int)r1.getSelectedItem()==8 && p1.isSelected()){
                     cstm.setSelected(false);
-                    mdm.doClick();
+                    //mdm.doClick();
+                    mdm.setSelected(true);
+                    f1.setSelectedItem(3);
+                    f1.setEnabled(false);
+                    c1.setSelectedItem(4);
+                    c1.setEnabled(false);
+                    c2.setVisible(false);
+                    c3.setVisible(false);
+                    c4.setVisible(false);
+                    r1.setSelectedItem(8);
+                    r1.setEnabled(false);
+                    p1.setSelected(true);
+                    p1.setEnabled(false);
+
+                    //[#colors][3]   255,255,255 = blanc
+                    colorss = new int[4][3];
+                    colorss[0][0] = 255;
+                    colorss[0][1] = 255;
+                    colorss[0][2] = 255;
+
+                    colorss[1][0] = 0;
+                    colorss[1][1] = 0;
+                    colorss[1][2] = 0;
+
+                    colorss[2][0] = 0;
+                    colorss[2][1] = 0;
+                    colorss[2][2] = 255;
+
+                    colorss[3][0] = 0;
+                    colorss[3][1] = 255;
+                    colorss[3][2] = 0;
                 }
-                else if (cstm.isSelected() && f1.getText().equals("4") && c1.getText().equals("6") && r1.getText().equals("10") && p1.isSelected()){
+                else if (cstm.isSelected() && (int)f1.getSelectedItem()==4 && (int)c1.getSelectedItem()==6 && (int)r1.getSelectedItem()==10 && p1.isSelected()){
                     cstm.setSelected(false);
-                    hrd.doClick();
+                    //hrd.doClick();
+                    hrd.setSelected(true);
+                    f1.setSelectedItem(4);
+                    f1.setEnabled(false);
+                    c1.setSelectedItem(6);
+                    c1.setEnabled(false);
+                    c2.setVisible(false);
+                    c3.setVisible(false);
+                    c4.setVisible(false);
+                    r1.setSelectedItem(10);
+                    r1.setEnabled(false);
+                    p1.setSelected(true);
+                    p1.setEnabled(false);
+
+                    //[#colors][3]   255,255,255 = blanc
+                    colorss = new int[6][3];
+                    colorss[0][0] = 255;
+                    colorss[0][1] = 255;
+                    colorss[0][2] = 255;
+
+                    colorss[1][0] = 0;
+                    colorss[1][1] = 0;
+                    colorss[1][2] = 0;
+
+                    colorss[2][0] = 0;
+                    colorss[2][1] = 0;
+                    colorss[2][2] = 255;
+
+                    colorss[3][0] = 0;
+                    colorss[3][1] = 255;
+                    colorss[3][2] = 0;
+
+                    colorss[4][0] = 255;
+                    colorss[4][1] = 0;
+                    colorss[4][2] = 0;
+
+                    colorss[5][0] = 100;
+                    colorss[5][1] = 100;
+                    colorss[5][2] = 100;
                 }
                 //passem parametres a partida
                 //AMB AIXÒ M'OBLIDO DEL ROL --> next level (true = CB)
@@ -317,78 +481,23 @@ public class PantallaFabrica extends JPanel {
                 repetibless = p1.isSelected();
 
                 //CAL CHECKEJAR COLORSS.LENGTH == Integer.parseInt(c1.getText())
-                new PantallaPartida(new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
-                //new PantallaPartida(colorss,rondess,foratss,roless);
-                //new MasterMind(foratss,Integer.parseInt(c1.getText()),rondess,repetibless);
-                base.changeCenter(new PantallaInici(base));
-                PantallaFabrica.super.setVisible(false);
+                if (colorss.length == (int) c1.getSelectedItem()){
+                    new PantallaPartida(new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
+                    base.changeCenter(new PantallaInici(base));
+                    PantallaFabrica.super.setVisible(false);
+                }
+                else System.out.println("ERROR!");
+
 
                 //CALDRA ESBORRAR, ES PER COMPROVAR QUE ELS PARAMETRES ESTAN READY TO GO
                 System.out.println("Proves");
                 System.out.println(cstm.isSelected());
                 System.out.println(hrd.isSelected());
                 System.out.println(foratss);
-                System.out.println(c1.getText());
+                System.out.println(c1.getSelectedItem());
                 System.out.println(rondess);
                 System.out.println(repetibless);
                 System.out.println(roless);
-
-            }
-        });
-
-        f1.addKeyListener(new KeyListener() {
-              public void keyTyped(KeyEvent e) {
-                  char c = e.getKeyChar();
-                  //que fagi un beep() si NO és un digit o la tecla d'esborrar
-                  if (!((Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-                      getToolkit().beep();
-                      e.consume();
-                  }
-              }
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-        c1.addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                //que fagi un beep() si NO és un digit o la tecla d'esborrar
-                if (!((Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-                    getToolkit().beep();
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-        r1.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                //que fagi un beep() si NO és un digit o la tecla d'esborrar
-                if (!((Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-                    getToolkit().beep();
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-
             }
         });
 
@@ -449,24 +558,28 @@ public class PantallaFabrica extends JPanel {
         c.gridy = 4;
         panel.add(c2,c);
 
-        /*c.gridx = 3;
-        c.gridy = 4;
-        panel.add(c3,c);*/
+        c.gridx = 1;
+        c.gridy = 5;
+        panel.add(c3,c);
+
+        c.gridx = 2;
+        c.gridy = 5;
+        panel.add(c4,c);
 
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 6;
         panel.add(rondes,c);
 
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
         panel.add(r1,c);
 
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 7;
         panel.add(repetibles,c);
 
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 7;
         panel.add(p1,c);
 
         c.gridx = 1;
@@ -476,6 +589,58 @@ public class PantallaFabrica extends JPanel {
         panelextern.add(home,BorderLayout.PAGE_END);
 
         super.setVisible(true);
+    }
+
+    private class ItemHandler implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent event){
+            if (event.getSource() == f1){
+                if (f1.getSelectedItem() != "Choose..." && cstm.isSelected()){
+                    cb.setEnabled(false);
+                    cm.setEnabled(false);
+                    esy.setEnabled(false);
+                    mdm.setEnabled(false);
+                    hrd.setEnabled(false);
+                    cstm.setEnabled(false);
+
+                    //esborrem
+                    for (int i = 2; i < 16; i++) c1.removeItem(i);
+                    //afegim
+                    for (int i = (int) f1.getSelectedItem(); i < 16; i++) c1.addItem(i);
+                    f1.setEnabled(false);
+                    c1.setEnabled(true);
+                }
+                if (f1.getSelectedItem() != "Choose...") {
+                    f1.setEnabled(false);
+                    c1.setEnabled(true);
+                }
+            }
+            else if (event.getSource() == c1){
+                if (f1.getSelectedItem()!="Choose...") {
+                    if (((int) c1.getSelectedItem() - 2 - cont)==0){
+                        c1.setEnabled(false);
+                        r1.setEnabled(true);
+                        c3.setVisible(true);
+                    }
+                    else {
+                        c1.setEnabled(false);
+                        c2.setEnabled(true);
+                        c2.setVisible(true);
+                        c3.setVisible(true);
+                        c4.setText("Please add " + ((int) c1.getSelectedItem() - 2 - cont) + " more Color/s.");
+                        c4.setVisible(true);
+                    }
+                }
+                //r1.setEnabled(true);
+            }
+            else if (event.getSource()==r1){
+                if (r1.getSelectedItem()!="Choose...") {
+                    r1.setEnabled(false);
+                    p1.setEnabled(true);
+                    start.setEnabled(true);
+                }
+            }
+        }
     }
 
 }

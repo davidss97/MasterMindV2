@@ -15,7 +15,7 @@ public class ControladorPresentacio {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
-        setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.PLAIN,18));
+        setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.PLAIN,20));
         new PantallaBase();
     }
 
