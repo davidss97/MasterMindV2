@@ -168,6 +168,7 @@ public class PantallaPartida {
                     panelCentral.add(buttons[ii][jj]);
                 }
                 JPanel panelBW = new JPanel(new GridLayout(2, forats%2+1));
+                panelBW.setBackground(new Color(0,225,0));
                 for (int jj = 0; jj<forats; jj++) {
                     smallbuttons[ii][jj] = new RoundButton(true, colors[0][0], colors[0][1], colors[0][2]);
                     smallbuttons[ii][jj].setVisible(false);
@@ -192,14 +193,18 @@ public class PantallaPartida {
 
         panelCentral.setPreferredSize(new Dimension(230, 500));
         frame.add(panelCentral, BorderLayout.CENTER);
+        JPanel esquerra = new JPanel();
+        esquerra.setLayout(new FlowLayout());
+        esquerra.setBackground(new Color(0,225,0));
         JLabel lab = new JLabel("                          ");
+        lab.setBackground(new Color(0,225,0));
         lab.setSize(new Dimension(800,300));
         JLabel lab2 = new JLabel("                       ");
         lab.setSize(new Dimension(800,300));
         JButton acc = new JButton("Send");
         JPanel derecha = new JPanel();
         derecha.setLayout(new BorderLayout());
-
+        derecha.setBackground(new Color(0,225,0));
         derecha.add(lab2, BorderLayout.CENTER);
         derecha.add(acc, BorderLayout.SOUTH);
 
@@ -254,8 +259,10 @@ public class PantallaPartida {
                         }
 
                         if (rounds == rondesS && segueix) System.out.println("Has arribat al límit de rondes....");
-                        else
+                        else{
                             System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
+                            JOptionPane.showMessageDialog(frame, "Game solved in " + ronda+ " rounds");
+                        }
                     }else{
                         System.out.println("falten peces");
 
@@ -360,8 +367,9 @@ public class PantallaPartida {
 
 
 
-
-        frame.add(lab, BorderLayout.WEST);
+        lab.setBackground(new Color(0,225,0));
+        esquerra.add(lab);
+        frame.add(esquerra, BorderLayout.WEST);
         frame.add(derecha, BorderLayout.EAST);
 
         frame.add(panelCentral, BorderLayout.CENTER);
@@ -372,9 +380,12 @@ public class PantallaPartida {
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
 
+
+        panelCentral.setBackground(new Color(0,225,0));
+        derecha.setBackground(new Color(0,225,0));
+
         frame.setSize(xSize/5+(ySize/18)*forats, (rondes+4)*(ySize/18));
         frame.setLocation((int) tk.getScreenSize().getWidth()/2-frame.getSize().width/2,(int) tk.getScreenSize().getHeight()/2-frame.getSize().height/2);
-
 
         //frame.setSize(250+55*forats, (rondes+2)*55);
         frame.setResizable(true);
