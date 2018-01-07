@@ -258,6 +258,7 @@ public class PantallaPartida {
                             System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
                     }else{
                         System.out.println("falten peces");
+
                     }
                      /*----------------------------------------------------------------------------------------------------------------*/
               }else{//jugar com a breaker
@@ -274,8 +275,8 @@ public class PantallaPartida {
 
                         try {
                             com = getNextRonda();//agafar comb fila = rondeS - rondaActual -1;
-                            ronda++;
                             if (com < 0 || com/Math.pow(10,forats-1) < 1) throw new IllegalArgumentException();
+                            ronda++;
 
                         } catch (InputMismatchException ex) {
                             System.out.println("El paràmetre introduït no és un nombre");
@@ -347,7 +348,7 @@ public class PantallaPartida {
                             }
 
                         }else{
-                            ronda--;
+
                             System.out.println("falten peces");
                         }
                      /**/
