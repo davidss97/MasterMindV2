@@ -3,22 +3,24 @@ package Presentacio;
 import javax.swing.*;
 import java.awt.*;
 
-public class PantallaBase {
-    private JFrame frame = new JFrame("Mastermind");
+public class PantallaBase extends JFrame{
+    //private JFrame frame = new JFrame("Mastermind");
     private GridBagConstraints c = new GridBagConstraints();
     public PantallaBase(){
+        super.setTitle("MasterMind");
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
-        frame.setBackground(new Color (130, 158, 199));
-        frame.setSize(xSize/3*2, ySize/10*9); //En una 1920:1080 --> 1280:972
+        super.setBackground(new Color (130, 158, 199));
+        super.setSize(xSize/3*2, ySize/10*9); //En una 1920:1080 --> 1280:972
+        super.setLocation((int) tk.getScreenSize().getWidth()/2-super.getSize().width/2,(int) tk.getScreenSize().getHeight()/2-super.getSize().height/2);
         JPanel pleft = new JPanel();
         JPanel pright = new JPanel();
         pleft.setBackground(Color.BLUE);
         pright.setBackground(Color.BLUE);
         //pleft.setMaximumSize(new Dimension(xSize/3*2/4,ySize/10*9));
         //pright.setMaximumSize(new Dimension(xSize/3*2/4,ySize/10*9));
-        frame.setLayout(new GridBagLayout());
+        super.setLayout(new GridBagLayout());
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 1;
         /*c.weightx = 0.4;
@@ -32,9 +34,9 @@ public class PantallaBase {
         c.gridy = 0;
         frame.add(pright, c);*/
 
-        frame.setVisible(true);
+        super.setVisible(true);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public void changeCenter(JPanel center){
@@ -42,6 +44,6 @@ public class PantallaBase {
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 1;
-        frame.add(center, c);
+        super.add(center, c);
     }
 }
