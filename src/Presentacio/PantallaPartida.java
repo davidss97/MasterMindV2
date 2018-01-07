@@ -373,6 +373,7 @@ public class PantallaPartida {
         int ySize = ((int) tk.getScreenSize().getHeight());
 
         frame.setSize(xSize/5+(ySize/18)*forats, (rondes+4)*(ySize/18));
+        frame.setLocation((int) tk.getScreenSize().getWidth()/2-frame.getSize().width/2,(int) tk.getScreenSize().getHeight()/2-frame.getSize().height/2);
 
 
         //frame.setSize(250+55*forats, (rondes+2)*55);
