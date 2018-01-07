@@ -103,7 +103,7 @@ public class PantallaFabrica extends JPanel {
 
         for (int i=2; i<10; i++) f1.addItem(i);
         for (int i=2; i<16; i++) c1.addItem(i);
-        for (int i=1; i<21; i++) r1.addItem(i);
+        for (int i=1; i<15; i++) r1.addItem(i);
 
         f1.addItemListener(hf1);
         c1.addItemListener(hc1);
@@ -281,7 +281,7 @@ public class PantallaFabrica extends JPanel {
                 r1.setSelectedItem("Choose...");
                 r1.setEnabled(false);
                 p1.setSelected(false);
-                p1.setEnabled(false);
+                p1.setEnabled(true);
 
                 cont = 0;
 
@@ -540,47 +540,47 @@ public class PantallaFabrica extends JPanel {
 
         c.gridx = 0;
         c.gridy = 3;
-        panel.add(forats,c);
-
-        c.gridx = 1;
-        c.gridy = 3;
-        panel.add(f1,c);
-
-        c.gridx = 0;
-        c.gridy = 4;
-        panel.add(colors,c);
-
-        c.gridx = 1;
-        c.gridy = 4;
-        panel.add(c1,c);
-
-        c.gridx = 2;
-        c.gridy = 4;
-        panel.add(c2,c);
-
-        c.gridx = 1;
-        c.gridy = 5;
-        panel.add(c3,c);
-
-        c.gridx = 2;
-        c.gridy = 5;
-        panel.add(c4,c);
-
-        c.gridx = 0;
-        c.gridy = 6;
-        panel.add(rondes,c);
-
-        c.gridx = 1;
-        c.gridy = 6;
-        panel.add(r1,c);
-
-        c.gridx = 0;
-        c.gridy = 7;
         panel.add(repetibles,c);
 
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 3;
         panel.add(p1,c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        panel.add(forats,c);
+
+        c.gridx = 1;
+        c.gridy = 4;
+        panel.add(f1,c);
+
+        c.gridx = 0;
+        c.gridy = 5;
+        panel.add(colors,c);
+
+        c.gridx = 1;
+        c.gridy = 5;
+        panel.add(c1,c);
+
+        c.gridx = 2;
+        c.gridy = 5;
+        panel.add(c2,c);
+
+        c.gridx = 1;
+        c.gridy = 6;
+        panel.add(c3,c);
+
+        c.gridx = 2;
+        c.gridy = 6;
+        panel.add(c4,c);
+
+        c.gridx = 0;
+        c.gridy = 7;
+        panel.add(rondes,c);
+
+        c.gridx = 1;
+        c.gridy = 7;
+        panel.add(r1,c);
 
         c.gridx = 1;
         c.gridy = 20;
@@ -602,11 +602,14 @@ public class PantallaFabrica extends JPanel {
                     mdm.setEnabled(false);
                     hrd.setEnabled(false);
                     cstm.setEnabled(false);
+                    p1.setEnabled(false);
 
-                    //esborrem
-                    for (int i = 2; i < 16; i++) c1.removeItem(i);
-                    //afegim
-                    for (int i = (int) f1.getSelectedItem(); i < 16; i++) c1.addItem(i);
+                    if (!p1.isSelected()) {
+                        //esborrem
+                        for (int i = 2; i < 16; i++) c1.removeItem(i);
+                        //afegim
+                        for (int i = (int) f1.getSelectedItem(); i < 16; i++) c1.addItem(i);
+                    }
                     f1.setEnabled(false);
                     c1.setEnabled(true);
                 }
@@ -636,7 +639,7 @@ public class PantallaFabrica extends JPanel {
             else if (event.getSource()==r1){
                 if (r1.getSelectedItem()!="Choose...") {
                     r1.setEnabled(false);
-                    p1.setEnabled(true);
+                    //p1.setEnabled(true);
                     start.setEnabled(true);
                 }
             }
