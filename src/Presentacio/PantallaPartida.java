@@ -71,13 +71,31 @@ public class PantallaPartida {
 
                 for (int jj = 0; jj<forats; jj++){//JButton button : buttonn) {
                     buttons[ii][jj] = new RoundButton(190,190,190);//colors[3][0], colors[3][1], colors[3][2]);
+                    final int iprima = ii;
+                    final int jprima = jj;
                     if ((count != 1 && rol /*breaker*/) || (count == rondesS && !rol /*Maker*/) ) {
                         buttons[ii][jj].addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
+
                                 ButtonGroup bg = new ButtonGroup();
 
                                 int bgCount = 0;
                                 JRadioButton[] radios = new JRadioButton[colors.length];
+
+                                /*not repeatable but yes replaceable*/
+                                int cambiat = -1;
+                                for(int ix = 0; ix < vecColors.length; ix++) {
+                                    if(buttons[iprima][jprima].getBackground().equals(new Color(vecColors[ix][0], vecColors[ix][1], vecColors[ix][2]))){
+                                        int number = ix;
+                                        cambiat = ix;
+                                        usats[ix] = false;
+                                        break;
+                                    }
+                                }
+
+                                    /*----------------------------------*/
+
+
                                 for (int i = 0; i < colors.length; i++) {
                                     int ipri = i;
                                     radios[i] = new JRadioButton();
@@ -96,6 +114,8 @@ public class PantallaPartida {
                                         }
                                     });
                                     radios[i].setBackground(new Color(colors[i][0], colors[i][1], colors[i][2]));
+
+
                                     if(!repetir && usats[i]){
                                         radios[i].setVisible(false);
                                         System.out.println(i + " JA USAT");
@@ -139,7 +159,7 @@ public class PantallaPartida {
                                         usats[inde] = true;
 
                                     } else if (seleccion == 1) {
-                                        //cancel
+                                        if (cambiat != -1) usats[cambiat] = true;
                                     }
                                 }
                             }
@@ -160,6 +180,14 @@ public class PantallaPartida {
 
         }
 
+        for (int ii = 0; ii < rondesS ; ii++) {
+            for (int jj = 0; jj < forats ; jj++) {
+                try {
+                    if (ii ==0) buttons[buttons.length - 1 - ii][jj].setEnabled(true);
+                    else buttons[buttons.length - 1 - ii][jj].setEnabled(false);
+                }catch (Exception ex){}
+            }
+        }
 
 
         panelCentral.setPreferredSize(new Dimension(230, 500));
@@ -258,6 +286,7 @@ public class PantallaPartida {
                         Vector<Peca> comV = intApeca(com, forats);
 
                         if(comV.size()==forats) {
+
                             ((Jugador) p.getCodeB()).moure(comV);//
 
                             Vector<Peca> res = p.getSolucioUltimaFila();
@@ -304,6 +333,19 @@ public class PantallaPartida {
 
                                 }
                             }
+
+                            for (int ii = 0; ii < rondesS ; ii++) {
+                                for (int jj = 0; jj < forats ; jj++) {
+                                    try {
+                                        if (ronda == ii + 1) buttons[buttons.length - 2 - ii][jj].setEnabled(true);
+                                        else buttons[buttons.length - 2 - ii][jj].setEnabled(false);
+                                    }catch (Exception ex){}
+                                }
+                            }
+                            for (int jj = 0; jj < forats ; jj++) {
+                                buttons[buttons.length - 1][jj].setEnabled(false);
+                            }
+
                         }else{
                             ronda--;
                             System.out.println("falten peces");
