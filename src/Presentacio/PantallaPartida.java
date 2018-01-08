@@ -21,14 +21,16 @@ public class PantallaPartida {
     static JButton[][] smallbuttons;
     final int rondesS;
     boolean[] usats;
-    public PantallaPartida(MasterMind mm, final int[][] colors, int rondes, final int forats, final boolean rol,  final boolean repetir){//Rol: Maker:false , Breaker:true
+    public PantallaPartida(boolean precarregada,MasterMind mm, final int[][] colors, int rondes, final int forats, final boolean rol,  final boolean repetir){//Rol: Maker:false , Breaker:true
 
         Partida p =  new Partida(forats, colors.length, rondes, repetir);//repetirForats = true
+
+
 
         usats = new boolean[colors.length];
         Arrays.fill(usats, false);
 
-        if(rol){//La maquina fa de codebreaker
+        if(rol){//La maquina fa de codemaker
             p.setCodeM(new Maquina(false, p));
             p.setCodeB(new Jugador(true, p));
             ((Maquina) p.getCodeM()).crearCodi(forats, colors.length, repetir);
@@ -213,19 +215,42 @@ public class PantallaPartida {
         pan.setBackground(new Color(0,225,0));
         pan.setLayout(new BorderLayout());
         pan.add(carrega, BorderLayout.NORTH);
-        pan.add(guard, BorderLayout.CENTER);
+        //pan.add(guard, BorderLayout.CENTER);
         pan.add(acc, BorderLayout.SOUTH);
+        if(precarregada)acc.setEnabled(false);
         derecha.add(pan, BorderLayout.SOUTH);
 
         carrega.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-            }
-        });
+                int combs = llegir cominacii
+                ((Maquina) p.getCodeM()).crearCodi(combs ,forats);
 
-        guard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+                int read = llegirSeguentCombinacio
+                while(read != -1){
 
+                    Vector<Peca> combi = intApeca(read,forats);
+                    for (int i = 0; i < combi.size(); i++) { //set de colors
+                        int c = combi.get(i).getColor();
+                        buttons[rondes - 1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                    }
+
+                    ((Jugador) p.getCodeB()).moure(intApeca(read,forats)); //enviar jugada
+
+                    Vector<Peca> res = p.getSolucioUltimaFila();//carregar BW
+                    int posSol = 0;
+                    for (int i = 0; i < res.size(); i++) {
+                        int c = res.get(res.size() - i - 1).getColor();
+                        if (c == 2 || c == 1) {
+                            smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                            smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                        }
+                    }
+                    ronda++;
+                    int read = llegirSeguentCombinacio
+
+                }
+                acc.setEnabled(true);
             }
         });
 
