@@ -206,7 +206,29 @@ public class PantallaPartida {
         derecha.setLayout(new BorderLayout());
         derecha.setBackground(new Color(0,225,0));
         derecha.add(lab2, BorderLayout.CENTER);
-        derecha.add(acc, BorderLayout.SOUTH);
+
+        JButton guard = new JButton("load");
+        JButton carrega = new JButton("save");
+        JPanel pan = new JPanel();
+        pan.setBackground(new Color(0,225,0));
+        pan.setLayout(new BorderLayout());
+        pan.add(carrega, BorderLayout.NORTH);
+        pan.add(guard, BorderLayout.CENTER);
+        pan.add(acc, BorderLayout.SOUTH);
+        derecha.add(pan, BorderLayout.SOUTH);
+
+        carrega.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        guard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
 
         acc.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
