@@ -513,11 +513,19 @@ public class PantallaFabrica extends JPanel {
         continuar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                colorss = new int[2][3];
+                colorss[0][0] = 255;
+                colorss[0][1] = 255;
+                colorss[0][2] = 255;
+
+                colorss[1][0] = 0;
+                colorss[1][1] = 0;
+                colorss[1][2] = 0;
+
                 BufferedReader br;
                 LinkedList<String> llista = new LinkedList<String>();
                 String cadena,linea;
                 Iterator iter;
-                int counter = 0;
                 try {
 
                     br = new BufferedReader(new FileReader("Fabrica.txt"));
