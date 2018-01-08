@@ -269,13 +269,13 @@ public class PantallaPartida {
         JPanel pan = new JPanel();
         pan.setBackground(new Color(0,225,0));
         pan.setLayout(new BorderLayout());
-        pan.add(carrega, BorderLayout.NORTH);
-        pan.add(guard, BorderLayout.CENTER);
+        //pan.add(carrega, BorderLayout.NORTH);
+        //pan.add(guard, BorderLayout.CENTER);
         pan.add(acc, BorderLayout.SOUTH);
         if(precarregada)acc.setEnabled(false);
         derecha.add(pan, BorderLayout.SOUTH);
 
-        guard.addActionListener(new ActionListener() {
+ /*       guard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 int secreta  = pecaAint(p.getCodiBase(),forats);
@@ -329,7 +329,7 @@ public class PantallaPartida {
                     el.printStackTrace();
                 } catch (Exception el){
                     System.out.println("Error a l'escriure");
-        }}});
+        }}});*/
         ///////////////////////////////////
 
         if(precarregada){
