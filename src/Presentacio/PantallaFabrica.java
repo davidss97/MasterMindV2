@@ -547,15 +547,15 @@ public class PantallaFabrica extends JPanel {
                         for (i = 0; cadena.charAt(i) != ' '; ++i) use += cadena.charAt(i);
                         red = Integer.parseInt(use);
                         use = "";
-                        for (int i2 = i + 1; cadena.charAt(i2) != ' '; ++i2) use += cadena.charAt(i2);
+                        int i2;
+                        for (i2 = i + 1; cadena.charAt(i2) != ' '; ++i2) use += cadena.charAt(i2);
                         green = Integer.parseInt(use);
                         use = "";
-                        for (int i3 = i + 1; cadena.charAt(i3) != ' '; ++i3) use += cadena.charAt(i3);
+                        for (int i3 = i2 + 1; cadena.charAt(i3) != ' '; ++i3) use += cadena.charAt(i3);
                         blue = Integer.parseInt(use);
                         int color[] = {red, green, blue};
                         colorss = append(colorss, color);
                         //MOSTRAR PER PANTALLA
-                        System.out.println(cadena);
                     }
                     br.close();
                 } catch (FileNotFoundException en) {
@@ -679,7 +679,7 @@ public class PantallaFabrica extends JPanel {
 
             pw.println(Integer.toString(repetibless? 1 : 0)+' '+Integer.toString(foratss)+' '+Integer.toString(rondess));
             for(int i = 2; i < colorss.length; ++i){
-                pw.println(Integer.toString(colorss[i][0])+' '+Integer.toString(colorss[i][1])+' '+Integer.toString(colorss[i][2]));
+                pw.println(Integer.toString(colorss[i][0])+' '+Integer.toString(colorss[i][1])+' '+Integer.toString(colorss[i][2])+' ');
             }
 
             //tanquem
