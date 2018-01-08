@@ -272,7 +272,7 @@ public class PantallaPartida {
         //pan.add(carrega, BorderLayout.NORTH);
         //pan.add(guard, BorderLayout.CENTER);
         pan.add(acc, BorderLayout.SOUTH);
-        if(precarregada)acc.setEnabled(false);
+       // if(precarregada)acc.setEnabled(false);
         derecha.add(pan, BorderLayout.SOUTH);
 
  /*       guard.addActionListener(new ActionListener() {
@@ -378,6 +378,10 @@ public class PantallaPartida {
                     }
 
                     ronda++;
+
+
+
+
                         ////// activar botons adients
                     for (int ii = 0; ii < rondesS ; ii++) {
                         for (int jj = 0; jj < forats ; jj++) {
@@ -400,7 +404,33 @@ public class PantallaPartida {
                 eii.printStackTrace();
             }/////////////////////////////////////////////////////////////
 
-            acc.setEnabled(true);
+
+            boolean segueix = false;
+            for (int xx = 0; xx < p.getPecesCodi(); xx++) {
+                if (p.getSolucioUltimaFila().get(xx).getColor() != 2) segueix = true;
+
+            }
+            if (!segueix || ronda >= rondes) {
+                if (ronda == rondes && segueix) {
+                    System.out.println("Has arribat al límit de rondes....");
+                    JOptionPane.showMessageDialog(frame, "Game not solved. Rounds limit reached..");
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                }else {
+                    System.out.println("SUCCESS!!! La solució és: " + pecaAint(p.getContingutUltimaFila(), forats));
+                    Vector<Peca> combin = p.getContingutUltimaFila();
+                    for (int i = 0; i < combin.size(); i++) {
+                        int c = combin.get(i).getColor();
+                        buttons[0][combin.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                    }
+                    JOptionPane.showMessageDialog(frame, "Game Already solved in " + ronda+ " rounds.");
+
+
+
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    acc.setEnabled(false);
+                }
+            }
+
         }
 
 
