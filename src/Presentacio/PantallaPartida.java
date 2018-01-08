@@ -302,7 +302,7 @@ public class PantallaPartida {
                         Vector<Peca> combi = intApeca(Integer.parseInt(cadena),forats);
                         for (int i = 0; i < combi.size(); i++) { //set de colors
                             int c = combi.get(i).getColor();
-                            buttons[rondes - 1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                            buttons[rondes +1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
                         }
 
                         ((Jugador) p.getCodeB()).moure(intApeca(Integer.parseInt(cadena),forats)); //enviar jugada
@@ -312,8 +312,8 @@ public class PantallaPartida {
                         for (int i = 0; i < res.size(); i++) {
                             int c = res.get(res.size() - i - 1).getColor();
                             if (c == 2 || c == 1) {
-                                smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
-                                smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                                smallbuttons[rondes +1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                                smallbuttons[rondes +1- ronda][posSol++].setVisible(true);
                             }
                         }
                         ronda++;
