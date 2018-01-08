@@ -16,6 +16,12 @@ public class MasterMind {
         crearPartida();
         classificacio = new Classificacio();
     }
+
+    public boolean isCustom() {
+        if ((pecesCodi == 2 && colors == 3 && rondes == 6) || (pecesCodi == 3 && colors == 4 && rondes == 8) || (pecesCodi == 4 && colors == 6 && rondes == 10)) return false;
+        else return true;
+    }
+
     public void mostrarCaracteristiquesPartida(){
         partida.mostrarCaracteristiques();
     }
