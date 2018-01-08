@@ -5,13 +5,8 @@ import Domini.MasterMind;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.io.*;
+import java.util.*;
 
 public class PantallaFabrica extends JPanel {
 
@@ -20,7 +15,7 @@ public class PantallaFabrica extends JPanel {
     private GridBagConstraints c = new GridBagConstraints();
     private Toolkit tk = Toolkit.getDefaultToolkit();
 
-    private JButton continuar = new JButton("Continue");
+    private JButton continuar = new JButton("Continue last game");
 
     private ItemHandler hf1 = new ItemHandler();
     private ItemHandler hc1 = new ItemHandler();
@@ -490,6 +485,7 @@ public class PantallaFabrica extends JPanel {
 
                 //CAL CHECKEJAR COLORSS.LENGTH == Integer.parseInt(c1.getText())
                 if (colorss.length == (int) c1.getSelectedItem()){
+                    if(roless)guardar();
                     new PantallaPartida(false, new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
                     base.changeCenter(new PantallaInici(base));
                     PantallaFabrica.super.setVisible(false);
@@ -567,7 +563,7 @@ public class PantallaFabrica extends JPanel {
                 } catch (IOException en) {
                     en.printStackTrace();
                 }
-                new PantallaPartida(true, new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
+                new PantallaPartida(true, new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, true, repetibless);
                 base.changeCenter(new PantallaInici(base));
                 PantallaFabrica.super.setVisible(false);
             }
@@ -658,13 +654,45 @@ public class PantallaFabrica extends JPanel {
         c.gridy = 20;
         panel.add(start,c);
 
-        c.gridx = 4;
+        c.gridx = 3;
         c.gridy = 25;
         panel.add(continuar,c);
 
         panelextern.add(home,BorderLayout.PAGE_END);
 
         super.setVisible(true);
+    }
+
+    private void guardar(){
+        File archivo;
+        FileWriter escribir;
+        PrintWriter pw;
+
+        try {
+            //crear o obrir .txt de la dificultat corresponent
+            archivo = new File("Fabrica.txt");
+            escribir = new FileWriter(archivo, true);
+
+            pw = new PrintWriter(escribir);
+            //netejar/esborrar fitxer
+            new PrintWriter("Fabrica.txt").close();
+
+            pw.println(Integer.toString(repetibless? 1 : 0)+' '+Integer.toString(foratss)+' '+Integer.toString(rondess));
+            for(int i = 0; i < colorss.length; ++i){
+                pw.println(Integer.toString(colorss[i][0])+' '+Integer.toString(colorss[i][1])+' '+Integer.toString(colorss[i][2]));
+            }
+
+            //tanquem
+            escribir.close();
+            pw.close();
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("No s'ha trobat el fitxer");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            System.out.println("Error a l'escriure");
+        }
     }
 
     private class ItemHandler implements ItemListener {
