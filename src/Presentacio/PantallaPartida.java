@@ -38,55 +38,57 @@ public class PantallaPartida {
 
 
             /////////////////////////////////////////////////////////////////////////
-            /*
-            int secreta  = pecaAint(p.getCodiBase(),forats);
-            String secret = String.valueOf(secreta);
-            File archivo;
-            FileWriter escribir;
-            FileReader leer;
-            PrintWriter pw;
 
-            BufferedReader br;
-            ArrayList<String> llista = new ArrayList<String>();
+            if(!precarregada){
+                int secreta  = pecaAint(p.getCodiBase(),forats);
+                String secret = String.valueOf(secreta);
+                File archivo;
+                FileWriter escribir;
+                FileReader leer;
+                PrintWriter pw;
 
-            String linea, cadena;
-            Iterator iter;
+                BufferedReader br;
+                ArrayList<String> llista = new ArrayList<String>();
 
-            try {
-                //crear o obrir .txt de la dificultat corresponent
-                archivo = new File("Tauler.txt");
-                escribir = new FileWriter(archivo, true);
+                String linea, cadena;
+                Iterator iter;
 
-                leer = new FileReader("Tauler.txt");
-                br = new BufferedReader(leer);
+                try {
+                    //crear o obrir .txt de la dificultat corresponent
+                    archivo = new File("Tauler.txt");
+                    escribir = new FileWriter(archivo, true);
 
-               llista.add(secret);
+                    leer = new FileReader("Tauler.txt");
+                    br = new BufferedReader(leer);
 
-                pw = new PrintWriter(escribir);
-                //netejar/esborrar fitxer
-                new PrintWriter("Tauler.txt").close();
+                    llista.add(secret);
 
-                //escriu ja ordenat de la llista
-                iter = llista.iterator();
-                while (iter.hasNext())
-                {
-                    cadena = (String) iter.next();
-                    pw.println(cadena);
+                    pw = new PrintWriter(escribir);
+                    //netejar/esborrar fitxer
+                    new PrintWriter("Tauler.txt").close();
+
+                    //escriu ja ordenat de la llista
+                    iter = llista.iterator();
+                    while (iter.hasNext())
+                    {
+                        cadena = (String) iter.next();
+                        pw.println(cadena);
+                    }
+
+                    //tanquem
+                    escribir.close();
+                    br.close();
+                    pw.close();
+                    llista.clear();
                 }
-
-                //tanquem
-                escribir.close();
-                br.close();
-                pw.close();
-                llista.clear();
+                catch (FileNotFoundException el) {
+                    System.err.println("No s'ha trobat el fitxer");
+                } catch (IOException el) {
+                    el.printStackTrace();
+                } catch (Exception el){
+                    System.out.println("Error a l'escriure");
+                }
             }
-            catch (FileNotFoundException el) {
-                System.err.println("No s'ha trobat el fitxer");
-            } catch (IOException el) {
-                el.printStackTrace();
-            } catch (Exception el){
-                System.out.println("Error a l'escriure");
-            }*/
 
         }else{
             p.setCodeB(new Maquina(true, p));
@@ -273,62 +275,136 @@ public class PantallaPartida {
         if(precarregada)acc.setEnabled(false);
         derecha.add(pan, BorderLayout.SOUTH);
 
-        carrega.addActionListener(new ActionListener() {
+        guard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-////////////////////////////////////////////////////////////////////////////////////////////
-                BufferedReader br;
-                LinkedList<String> llista = new LinkedList<String>();
-                String cadena,linea;
-                Iterator iter;
-                int counter = 0;
-                try {
+                int secreta  = pecaAint(p.getCodiBase(),forats);
+                String secret = String.valueOf(secreta);
+                File archivo;
+                FileWriter escribir;
+                FileReader leer;
+                PrintWriter pw;
 
-                    br = new BufferedReader(new FileReader("Tauler.txt"));
+                BufferedReader br;
+                ArrayList<String> llista = new ArrayList<String>();
+
+                String linea, cadena;
+                Iterator iter;
+
+                try {
+                    //crear o obrir .txt de la dificultat corresponent
+                    archivo = new File("Tauler.txt");
+                    escribir = new FileWriter(archivo, true);
+
+                    leer = new FileReader("Tauler.txt");
+                    br = new BufferedReader(leer);
+
+                    llista.add(secret);
+
                     while ((linea = br.readLine()) != null){
                         llista.add(linea);
                     }
 
+                    pw = new PrintWriter(escribir);
+                    //netejar/esborrar fitxer
+                    new PrintWriter("Tauler.txt").close();
+
+                    //escriu ja ordenat de la llista
                     iter = llista.iterator();
-                    cadena = (String) iter.next();
-                    int combs = Integer.parseInt(cadena);
-
-                    //((Maquina) p.getCodeM()).crearCodi(combs ,forats);
-                    while (iter.hasNext()) {
-                        System.out.println("entraaaaaaa");
+                    while (iter.hasNext())
+                    {
                         cadena = (String) iter.next();
-                        //carregar rondes
-
-                        Vector<Peca> combi = intApeca(Integer.parseInt(cadena),forats);
-                        for (int i = 0; i < combi.size(); i++) { //set de colors
-                            int c = combi.get(i).getColor();
-                            buttons[rondes +1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
-                        }
-
-                        ((Jugador) p.getCodeB()).moure(intApeca(Integer.parseInt(cadena),forats)); //enviar jugada
-
-                        Vector<Peca> res = p.getSolucioUltimaFila();//carregar BW
-                        int posSol = 0;
-                        for (int i = 0; i < res.size(); i++) {
-                            int c = res.get(res.size() - i - 1).getColor();
-                            if (c == 2 || c == 1) {
-                                smallbuttons[rondes +1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
-                                smallbuttons[rondes +1- ronda][posSol++].setVisible(true);
-                            }
-                        }
-                        ronda++;
+                        pw.println(cadena);
                     }
+
+                    //tanquem
+                    escribir.close();
                     br.close();
-                } catch (FileNotFoundException eii) {
+                    pw.close();
+                    llista.clear();
+                }
+                catch (FileNotFoundException el) {
                     System.err.println("No s'ha trobat el fitxer");
-                } catch (IOException eii) {
-                    eii.printStackTrace();
-                }/////////////////////////////////////////////////////////////
+                } catch (IOException el) {
+                    el.printStackTrace();
+                } catch (Exception el){
+                    System.out.println("Error a l'escriure");
+        }}});
+        ///////////////////////////////////
 
-                acc.setEnabled(true);
-            }
-        });
+        if(precarregada){
 
+
+////////////////////////////////////////////////////////////////////////////////////////////
+            BufferedReader br;
+            LinkedList<String> llista = new LinkedList<String>();
+            String cadena,linea;
+            Iterator iter;
+            int counter = 0;
+            try {
+
+                br = new BufferedReader(new FileReader("Tauler.txt"));
+                while ((linea = br.readLine()) != null){
+                    llista.add(linea);
+                }
+
+                iter = llista.iterator();
+                cadena = (String) iter.next();
+                int combs = Integer.parseInt(cadena);
+
+                ((Maquina) p.getCodeM()).crearCodi(combs ,forats);
+
+                while (iter.hasNext()) {
+                    System.out.println("entraaaaaaa");
+                    cadena = (String) iter.next();
+                    //carregar rondes
+
+                    Vector<Peca> combi = intApeca(Integer.parseInt(cadena),forats);
+                    for (int i = 0; i < combi.size(); i++) { //set de colors
+                        int c = combi.get(i).getColor();
+                        buttons[rondes +1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                    }
+
+                    ((Jugador) p.getCodeB()).moure(intApeca(Integer.parseInt(cadena),forats)); //enviar jugada
+
+                    Vector<Peca> res = p.getSolucioUltimaFila();//carregar BW
+                    int posSol = 0;
+                    for (int i = 0; i < res.size(); i++) {
+                        int c = res.get(res.size() - i - 1).getColor();
+                        if (c == 2 || c == 1) {
+                            smallbuttons[rondes +1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                            smallbuttons[rondes +1- ronda][posSol++].setVisible(true);
+                        }
+                    }
+
+                    ronda++;
+                        ////// activar botons adients
+                    for (int ii = 0; ii < rondesS ; ii++) {
+                        for (int jj = 0; jj < forats ; jj++) {
+                            try {
+                                if (ronda == ii + 1) buttons[buttons.length - 2 - ii][jj].setEnabled(true);
+                                else buttons[buttons.length - 2 - ii][jj].setEnabled(false);
+                            }catch (Exception ex){}
+                        }
+                    }
+                    for (int jj = 0; jj < forats ; jj++) {
+                        buttons[buttons.length - 1][jj].setEnabled(false);
+                    }
+
+
+                }
+                br.close();
+            } catch (FileNotFoundException eii) {
+                System.err.println("No s'ha trobat el fitxer");
+            } catch (IOException eii) {
+                eii.printStackTrace();
+            }/////////////////////////////////////////////////////////////
+
+            acc.setEnabled(true);
+        }
+
+
+        boolean nova = true;
 
         acc.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
@@ -336,6 +412,10 @@ public class PantallaPartida {
               //send to Partida
                 //getSecreta();
               /**---------------------------------------------------------------------------------------*/
+              if(nova){
+
+              }
+
               if(!rol){
                     System.out.println("Introdueix el codi secret en format consecutiu (1234), on cada dígit representa un color:");
                     int comb = 0;
@@ -355,7 +435,9 @@ public class PantallaPartida {
                             System.out.println("Combinació a última proposta = " + pecaAint(p.getContingutUltimaFila(), forats));
                             Vector<Peca> combi = p.getContingutUltimaFila();
                             for (int i = 0; i < combi.size(); i++) {
-                                int c = combi.get(i).getColor();
+                                //int c = combi.get(i).getColor();
+
+                                int c = combi.get(combi.size() - i - 1).getColor();
                                 buttons[rondes - 1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
                             }
 
