@@ -38,6 +38,11 @@ public class Maquina extends Jugador {
 
     }
 
+    public void crearCodi(int combo, int size) {
+
+        super.P.setCodiBase(intApeca(combo,size));
+    }
+
     public void crearCodi(int forats, int colors, boolean repetirColors){
         if(rolN) {
             System.out.println("Error. Un code breaker no pot crear un codi");
