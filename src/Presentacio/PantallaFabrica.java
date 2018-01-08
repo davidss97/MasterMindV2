@@ -5,7 +5,13 @@ import Domini.MasterMind;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class PantallaFabrica extends JPanel {
 
@@ -13,6 +19,8 @@ public class PantallaFabrica extends JPanel {
     private JPanel panelextern =  new JPanel(new BorderLayout());
     private GridBagConstraints c = new GridBagConstraints();
     private Toolkit tk = Toolkit.getDefaultToolkit();
+
+    private JButton continuar = new JButton("Continue");
 
     private ItemHandler hf1 = new ItemHandler();
     private ItemHandler hc1 = new ItemHandler();
@@ -501,6 +509,37 @@ public class PantallaFabrica extends JPanel {
             }
         });
 
+        //boto Continue
+        continuar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BufferedReader br;
+                LinkedList<String> llista = new LinkedList<String>();
+                String cadena,linea;
+                Iterator iter;
+                int counter = 0;
+                try {
+
+                    br = new BufferedReader(new FileReader("Fabrica.txt"));
+                    while ((linea = br.readLine()) != null){
+                        llista.add(linea);
+                    }
+                    iter = llista.iterator();
+                    cadena = (String) iter.next();
+                    while (iter.hasNext()) {
+                        cadena = (String) iter.next();
+                        //MOSTRAR PER PANTALLA
+                        System.out.println(cadena);
+                    }
+                    br.close();
+                } catch (FileNotFoundException e) {
+                    System.err.println("No s'ha trobat el fitxer");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         //labels en posició i buides
         inicialitzar();
     }
@@ -585,6 +624,10 @@ public class PantallaFabrica extends JPanel {
         c.gridx = 1;
         c.gridy = 20;
         panel.add(start,c);
+
+        c.gridx = 4;
+        c.gridy = 25;
+        panel.add(continuar,c);
 
         panelextern.add(home,BorderLayout.PAGE_END);
 
