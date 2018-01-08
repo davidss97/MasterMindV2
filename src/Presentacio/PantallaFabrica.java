@@ -490,7 +490,7 @@ public class PantallaFabrica extends JPanel {
 
                 //CAL CHECKEJAR COLORSS.LENGTH == Integer.parseInt(c1.getText())
                 if (colorss.length == (int) c1.getSelectedItem()){
-                    new PantallaPartida(new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
+                    new PantallaPartida(false, new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
                     base.changeCenter(new PantallaInici(base));
                     PantallaFabrica.super.setVisible(false);
                 }
@@ -527,12 +527,29 @@ public class PantallaFabrica extends JPanel {
                     iter = llista.iterator();
                     cadena = (String) iter.next();
                     String use = "";
-                    int l = 0;
-                    for(int i = 0; i < cadena.length(); ++i) {
-                        while (cadena.charAt(i) != ' ') use += cadena.charAt(l);
-                    }
+                    use += cadena.charAt(0);
+                    repetibless = Boolean.parseBoolean(use);
+                    use = "";
+                    use += cadena.charAt(2);
+                    foratss = Integer.parseInt(use);
+                    use = "";
+                    for(int i = 4; i < cadena.length(); ++i) use += cadena.charAt(i);
+                    rondess = Integer.parseInt(use);
+                    int red, green, blue;
                     while (iter.hasNext()) {
                         cadena = (String) iter.next();
+                        use = "";
+                        int i;
+                        for (i = 0; cadena.charAt(i) != ' '; ++i) use += cadena.charAt(i);
+                        red = Integer.parseInt(use);
+                        use = "";
+                        for (int i2 = i + 1; cadena.charAt(i2) != ' '; ++i2) use += cadena.charAt(i2);
+                        green = Integer.parseInt(use);
+                        use = "";
+                        for (int i3 = i + 1; cadena.charAt(i3) != ' '; ++i3) use += cadena.charAt(i3);
+                        blue = Integer.parseInt(use);
+                        int color[] = {red, green, blue};
+                        colorss = append(colorss, color);
                         //MOSTRAR PER PANTALLA
                         System.out.println(cadena);
                     }
@@ -542,6 +559,9 @@ public class PantallaFabrica extends JPanel {
                 } catch (IOException en) {
                     en.printStackTrace();
                 }
+                new PantallaPartida(true, new MasterMind(foratss, colorss.length, rondess, repetibless), colorss, rondess, foratss, roless, repetibless);
+                base.changeCenter(new PantallaInici(base));
+                PantallaFabrica.super.setVisible(false);
             }
         });
 
