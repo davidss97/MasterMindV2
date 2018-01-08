@@ -110,7 +110,7 @@ public class PantallaFabrica extends JPanel {
         r1.addItem("Choose...");
 
         for (int i=2; i<10; i++) f1.addItem(i);
-        for (int i=2; i<16; i++) c1.addItem(i);
+        for (int i=2; i<10; i++) c1.addItem(i);
         for (int i=1; i<15; i++) r1.addItem(i);
 
         f1.addItemListener(hf1);
@@ -526,16 +526,21 @@ public class PantallaFabrica extends JPanel {
                     }
                     iter = llista.iterator();
                     cadena = (String) iter.next();
+                    String use = "";
+                    int l = 0;
+                    for(int i = 0; i < cadena.length(); ++i) {
+                        while (cadena.charAt(i) != ' ') use += cadena.charAt(l);
+                    }
                     while (iter.hasNext()) {
                         cadena = (String) iter.next();
                         //MOSTRAR PER PANTALLA
                         System.out.println(cadena);
                     }
                     br.close();
-                } catch (FileNotFoundException e) {
+                } catch (FileNotFoundException en) {
                     System.err.println("No s'ha trobat el fitxer");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException en) {
+                    en.printStackTrace();
                 }
             }
         });
@@ -649,9 +654,9 @@ public class PantallaFabrica extends JPanel {
 
                     if (!p1.isSelected()) {
                         //esborrem
-                        for (int i = 2; i < 16; i++) c1.removeItem(i);
+                        for (int i = 2; i < 10; i++) c1.removeItem(i);
                         //afegim
-                        for (int i = (int) f1.getSelectedItem(); i < 16; i++) c1.addItem(i);
+                        for (int i = (int) f1.getSelectedItem(); i < 10; i++) c1.addItem(i);
                     }
                     f1.setEnabled(false);
                     c1.setEnabled(true);
