@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.*;
 import java.util.*;
 
 public class PantallaPartida {
@@ -34,10 +35,61 @@ public class PantallaPartida {
             p.setCodeM(new Maquina(false, p));
             p.setCodeB(new Jugador(true, p));
             ((Maquina) p.getCodeM()).crearCodi(forats, colors.length, repetir);
+
+
+            /////////////////////////////////////////////////////////////////////////
+            int secreta  = pecaAint(p.getCodiBase(),forats);
+            String secret = String.valueOf(secreta);
+            File archivo;
+            FileWriter escribir;
+            FileReader leer;
+            PrintWriter pw;
+
+            BufferedReader br;
+            ArrayList<String> llista = new ArrayList<String>();
+
+            String linea, cadena;
+            Iterator iter;
+
+            try {
+                //crear o obrir .txt de la dificultat corresponent
+                archivo = new File("Tauler.txt");
+                escribir = new FileWriter(archivo, true);
+
+                leer = new FileReader("Tauler.txt");
+                br = new BufferedReader(leer);
+
+               llista.add(secret);
+
+                pw = new PrintWriter(escribir);
+                //netejar/esborrar fitxer
+                new PrintWriter("Tauler.txt").close();
+
+                //escriu ja ordenat de la llista
+                iter = llista.iterator();
+                while (iter.hasNext())
+                {
+                    cadena = (String) iter.next();
+                    pw.println(cadena);
+                }
+
+                //tanquem
+                escribir.close();
+                br.close();
+                pw.close();
+                llista.clear();
+            }
+            catch (FileNotFoundException el) {
+                System.err.println("No s'ha trobat el fitxer");
+            } catch (IOException el) {
+                el.printStackTrace();
+            } catch (Exception el){
+                System.out.println("Error a l'escriure");
+            }
+
         }else{
             p.setCodeB(new Maquina(true, p));
             p.setCodeM(new Jugador(false, p));
-
         }
 
         vecColors = colors;
@@ -223,33 +275,54 @@ public class PantallaPartida {
         carrega.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                int combs = llegir cominacii
-                ((Maquina) p.getCodeM()).crearCodi(combs ,forats);
+////////////////////////////////////////////////////////////////////////////////////////////
+                BufferedReader br;
+                LinkedList<String> llista = new LinkedList<String>();
+                String cadena,linea;
+                Iterator iter;
+                int counter = 0;
+                try {
 
-                int read = llegirSeguentCombinacio
-                while(read != -1){
+                    br = new BufferedReader(new FileReader("Tauler.txt"));
+                    while ((linea = br.readLine()) != null){
 
-                    Vector<Peca> combi = intApeca(read,forats);
-                    for (int i = 0; i < combi.size(); i++) { //set de colors
-                        int c = combi.get(i).getColor();
-                        buttons[rondes - 1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                        llista.add(linea);
                     }
+                    iter = llista.iterator();
+                    cadena = (String) iter.next();
+                    int combs = Integer.parseInt(cadena);
 
-                    ((Jugador) p.getCodeB()).moure(intApeca(read,forats)); //enviar jugada
+                    ((Maquina) p.getCodeM()).crearCodi(combs ,forats);
+                    while (iter.hasNext()) {
+                        cadena = (String) iter.next();
+                        //carregar rondes
 
-                    Vector<Peca> res = p.getSolucioUltimaFila();//carregar BW
-                    int posSol = 0;
-                    for (int i = 0; i < res.size(); i++) {
-                        int c = res.get(res.size() - i - 1).getColor();
-                        if (c == 2 || c == 1) {
-                            smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
-                            smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                        Vector<Peca> combi = intApeca(Integer.parseInt(cadena),forats);
+                        for (int i = 0; i < combi.size(); i++) { //set de colors
+                            int c = combi.get(i).getColor();
+                            buttons[rondes - 1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
                         }
-                    }
-                    ronda++;
-                    int read = llegirSeguentCombinacio
 
-                }
+                        ((Jugador) p.getCodeB()).moure(intApeca(Integer.parseInt(cadena),forats)); //enviar jugada
+
+                        Vector<Peca> res = p.getSolucioUltimaFila();//carregar BW
+                        int posSol = 0;
+                        for (int i = 0; i < res.size(); i++) {
+                            int c = res.get(res.size() - i - 1).getColor();
+                            if (c == 2 || c == 1) {
+                                smallbuttons[rondes - 1 - ronda][posSol].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                                smallbuttons[rondes - 1 - ronda][posSol++].setVisible(true);
+                            }
+                        }
+                        ronda++;
+                    }
+                    br.close();
+                } catch (FileNotFoundException eii) {
+                    System.err.println("No s'ha trobat el fitxer");
+                } catch (IOException eii) {
+                    eii.printStackTrace();
+                }/////////////////////////////////////////////////////////////
+
                 acc.setEnabled(true);
             }
         });
@@ -321,6 +394,8 @@ public class PantallaPartida {
                      /*----------------------------------------------------------------------------------------------------------------*/
               }else{//jugar com a breaker
                     /**/
+                //////////////////////////////////////////////////////////////////
+
 
                     boolean segueix = true;
                    /* int rounds = 0;
@@ -341,6 +416,56 @@ public class PantallaPartida {
                         } catch (IllegalArgumentException ex) {
                             System.out.println("El nombre introduït no és vàlid");
                         }
+
+                  /////////////////////////////////////////////////////////////////////////
+                  int secreta  = pecaAint(p.getCodiBase(),forats);
+                  String secret = String.valueOf(secreta);
+                  File archivo;
+                  FileWriter escribir;
+                  FileReader leer;
+                  PrintWriter pw;
+
+                  BufferedReader br;
+                  ArrayList<String> llista = new ArrayList<String>();
+
+                  String linea, cadena;
+                  Iterator iter;
+
+                  try {
+                      //crear o obrir .txt de la dificultat corresponent
+                      archivo = new File("Tauler.txt");
+                      escribir = new FileWriter(archivo, true);
+
+                      leer = new FileReader("Tauler.txt");
+                      br = new BufferedReader(leer);
+
+                      //llista.add(secret);
+
+                      pw = new PrintWriter(escribir);
+                      //netejar/esborrar fitxer
+                      new PrintWriter("Tauler.txt").close();
+
+                      //escriu ja ordenat de la llista
+                      iter = llista.iterator();
+                      while (iter.hasNext())
+                      {
+                          cadena = (String) iter.next();
+                          pw.println(cadena);
+                      }
+
+                      //tanquem
+                      escribir.close();
+                      br.close();
+                      pw.close();
+                      llista.clear();
+                  }
+                  catch (FileNotFoundException el) {
+                      System.err.println("No s'ha trobat el fitxer");
+                  } catch (IOException el) {
+                      el.printStackTrace();
+                  } catch (Exception el){
+                      System.out.println("Error a l'escriure");
+                  }
 
                         Vector<Peca> comV = intApeca(com, forats);
 
