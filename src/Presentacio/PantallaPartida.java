@@ -617,6 +617,7 @@ public class PantallaPartida {
                                 if (ronda == rondes && segueix) {
                                     System.out.println("Has arribat al límit de rondes....");
                                     JOptionPane.showMessageDialog(frame, "Game not solved. Rounds limit reached..");
+                                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                                 }else {
                                     System.out.println("SUCCESS!!! La solució és: " + pecaAint(p.getContingutUltimaFila(), forats));
                                     Vector<Peca> combi = p.getContingutUltimaFila();
