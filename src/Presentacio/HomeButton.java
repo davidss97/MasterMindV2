@@ -7,7 +7,7 @@ public class HomeButton extends JButton {
     int tam;
     public HomeButton() {
         tam = 50;
-        setIcon(new ImageIcon("src/Presentacio/home.png"));
+        setIcon(new ImageIcon("home.png"));
 
         Dimension size = getPreferredSize();
         setBackground(Color.WHITE);
