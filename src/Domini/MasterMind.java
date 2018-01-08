@@ -68,7 +68,7 @@ public class MasterMind {
         partida = new Partida(this.pecesCodi, this.colors, this.rondes, this.repetirColors);
     }
 
-    public guardarPartida(){
+    public void guardarPartida(){
         partida.guardarTauler();
     }
 
