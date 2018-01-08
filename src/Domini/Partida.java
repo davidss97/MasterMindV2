@@ -17,6 +17,13 @@ public class Partida {
         this.repetirColors = repetirColors;
         tauler = new Tauler(this.rondes);
     }
+    public Partida(int pecesCodi, int colors, int rondes, boolean repetirColors, Tauler tauler){
+        this.pecesCodi = pecesCodi;
+        this.colors = colors;
+        this.rondes = rondes;
+        this.repetirColors = repetirColors;
+        this.tauler = tauler;
+    }
     public void setCodeB(Jugador c){
         codeB = c;
     }
