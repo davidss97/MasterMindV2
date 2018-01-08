@@ -532,7 +532,10 @@ public class PantallaFabrica extends JPanel {
                     cadena = (String) iter.next();
                     String use = "";
                     use += cadena.charAt(0);
-                    repetibless = Boolean.parseBoolean(use);
+                    System.out.println(use);
+                    if (use.equals("1")) repetibless = true;
+                    else repetibless = false;
+                    System.out.println(repetibless);
                     use = "";
                     use += cadena.charAt(2);
                     foratss = Integer.parseInt(use);
