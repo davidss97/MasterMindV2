@@ -678,7 +678,7 @@ public class PantallaFabrica extends JPanel {
             new PrintWriter("Fabrica.txt").close();
 
             pw.println(Integer.toString(repetibless? 1 : 0)+' '+Integer.toString(foratss)+' '+Integer.toString(rondess));
-            for(int i = 0; i < colorss.length; ++i){
+            for(int i = 2; i < colorss.length; ++i){
                 pw.println(Integer.toString(colorss[i][0])+' '+Integer.toString(colorss[i][1])+' '+Integer.toString(colorss[i][2]));
             }
 
