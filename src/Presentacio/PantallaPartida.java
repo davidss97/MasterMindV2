@@ -38,6 +38,7 @@ public class PantallaPartida {
 
 
             /////////////////////////////////////////////////////////////////////////
+            /*
             int secreta  = pecaAint(p.getCodiBase(),forats);
             String secret = String.valueOf(secreta);
             File archivo;
@@ -85,7 +86,7 @@ public class PantallaPartida {
                 el.printStackTrace();
             } catch (Exception el){
                 System.out.println("Error a l'escriure");
-            }
+            }*/
 
         }else{
             p.setCodeB(new Maquina(true, p));
@@ -261,13 +262,13 @@ public class PantallaPartida {
         derecha.setBackground(new Color(0,225,0));
         derecha.add(lab2, BorderLayout.CENTER);
 
-        JButton guard = new JButton("load");
-        JButton carrega = new JButton("save");
+        JButton guard = new JButton("save");
+        JButton carrega = new JButton("load");
         JPanel pan = new JPanel();
         pan.setBackground(new Color(0,225,0));
         pan.setLayout(new BorderLayout());
         pan.add(carrega, BorderLayout.NORTH);
-        //pan.add(guard, BorderLayout.CENTER);
+        pan.add(guard, BorderLayout.CENTER);
         pan.add(acc, BorderLayout.SOUTH);
         if(precarregada)acc.setEnabled(false);
         derecha.add(pan, BorderLayout.SOUTH);
@@ -285,15 +286,16 @@ public class PantallaPartida {
 
                     br = new BufferedReader(new FileReader("Tauler.txt"));
                     while ((linea = br.readLine()) != null){
-
                         llista.add(linea);
                     }
+
                     iter = llista.iterator();
                     cadena = (String) iter.next();
                     int combs = Integer.parseInt(cadena);
 
-                    ((Maquina) p.getCodeM()).crearCodi(combs ,forats);
+                    //((Maquina) p.getCodeM()).crearCodi(combs ,forats);
                     while (iter.hasNext()) {
+                        System.out.println("entraaaaaaa");
                         cadena = (String) iter.next();
                         //carregar rondes
 
@@ -439,7 +441,10 @@ public class PantallaPartida {
                       leer = new FileReader("Tauler.txt");
                       br = new BufferedReader(leer);
 
-                      //llista.add(secret);
+                      //
+                      // llista.add(secret);
+                      while ((linea = br.readLine()) != null){ llista.add(linea); }
+                      llista.add(String.valueOf(com));
 
                       pw = new PrintWriter(escribir);
                       //netejar/esborrar fitxer
