@@ -78,4 +78,8 @@ public class Partida {
     public Vector<Peca> getSolucioUltimaFila() {
         return tauler.getSolucioUltimaFila();
     }
+
+    public void guardarTauler(){
+        tauler.guardarTauler();
+    }
 }

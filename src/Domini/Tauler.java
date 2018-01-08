@@ -66,4 +66,8 @@ public class Tauler {
     public Vector<Peca> getContingutUltimaFila() {
         return tauler.get(tauler.size()-1).getContingutFila();
     }
+
+    public void guardarTauler(){
+
+    }
 }
