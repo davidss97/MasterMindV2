@@ -67,7 +67,4 @@ public class Tauler {
         return tauler.get(tauler.size()-1).getContingutFila();
     }
 
-    public void guardarTauler(){
-
-    }
 }
