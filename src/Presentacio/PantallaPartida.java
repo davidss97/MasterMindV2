@@ -258,10 +258,14 @@ public class PantallaPartida {
                             }
                         }
 
-                        if (rounds == rondesS && segueix) System.out.println("Has arribat al límit de rondes....");
+                        if (rounds == rondesS && segueix){
+                            System.out.println("Has arribat al límit de rondes....");
+                            JOptionPane.showMessageDialog(frame, "Game not solved. Rounds limit reached..");
+                        }
                         else{
                             System.out.println("SUCCESS!!! La solució es: " + pecaAint(p.getContingutUltimaFila(), forats));
                             JOptionPane.showMessageDialog(frame, "Game solved in " + ronda+ " rounds");
+                            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                         }
                     }else{
                         System.out.println("falten peces");
@@ -319,22 +323,27 @@ public class PantallaPartida {
 
                             }
                             if (!segueix || ronda >= rondes) {
-                                if (ronda == rondes && segueix)
+                                if (ronda == rondes && segueix) {
                                     System.out.println("Has arribat al límit de rondes....");
-                                else {
+                                    JOptionPane.showMessageDialog(frame, "Game not solved. Rounds limit reached..");
+                                }else {
                                     System.out.println("SUCCESS!!! La solució és: " + pecaAint(p.getContingutUltimaFila(), forats));
                                     Vector<Peca> combi = p.getContingutUltimaFila();
                                     for (int i = 0; i < combi.size(); i++) {
                                         int c = combi.get(i).getColor();
                                         buttons[0][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
                                     }
-
-                                    String guardar = JOptionPane.showInputDialog(frame, "Has resolt la partida en " + ronda + " rondes, vols guardar partida?\nIntrodueix el teu nom:");
-                                    if (guardar != null) {
-                                        System.out.println("El nom del jugador es: " + guardar);
-                                        mm.guardarPartida(guardar, ronda);
-                                        // AFEGIR CODI PER GUARDAR PARTIDA:
-                                        // MasterMind.guardarPartida(guardar, ronda);
+                                    if(mm.isCustom()){
+                                        JOptionPane.showMessageDialog(frame, "Game solved in " + ronda+ " rounds.\nCustom games will not be saved");
+                                    }
+                                    else{
+                                        String guardar = JOptionPane.showInputDialog(frame, "Has resolt la partida en " + ronda + " rondes, vols guardar partida?\nIntrodueix el teu nom:");
+                                        if (guardar != null) {
+                                            System.out.println("El nom del jugador es: " + guardar);
+                                            mm.guardarPartida(guardar, ronda);
+                                            // AFEGIR CODI PER GUARDAR PARTIDA:
+                                            // MasterMind.guardarPartida(guardar, ronda);
+                                        }
                                     }
 
                                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
