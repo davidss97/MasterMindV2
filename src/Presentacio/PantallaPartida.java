@@ -469,7 +469,7 @@ public class PantallaPartida {
                                 //int c = combi.get(i).getColor();
 
                                 int c = combi.get(combi.size() - i - 1).getColor();
-                                buttons[rondes - 1 - ronda][combi.size() - 1 - i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
+                                buttons[rondes - 1 - ronda][i].setBackground(new Color(colors[c - 1][0], colors[c - 1][1], colors[c - 1][2]));
                             }
 
                             Vector<Peca> res = p.getSolucioUltimaFila();
