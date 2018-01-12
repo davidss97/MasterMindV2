@@ -18,7 +18,7 @@ public class PantallaRules extends JPanel{
                 "<li>For each color in your guess that is in the correct color and correct position in the code sequence, the computer display a small black color on the right side of the current guess." +
                 "<li>For each color in your guess that is in the correct color but is NOT in the correct position in the code sequence, the computer display a small white color on the right side of the current guess." +
                 "<li>You win the game when you manage to guess all the colors in the code sequence and when they all in the right position." +
-                "<li>You lose the game if you use all attempts without guessing the computer code sequence. You lose the game if you use all attempts without guessing the computer code sequence.</ul>");
+                "<li>You lose the game if you use all attempts without guessing the computer code sequence.</ul>");
         rules.setFont(new Font("Serif", Font.PLAIN, 18));
         super.add(rules, BorderLayout.CENTER);
         HomeButton home = new HomeButton();
